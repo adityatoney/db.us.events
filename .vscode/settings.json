@@ -1,0 +1,10 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/*.js": true,
+        "**/CVS": true,
+        "**/*.js.map": true
+    },
+    "git.ignoreLimitWarning": true
+}
