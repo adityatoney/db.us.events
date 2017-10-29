@@ -8,9 +8,16 @@
 android {  
   defaultConfig {  
     generatedDensities = []
-    applicationId = "__PACKAGE__"  
+    applicationId = "org.nativescript.dbusevents"  
   }  
   aaptOptions {  
     additionalParameters "--no-version-vectors"  
   }  
 } 
+
+def settingsGradlePath = "$projectDir/../../app/App_Resources/Android/settings.gradle";
+def settingsGradleFile = new File(settingsGradlePath);
+if(settingsGradleFile.exists())
+{
+    apply from: settingsGradleFile;
+}
