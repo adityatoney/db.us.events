@@ -1,6 +1,0 @@
-framework module TelerikUI {
-  umbrella header "TelerikUI.h"
-
-  export *
-  module * { export * }
-}
