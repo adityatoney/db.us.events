@@ -1,0 +1,26 @@
+<!-- Search -->
+<SearchBar #searchBar [(ngModel)]="search" hint="Search" class="search" textFieldBackgroundColor="white"></SearchBar>
+
+<!-- List -->
+<StackLayout row="1" class="listView" (loaded)="load()">
+	<ScrollView>
+		<StackLayout>
+			<StackLayout *ngFor="let item of _sessionsService.items.value; let i = index;" class="session-item">
+				<GridLayout [@slideIn]="animationState" (longpress)="showSessionCard(item)" columns="auto, *" [class]="item.isBreak ? 'break-row' : 'list-view-row'">
+
+					<session-favorite *ngIf="!item.isBreak" [item]="item"></session-favorite>
+
+					<StackLayout [@slideIn]="animationState" col="1" (tap)="selectSession($event, item)">
+						<Label [text]="item.range" class="info-orange bold"></Label>
+						<Label [text]="item.title" textWrap="true" class="info-bigger"></Label>
+						<Label [visibility]="item.room ? 'visible' : 'collapse' " [text]="item.room" class="info-orange"></Label>
+					</StackLayout>
+
+				</GridLayout>
+
+				<!-- Line -->
+				<StackLayout class="horizontal-line" margin="0 0 0 10"></StackLayout>
+			</StackLayout>
+		</StackLayout>
+	</ScrollView>
+</StackLayout>

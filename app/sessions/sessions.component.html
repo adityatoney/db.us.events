@@ -1,0 +1,57 @@
+<RadSideDrawer #drawer showOverNavigation="true" [drawerTransition]="sideDrawerTransition">
+	<StackLayout tkDrawerContent>
+		<MyDrawer [selectedPage]="'Sessions'"></MyDrawer>
+	</StackLayout>
+
+	<StackLayout tkMainContent>
+		<AbsoluteLayout>
+			<GridLayout rows="auto, *" class="full-screen">
+				<GridLayout>
+					<StackLayout #background class="page-header" scaleX="1.4" scaleY="1.4" (loaded)="startBackgroundAnimation(background)">
+					</StackLayout>
+					<StackLayout>
+						<GridLayout class="action-bar darker">
+							<GridLayout class="action-wrap" (tap)="onDrawerButtonTap()" columns="auto" horizontalAlignment="left">
+
+								<StackLayout #myMenuBtn class="menu-button">
+									<Label #myMenuBtnBar1 class="bar bar1"></Label>
+									<Label #myMenuBtnBar2 class="bar bar2"></Label>
+									<Label #myMenuBtnBar3 class="bar bar3"></Label>
+								</StackLayout>
+
+							</GridLayout>
+							<Label [text]="actionBarTitle" class="action-bar-title"></Label>
+						</GridLayout>
+
+						<StackLayout [visibility]="isSessionsPage ? 'visible' : 'collapse' ">
+							<GridLayout class="darker">
+								<SegmentedBar selectedBackgroundColor="#fac950" [items]="confDayOptions" [selectedIndex]="selectedIndex" (selectedIndexChange)="selectedIndexChange($event)"></SegmentedBar>
+								<!--TabView selectedBackgroundColor="#fac950" [selectedIndex]="selectedIndex" (selectedIndexChange)="selectedIndexChange($event)">
+									<ng-template ngFor let-item [ngForOf]="confDayOptions">
+										<StackLayout *tabItem="{title: item.title}">
+										</StackLayout>
+									</ng-template>
+								</TabView-->
+							</GridLayout>
+							<Label [text]="dayHeader" class="page-title bold" horizontalAlignment="center" margin="15"></Label>
+						</StackLayout>
+					</StackLayout>
+				</GridLayout>
+
+				<!-- Session List -->
+				<GridLayout rows="auto, *" row="1">
+					<session-list (notifySessionSelected)="sessionSelected($event)" [sessionCardVisible]="sessionCardVisible" [selectedViewIndex]="selectedViewIndex"
+					 [selectedIndex]="selectedIndex"></session-list>
+				</GridLayout>
+
+			</GridLayout>
+
+			<GridLayout *ngIf="selectedSession" class="full-screen darker" (tap)="hideSessionCard()">
+				<GridLayout #sessionCardWrapper (loaded)="selectedSessionCardLoaded(sessionCardWrapper)">
+					<session-modal [session]="selectedSession" (notifyCardClosed)="hideSessionCard($event)"> </session-modal>
+				</GridLayout>
+			</GridLayout>
+
+		</AbsoluteLayout>
+	</StackLayout>
+</RadSideDrawer>

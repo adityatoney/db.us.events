@@ -1,0 +1,65 @@
+<StackLayout class="session-detail-wrapper">
+	<StackLayout *ngIf="session">
+
+		<GridLayout rows="auto, *" (swipe)="backSwipe($event)">
+			<!-- HEADER -->
+			<GridLayout columns="auto, *" rows="auto, auto" class="page-header">
+
+				<GridLayout class="action-bar" colSpan="2">
+					<StackLayout (tap)="backTap()" orientation="horizontal" class="action-wrap" horizontalAlignment="left">
+						<Image stretch="none" class="icon-image" src="res://ic_arrow_back"></Image>
+						<Label text="Back" class="back-text"></Label>
+					</StackLayout>
+
+				</GridLayout>
+				<GridLayout row="1">
+					<session-favorite [item]="session"></session-favorite>
+				</GridLayout>
+
+				<StackLayout margin="16 16 16 0" row="1" col="1">
+					<Label [text]="session.title" textWrap="true" class="session-page-title"></Label>
+					<Label [text]="session.range + ', ' + session.room" textWrap="true" class="session-page-subtitle"></Label>
+				</StackLayout>
+
+			</GridLayout>
+
+
+			<!-- Content -->
+			<ScrollView row="1" id="scroll">
+				<GridLayout row="1" rows="auto, auto, auto, auto, *" columns="56, *" class="content">
+					<!-- Description -->
+					<GridLayout #lblDescWrapper col="1" style="width: 100%" (loaded)="descWrapperLoaded(lblDescWrapper, txtDesc, lblDesc)">
+						<TextView #txtDesc class="description" editable="false" [text]="session.description" style="padding: 1; margin: 1;vertical-align: top; width:100%;"></TextView>
+						<Label #lblDesc class="description" textWrap="true" id="txtDescription" [text]="session.description"></Label>
+					</GridLayout>
+					<!-- Button -->
+					<Button #btnDesc text="MORE" (tap)="toogleDescription(lblDescWrapper)" class="more-button" row="1" col="1"></Button>
+
+					<!-- Line -->
+					<StackLayout class="horizontal-line" row="2" col="1" margin="0 0 0 0"></StackLayout>
+
+					<!-- Speakers -->
+					<Label text="SPEAKERS" class="section-header" row="3" col="1"></Label>
+
+					<ListView id="sepakers-list" [items]="session.speakers" row="4" colSpan="2" height="{{ session.speakers.length * 72 + 46 }}"
+					 selectedBackgroundColor="#fac950" separatorColor="#FFFFFF">
+						<ng-template let-item="item">
+							<GridLayout columns="56, *" class="speakers-row" (swipe)="backSwipe($event)">
+								<Image [src]="item.picture" class="speaker-image" stretch="aspectFit" rowSpan="2"></Image>
+
+								<StackLayout col="1">
+									<StackLayout orientation="horizontal">
+										<Label [text]="item.name" class="info bold"></Label>
+									</StackLayout>
+
+									<Label [text]="item.title" class="info" textWrap="true" style="font-style: italic;"></Label>
+								</StackLayout>
+							</GridLayout>
+						</ng-template>
+					</ListView>
+				</GridLayout>
+			</ScrollView>
+
+		</GridLayout>
+	</StackLayout>
+</StackLayout>

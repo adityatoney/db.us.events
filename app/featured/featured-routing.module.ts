@@ -1,15 +1,10 @@
-import { NgModule } from "@angular/core";
-import { Routes } from "@angular/router";
-import { NativeScriptRouterModule } from "nativescript-angular/router";
+import { ModuleWithProviders } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
 import { FeaturedComponent } from "./featured.component";
 
-const routes: Routes = [
-    { path: "", component: FeaturedComponent }
+const featuredRoutes: Routes = [
+    { path: "featured", component: FeaturedComponent }
 ];
 
-@NgModule({
-    imports: [NativeScriptRouterModule.forChild(routes)],
-    exports: [NativeScriptRouterModule]
-})
-export class FeaturedRoutingModule { }
+export const featuredRouting: ModuleWithProviders = RouterModule.forChild(featuredRoutes);
