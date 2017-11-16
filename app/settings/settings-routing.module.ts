@@ -4,7 +4,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { SettingsComponent } from "./settings.component";
 
 const settingsRoutes: Routes = [
-    { path: "", component: SettingsComponent }
+    { path: "settings", component: SettingsComponent }
 ];
 
 export const settingsRouting: ModuleWithProviders = RouterModule.forChild(settingsRoutes);

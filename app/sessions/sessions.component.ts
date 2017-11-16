@@ -33,7 +33,7 @@ let _blurEffectView = null;
 
 @Component({
     moduleId: module.id,
-    selector: "Sessions",
+    selector: "sessions",
     templateUrl: "./sessions.component.html"
 })
 export class SessionsComponent implements OnInit {
@@ -57,6 +57,7 @@ export class SessionsComponent implements OnInit {
         this.selectedIndex = 0;
         this.selectedViewIndex = 1;
         this.dayHeader = sessionDays[0].desc;
+        _page.actionBarHidden = true;
     }
 
     public ngOnInit() {

@@ -65,11 +65,6 @@ export class SessionDetailsComponent implements OnInit {
     this.routerExtensions.back();
   }
 
-  public showMapTap() {
-    let link = ["/session-map", this.session.id];
-    this.routerExtensions.navigate(link);
-  }
-
   public toggleFavorite() {
     this._sessionsService.toggleFavorite(this.session)
       .then(() => {

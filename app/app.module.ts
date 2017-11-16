@@ -11,6 +11,7 @@ import { SessionsService } from "./services/sessions.service";
 import { SessionsModule } from "./sessions/sessions.module";
 import { HomeModule } from "./home/home.module";
 import { FeaturedModule } from "./featured/featured.module";
+import { SettingsModule } from "./settings/settings.module";
 
 @NgModule({
     bootstrap: [
@@ -21,7 +22,8 @@ import { FeaturedModule } from "./featured/featured.module";
         AppRoutingModule,
         SessionsModule,
         HomeModule,
-        FeaturedModule
+        FeaturedModule,
+        SettingsModule
     ],
     declarations: [
         AppComponent

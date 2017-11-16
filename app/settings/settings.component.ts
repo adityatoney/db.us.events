@@ -3,7 +3,7 @@ import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-u
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 
 @Component({
-    selector: "Settings",
+    selector: "settings",
     moduleId: module.id,
     templateUrl: "./settings.component.html"
 })

@@ -63,6 +63,7 @@ SegmentedBar {
 
 .action-bar {
     height: 44;
+    background-color:#fac950;
 }
 
 .action-bar-title {
@@ -1434,23 +1435,6 @@ SegmentedBar {
     background-color: #ED473F;
     color: #fff
 }
-
-/*
-.action-bar {
-    background-color: #3A53FF;
-    color: #fff
-}
-
-.action-bar .action-bar-title {
-    font-weight: bold;
-    font-size: 17;
-    vertical-align: center
-}
-
-.action-bar .action-item {
-    font-weight: normal
-}
-*/
 
 .activity-indicator {
     color: #3A53FF;
