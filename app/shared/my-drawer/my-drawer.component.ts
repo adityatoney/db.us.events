@@ -16,9 +16,9 @@ export class MyDrawerComponent implements OnInit {
     * It is used to pass the current page title from the containing page component.
     * You can check how it is used in the "isPageSelected" function below.
     *************************************************************/
-    @Input() selectedPage: string;
+    @Input() public selectedPage: string;
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         /* ***********************************************************
         * Use the MyDrawerComponent "onInit" event handler to initialize the properties data values.
         *************************************************************/
@@ -29,7 +29,7 @@ export class MyDrawerComponent implements OnInit {
     * It is used to determine whether the item should have the "selected" class.
     * The "selected" class changes the styles of the item, so that you know which page you are on.
     *************************************************************/
-    isPageSelected(pageTitle: string): boolean {
+    public isPageSelected(pageTitle: string): boolean {
         return pageTitle === this.selectedPage;
     }
 }

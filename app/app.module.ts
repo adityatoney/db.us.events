@@ -1,23 +1,35 @@
-import { NgModule, NgModuleFactoryLoader, NO_ERRORS_SCHEMA } from "@angular/core";
-import { NativeScriptModule } from "nativescript-angular/nativescript.module";
-import { NSModuleFactoryLoader } from "nativescript-angular/router";
+// angular imports
+import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 
+//n ativescript imports
+import { NativeScriptRouterModule } from "nativescript-angular/router";
+
+// app imports
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { SessionsService } from "./services/sessions.service";
+import { SessionsModule } from "./sessions/sessions.module";
+import { HomeModule } from "./home/home.module";
+import { FeaturedModule } from "./featured/featured.module";
+import { SettingsModule } from "./settings/settings.module";
 
 @NgModule({
     bootstrap: [
         AppComponent
     ],
     imports: [
-        NativeScriptModule,
-        AppRoutingModule
+        NativeScriptRouterModule,
+        AppRoutingModule,
+        SessionsModule,
+        HomeModule,
+        FeaturedModule,
+        SettingsModule
     ],
     declarations: [
         AppComponent
     ],
     providers: [
-        { provide: NgModuleFactoryLoader, useClass: NSModuleFactoryLoader }
+        SessionsService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

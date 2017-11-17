@@ -4,7 +4,14 @@
         "**/.svn": true,
         "**/*.js": true,
         "**/CVS": true,
-        "**/*.js.map": true
+        "**/*.js.map": true,
+        "node_modules": true,
+        "hooks": true,
+        "lib": true,
+        "platforms": true
     },
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "editor.formatOnSave": false,
+    "editor.trimAutoWhitespace": false,
+    "editor.autoIndent": false
 }
