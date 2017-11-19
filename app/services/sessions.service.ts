@@ -1,6 +1,7 @@
 // angular
 import { Injectable, NgZone } from "@angular/core";
 import { BehaviorSubject } from "rxjs/Rx";
+import * as appSettingsModule from "application-settings";
 
 // nativescript
 import * as httpModule from "http";
@@ -10,6 +11,7 @@ import { SearchFilterState } from "../sessions/shared/search.filter.model";
 import { SessionModel } from "../sessions/shared/session.model";
 import { ISession } from "../shared/interfaces";
 import { SessionTypes } from "../shared/static-data";
+import { FavoritesService } from "./favorites.service";
 import * as fakeDataServiceModule from "./fake-data.service";
 
 @Injectable()
@@ -21,7 +23,22 @@ export class SessionsService {
     private _allSessions: Array<SessionModel> = [];
     private _searchFilterState: SearchFilterState;
 
-    constructor(private _zone: NgZone) { }
+    constructor(
+        private _zone: NgZone,
+        private _favoritesService: FavoritesService
+    ) { 
+        try {
+            let cahcedSessions = <Array<SessionModel>>JSON.parse(appSettingsModule.getString('ALLSESSIONS', '[]'));
+            if (cahcedSessions.length > 0 ) {
+                this._allSessions = cahcedSessions.map((s) => new SessionModel(s));
+                this.applyCachedFavorites();
+                this.sessionsLoaded = true;
+            }
+        }
+        catch (error) {
+            console.log('Error while retrieveing sessions from the local cache: ' + error);
+        }
+    }
 
     public loadSessions<T>(): Promise<T> {
         return new Promise((resolve, reject) => {
@@ -32,22 +49,40 @@ export class SessionsService {
                 if (this._useHttpService) {
                     return this.loadSessionsViaHttp<Array<ISession>>()
                         .then((newSessions: Array<ISession>) => {
-                            this._allSessions = newSessions.map((s) => new SessionModel(s));
-                            this.sessionsLoaded = true;
-                            Promise.resolve(this._allSessions);
+                            return this.updateSessions<Array<ISession>>(newSessions);
                         });
                 }
                 else {
-                    this.loadSessionsViaFaker<Array<ISession>>()
+                    return this.loadSessionsViaFaker<Array<ISession>>()
                         .then((newSessions: Array<ISession>) => {
-                            this._allSessions = newSessions.map((s) => new SessionModel(s));
-                            this.sessionsLoaded = true;
-                            Promise.resolve(this._allSessions);
+                            return this.updateSessions<Array<ISession>>(newSessions);
                         });
                 }
             }
         });
     }
+    
+    private updateSessions<T>(newSessions: Array<ISession>): Promise<T>{
+        return new Promise<T>((resolve, reject) => {
+            this.updateCache(newSessions);
+            this._allSessions = newSessions.map((s) => new SessionModel(s));
+            this.applyCachedFavorites();
+            this.sessionsLoaded = true;
+            Promise.resolve(this._allSessions);
+        });
+    }
+    
+    public updateCache(sessions: Array<ISession>) {
+        var sessionsJsonStr = JSON.stringify(sessions);
+        appSettingsModule.setString('ALLSESSIONS', sessionsJsonStr);
+    }
+    
+    public applyCachedFavorites() {
+        for (let fav of this._favoritesService.favourites) {
+            var sessionObj = this._allSessions.find(x => x.id === fav.sessionId);
+            sessionObj.favorite = true;
+        }
+    };
 
     public getSessionById(sessionId: string) {
         return new Promise((resolve, reject) => {
@@ -67,6 +102,12 @@ export class SessionsService {
 
     public toggleFavorite(session: SessionModel) {
         session.toggleFavorite();
+        if (session.favorite) {
+            this._favoritesService.addToFavourites(session);
+        }
+        else {
+            this._favoritesService.removeFromFavourites(session);
+        }
         this.publishUpdates();
 
         return Promise.resolve(true);
