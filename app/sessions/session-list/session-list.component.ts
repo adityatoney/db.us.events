@@ -72,8 +72,8 @@ export class SessionListComponent implements OnInit {
             this._selectedIndex = value;
             this.dayHeader = sessionDays[value].desc;
 
-            if (this.search !== "") {
-                this.search = "";
+            if (this._search !== "") {
+                this._search = "";
             } else {
                 this.refresh();
             }
@@ -121,7 +121,8 @@ export class SessionListComponent implements OnInit {
         let searchFilterState: SearchFilterState = new SearchFilterState(
             sessionDays[this.selectedIndex].date.getDate(),
             this.search,
-            this.selectedViewIndex);
+            this.selectedViewIndex,
+            "");
         this._sessionsService.update(searchFilterState);
     }
 

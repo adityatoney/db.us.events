@@ -9,6 +9,7 @@ import * as httpModule from "http";
 import { SearchFilterState } from "../sessions/shared/search.filter.model";
 import { SessionModel } from "../sessions/shared/session.model";
 import { ISession } from "../shared/interfaces";
+import { SessionTypes } from "../shared/static-data";
 import * as fakeDataServiceModule from "./fake-data.service";
 
 @Injectable()
@@ -94,10 +95,16 @@ export class SessionsService {
         let date = this._searchFilterState.date;
         let search = this._searchFilterState.search;
         let viewIndex = this._searchFilterState.viewIndex;
-
+        
         let filteredSessions = this._allSessions.filter((s) => {
-            return s.startDt.getDate() === date
-                && s.title.toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) >= 0;
+            if (SessionTypes.find(x => x === search.toUpperCase())) {
+                return s.startDt.getDate() === date
+                    && s.type.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+            }
+            else {
+                return s.startDt.getDate() === date
+                    && s.title.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+            }
         });
 
         if (viewIndex === 0) {

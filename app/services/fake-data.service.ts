@@ -1,6 +1,6 @@
 import * as fileSystemModule from "file-system";
 import { IRoomInfo, ISession, ISessionDay, ISessionTimeSlot, ISpeaker } from "../shared/interfaces";
-import { sessionDays } from "../shared/static-data";
+import { sessionDays, SessionTypes } from "../shared/static-data";
 
 import faker = require("faker");
 
@@ -63,14 +63,16 @@ export function generateSessions(speakers: Array<ISpeaker>, roomInfos: Array<IRo
                     roomInfo: null,
                     speakers: [],
                     description: "",
-                    descriptionShort: ""
+                    descriptionShort: "",
+                    type: ""
                 };
                 sessionList.push(s);
             }
             else {
                 let subSpeakers = getRandomArrayElements(speakers, faker.random.number({ min: 1, max: 3 }));
                 let roomInfo = roomInfos[faker.random.number(roomInfos.length - 1)];
-
+                var randomTypeIndex = Math.floor(Math.random() * SessionTypes.length); 
+                				
                 let s: ISession = {
                     id: (idSeed++).toString(),
                     title: toTitleCase(faker.company.bs()),
@@ -81,7 +83,8 @@ export function generateSessions(speakers: Array<ISpeaker>, roomInfos: Array<IRo
                     roomInfo: roomInfo,
                     speakers: subSpeakers,
                     description: faker.lorem.paragraph(8),
-                    descriptionShort: faker.lorem.sentence()
+                    descriptionShort: faker.lorem.sentence(),
+                    type: SessionTypes[randomTypeIndex]
                 };
                 sessionList.push(s);
             }
