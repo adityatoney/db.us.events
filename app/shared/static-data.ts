@@ -5,3 +5,5 @@ export let sessionDays: Array<ISessionDay> = [
     { title: "NOV 4", desc: "Gnanvidhi Day", date: new Date(2017, 10, 4) },
     { title: "NOV 5", desc: "Pran-Pratistha", date: new Date(2017, 10, 5) }
 ];
+
+export let SessionTypes = ["GENERAL", "LMHT", "YMHT", "WMHT", "MMHT"];

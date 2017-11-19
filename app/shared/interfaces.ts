@@ -29,6 +29,7 @@ export interface ISession {
     speakers: Array<ISpeaker>;
     description: string;
     descriptionShort: string;
+    type: string;
     isBreak: boolean;
 }
 

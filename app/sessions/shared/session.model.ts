@@ -92,6 +92,10 @@ export class SessionModel implements ISession {
             return this.description;
         }
     }
+    
+    get type(): string {
+        return this._session.type;
+    }
 
     constructor(public source: ISession) {
         if (source) {
