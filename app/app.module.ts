@@ -8,6 +8,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { SessionsService } from "./services/sessions.service";
+import { FavoritesService } from "./services/favorites.service";
 import { SessionsModule } from "./sessions/sessions.module";
 import { HomeModule } from "./home/home.module";
 import { FeaturedModule } from "./featured/featured.module";
@@ -29,7 +30,8 @@ import { SettingsModule } from "./settings/settings.module";
         AppComponent
     ],
     providers: [
-        SessionsService
+        SessionsService,
+        FavoritesService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

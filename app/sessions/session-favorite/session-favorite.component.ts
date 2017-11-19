@@ -18,18 +18,16 @@ import { SessionsService } from "../../services/sessions.service";
 export class SessionFavoriteComponent {
     @Input() public item: SessionModel;
 
+    // Used to avoid spamming the toggle button while the animation is playing.
     public isToggling = false;
 
-    constructor(private _sessionsService: SessionsService) {
-
-    }
+    constructor(private _sessionsService: SessionsService) {}
 
     public toggleFavorite(session: SessionModel, lbl: Label) {
         if (this.isToggling) {
             return;
         }
         this.isToggling = true;
-
         this._sessionsService.toggleFavorite(session)
             .then(() => {
                 // done toggling fovaorite
