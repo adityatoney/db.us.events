@@ -5,7 +5,7 @@
 
 	<StackLayout tkMainContent>
 		<AbsoluteLayout>
-			<GridLayout rows="auto, *" class="full-screen">
+			<GridLayout rows="auto, *" class="full-screen" (swipe)="onSwipe($event)">
 				<GridLayout>
 					<StackLayout class="page-header">
 					</StackLayout>
