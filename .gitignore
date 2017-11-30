@@ -17,4 +17,5 @@ platforms/android/*
 .ab
 *.apk
 *.ipa
+*.js
 .cloud/

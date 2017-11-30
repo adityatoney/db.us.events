@@ -12,12 +12,12 @@ import * as platform from "platform";
 import { Animation, AnimationDefinition } from "ui/animation";
 import { Button } from "ui/button";
 import * as frameModule from "ui/frame";
-import { GestureEventData } from "ui/gestures";
 import { Label } from "ui/label";
 import { StackLayout } from "ui/layouts/stack-layout";
 import { ItemEventData } from "ui/list-view";
 import { Page } from "ui/page";
 import { SegmentedBarItem } from "ui/segmented-bar";
+import { GestureEventData, SwipeGestureEventData, SwipeDirection } from "ui/gestures";
 import { TabView, SelectedIndexChangedEventData } from "ui/tab-view";
 
 // app
@@ -54,7 +54,7 @@ export class SessionsComponent implements OnInit {
         private _router: Router
     ) {
         _page.backgroundSpanUnderStatusBar = true;
-        this.selectedIndex = 0;
+        this.setSelectedIndex(0);
         this.selectedViewIndex = 1;
         this.dayHeader = sessionDays[0].desc;
         _page.actionBarHidden = true;
@@ -66,6 +66,22 @@ export class SessionsComponent implements OnInit {
             if (e instanceof NavigationEnd) {
             }
         });
+    }
+    
+    public load() {
+        this.hideHorizontalScrollBar();
+    }
+    
+    public hideHorizontalScrollBar() {
+        let scrollview = this._page.getViewById("scrollView");
+        setTimeout(() => {
+            if(platform.isAndroid){
+                scrollview.android.setHorizontalScrollBarEnabled(false);
+            }
+            else if (platform.isIOS) {
+                scrollview.ios.showsHorizontalScrollIndicator = false; 
+            }
+        }, 10);
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {
@@ -80,29 +96,48 @@ export class SessionsComponent implements OnInit {
         return this.selectedSession != null;
     }
 
-    get confDayOptions(): Array<SegmentedBarItem> {
-        const items = [];
-        sessionDays.forEach((cd) => {
-            let segmentedBarItem = new SegmentedBarItem();
-            segmentedBarItem.title = cd.title;
-            items.push(segmentedBarItem);
-        });
-        return items;
+    get confDayOptions(): Array<ISessionDay> {
+        return sessionDays;
     }
-
+    
+    private resetIsSelected() {
+        sessionDays.forEach((day) => {
+            day.isSelected = false;
+        });
+    }
+    
+    private setSelectedIndex(index : number) {
+        this.selectedIndex = index;
+        this.resetIsSelected();
+        sessionDays[index].isSelected = true;
+    }
+    
     public selectedIndexChange(args) {
-        const value = args.value;
-        if (this.selectedIndex !== value) {
-            this.selectedIndex = value;
-            this.dayHeader = sessionDays[value].desc;
+        let index: number = 0;
+        index = sessionDays.findIndex(x => x.title == args.title);
+        if (this.selectedIndex !== index) {
+            this.setSelectedIndex(index);
         }
     }
     
-    public onIndexChanged(args) {
-        let tabView = <TabView>args.object;
-        console.log("Selected index changed! New inxed: " + tabView.selectedIndex);
+    public onSwipe(args: SwipeGestureEventData) {
+        let index: number = this.selectedIndex;
+        if (args.direction === SwipeDirection.left) {
+            if (index === (sessionDays.length - 1)) {
+                // We are already at the end. Skip.
+            } else {
+                this.setSelectedIndex(++index);
+            }
+        }
+        else if (args.direction === SwipeDirection.right) {
+            if (index === 0) {
+                // We are already at the begining. Skip.
+            } else {
+                this.setSelectedIndex(--index);
+            }
+        }
     }
-
+    
     public startBackgroundAnimation(background) {
         let def: AnimationDefinition = {
             scale: { x: 1.0, y: 1.0 },
