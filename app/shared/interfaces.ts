@@ -3,6 +3,7 @@ export interface ISessionDay {
     date: Date;
     title: string;
     desc: string;
+    isSelected: boolean;
 }
 
 export interface ISpeaker {

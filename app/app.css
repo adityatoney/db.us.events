@@ -3,6 +3,38 @@ Page {
     background-color: #e4ba4e;
 }
 
+.scrollViewStyle {
+    margin-bottom: 0;
+    background-color: #fac950;
+}
+
+.dayScrollViewStyle {
+    width: 74;
+    height: 36;
+    opacity: 0.5;
+    padding-left: 20;
+}
+
+.dayScrollViewSelectedStyle {
+    background-color: #fac950;
+    width: 74;
+    height: 36;
+    opacity: 1;
+    padding-left: 20;
+}
+
+.dayScrollViewBottomBorder{
+    background-color: #fac950;
+    height: 2;
+    vertical-align: bottom;
+}
+
+.daySelectedScrollViewBottomBorder{
+    background-color: black;
+    height: 2;
+    vertical-align: bottom;
+}
+
 SegmentedBar {
     background-color: transparent;
     color: #fac950;

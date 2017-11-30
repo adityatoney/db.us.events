@@ -67,6 +67,22 @@ export class SessionsComponent implements OnInit {
             }
         });
     }
+    
+    public load() {
+        this.hideHorizontalScrollBar();
+    }
+    
+    public hideHorizontalScrollBar() {
+        let scrollview = this._page.getViewById("scrollView");
+        setTimeout(() => {
+            if(platform.isAndroid){
+                scrollview.android.setHorizontalScrollBarEnabled(false);
+            }
+            else if (platform.isIOS) {
+                scrollview.ios.showsHorizontalScrollIndicator = false; 
+            }
+        }, 10);
+    }
 
     get sideDrawerTransition(): DrawerTransitionBase {
         return this._sideDrawerTransition;
@@ -80,29 +96,26 @@ export class SessionsComponent implements OnInit {
         return this.selectedSession != null;
     }
 
-    get confDayOptions(): Array<SegmentedBarItem> {
-        const items = [];
-        sessionDays.forEach((cd) => {
-            let segmentedBarItem = new SegmentedBarItem();
-            segmentedBarItem.title = cd.title;
-            items.push(segmentedBarItem);
-        });
-        return items;
+    get confDayOptions(): Array<ISessionDay> {
+        return sessionDays;
     }
-
+    
+    private resetIsSelected(){
+        sessionDays.forEach((day) => {
+            day.isSelected = false;
+        });
+    }
+    
     public selectedIndexChange(args) {
-        const value = args.value;
-        if (this.selectedIndex !== value) {
-            this.selectedIndex = value;
-            this.dayHeader = sessionDays[value].desc;
+        let index: number = 0;
+        index = sessionDays.findIndex(x => x.title == args.title);
+        if (this.selectedIndex !== index) {
+            this.selectedIndex = index;
+            this.resetIsSelected();
+            sessionDays[index].isSelected = true;
         }
     }
     
-    public onIndexChanged(args) {
-        let tabView = <TabView>args.object;
-        console.log("Selected index changed! New inxed: " + tabView.selectedIndex);
-    }
-
     public startBackgroundAnimation(background) {
         let def: AnimationDefinition = {
             scale: { x: 1.0, y: 1.0 },
