@@ -3,16 +3,15 @@
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
         ios.position="left">
     </ActionItem>
-    <Label class="action-bar-title" text="Settings"></Label>
+    <Label class="action-bar-title" text="Floor Plans"></Label>
 </ActionBar>
 
 <RadSideDrawer #drawer showOverNavigation="true" [drawerTransition]="sideDrawerTransition">
     <StackLayout tkDrawerContent>
-        <MyDrawer [selectedPage]="'Settings'"></MyDrawer>
+        <MyDrawer [selectedPage]="'Floor Plans'"></MyDrawer>
     </StackLayout>
     
     <GridLayout class="page page-content" tkMainContent>
-        <Label class="page-icon fa" text="&#xf013;"></Label>
         <Label class="page-placeholder" text="<!-- Page content goes here -->"></Label>
     </GridLayout>
 </RadSideDrawer>

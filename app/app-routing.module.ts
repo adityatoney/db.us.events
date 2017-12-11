@@ -3,7 +3,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { Routes } from "@angular/router";
 
 export const routes: Routes = [
-    { path: "", redirectTo: "/sessions/1", pathMatch: "full" }
+    { path: "", redirectTo: "/event-info", pathMatch: "full" }
 ];
 
 @NgModule({

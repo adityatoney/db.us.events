@@ -1,6 +1,6 @@
 <RadSideDrawer #drawer showOverNavigation="true" [drawerTransition]="sideDrawerTransition">
 	<StackLayout tkDrawerContent>
-		<MyDrawer [selectedPage]="'Sessions'"></MyDrawer>
+		<MyDrawer [selectedPage]="selectedPageTitle"></MyDrawer>
 	</StackLayout>
 
 	<StackLayout tkMainContent (loaded)="load()">
@@ -25,7 +25,7 @@
 							</StackLayout>
 						</GridLayout>
 						
-						<GridLayout class="action-bar" [visibility]="showSearchBar ? 'visible' : 'collapse' ">
+						<GridLayout class="action-bar-search" [visibility]="showSearchBar ? 'visible' : 'collapse' ">
 							<StackLayout orientation="horizontal" style="padding-left: 15" >
 								<Image (tap)="hideSearchBar()" stretch="none" class="icon-image" src="res://ic_arrow_back"></Image>
 								<!-- SearchBar doesn't fire clear event when using ngModel on iOS. Known issue: #1099 -->

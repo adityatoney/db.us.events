@@ -57,7 +57,7 @@ SegmentedBar {
 }
 
 .slide-out-btn {
-    color: #e4ba4e;
+    color: #fac950;
     background-color: #053140;
     font-size: 19;
     height: 44;
@@ -67,7 +67,7 @@ SegmentedBar {
 }
 
 .slide-out-btn-selected {
-    color: #f7b409;
+    color: #fac950;
     background-color: #053140;
     font-size: 19;
     height: 44;
@@ -95,6 +95,12 @@ SegmentedBar {
 
 .action-bar {
     height: 44;
+    background-color:#fac950;
+}
+
+.action-bar-search {
+    height: 44;
+    width: 100%;
     background-color:#fac950;
 }
 
@@ -131,7 +137,7 @@ SegmentedBar {
 
 .session-page-subtitle {
     font-size: 12;
-    color: #f7db94;
+    color: #fac950;
     font-weight: bold;
 }
 
@@ -1566,6 +1572,10 @@ SegmentedBar {
     font-family: FontAwesome, fontawesome-webfont
 }
 
+.icon {
+   font-family: "icomoon";
+}
+
 .form .input {
     padding: 16 8 16 8;
     background-color: transparent
@@ -1621,14 +1631,14 @@ SegmentedBar {
 .h6 {
     margin-bottom: 4;
     font-weight: normal;
-    color: #022734
+    color: #000000
 }
 
 .body,
 .body2,
 .footnote {
     font-weight: normal;
-    color: #022734
+    color: #000000
 }
 
 .h1 {
@@ -1690,12 +1700,12 @@ SegmentedBar {
 }
 
 .list-group .list-group-item .list-group-item-text {
-    color: #022734;
+    color: #000000;
     font-size: 14
 }
 
 .page {
-    background-color: #fff
+    background-color: white
 }
 
 .progress {
@@ -1710,7 +1720,7 @@ SegmentedBar {
 
 .sidedrawer-header {
     background-color: #fafafa;
-    height: 148;
+    height: 60;
     width: 100%
 }
 
@@ -1772,12 +1782,12 @@ SegmentedBar {
 }
 
 .sidedrawer-list-item.active {
-    color: #e4ba4e;
+    color: #fac950;
     background-color: #F8F8F8
 }
 
 .sidedrawer-list-item.active .sidedrawer-list-item-icon {
-    color: #e4ba4e
+    color: #fac950
 }
 
 .sidedrawer-left .sidedrawer-list-item-icon {
@@ -1928,7 +1938,7 @@ SegmentedBar {
 
 .sidedrawer-list-item-icon,
 .sidedrawer-list-item {
-    color: #022734
+    color: #000000
 }
 
 .switch {
@@ -1951,6 +1961,10 @@ SegmentedBar {
     font-family: "FontAwesome"
 }
 
+.icon {
+   font-family: "icomoon";
+}
+
 .page-content .page-placeholder {
     color: #D7D7D7;
     font-size: 20;
@@ -1971,5 +1985,9 @@ ActionBar .action-bar-title {
 }
 
 ActionBar .fa {
+    padding: 40px 40px 40px 0
+}
+
+ActionBar .icon {
     padding: 40px 40px 40px 0
 }

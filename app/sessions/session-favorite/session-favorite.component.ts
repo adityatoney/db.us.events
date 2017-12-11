@@ -13,7 +13,7 @@ import { SessionsService } from "../../services/sessions.service";
     moduleId: module.id,
     selector: "session-favorite",
     templateUrl: "session-favorite.component.html",
-    styleUrls: ["session-favorite.component.css"]
+    styleUrls: ["session-favorite.component.scss"]
 })
 export class SessionFavoriteComponent {
     @Input() public item: SessionModel;
