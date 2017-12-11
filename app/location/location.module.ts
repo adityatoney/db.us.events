@@ -2,20 +2,20 @@ import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 
 import { SharedModule } from "../shared/shared.module";
-import { featuredRouting } from "./featured-routing.module";
-import { FeaturedComponent } from "./featured.component";
+import { locationRouting } from "./location-routing.module";
+import { LocationComponent } from "./location.component";
 
 @NgModule({
     imports: [
         NativeScriptModule,
-        featuredRouting,
+        locationRouting,
         SharedModule
     ],
     declarations: [
-        FeaturedComponent
+        LocationComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
 })
-export class FeaturedModule { }
+export class LocationModule { }

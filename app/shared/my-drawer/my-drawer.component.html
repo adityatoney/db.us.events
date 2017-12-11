@@ -1,27 +1,19 @@
-<!--
-The MyDrawer custom component view is where you define what will be displayed in the app drawer.
-Feel free to customize layouts and components to change how your app drawer looks.
--->
+
 <GridLayout rows="auto, *" class="sidedrawer sidedrawer-left">
     <StackLayout row="0" class="sidedrawer-header">
-        <Label class="sidedrawer-header-image fa" text="&#xf2bd;"></Label>
-        <Label class="sidedrawer-header-brand" text="User Name"></Label>
-        <Label class="footnote" text="username@mail.com"></Label>
+        <Label class="sidedrawer-header-brand" text="Gurupurnima 2018, USA" style="margin-top: 10; font-weight: bold; font-size: 16;"></Label>
     </StackLayout>
 
     <ScrollView row="1">
         <StackLayout class="sidedrawer-content">
-            <MyDrawerItem title="Home" route="/home" icon="&#xf015;" [isSelected]="isPageSelected('Home')">
-            </MyDrawerItem>
-            <MyDrawerItem title="Featured" route="/featured" icon="&#xf005;" [isSelected]="isPageSelected('Featured')">
-            </MyDrawerItem>
-            <MyDrawerItem title="Sessions" route="/sessions/1" icon="&#xf005;" [isSelected]="isPageSelected('Sessions')">
-            </MyDrawerItem>
+            <MyDrawerItem title="Event Info" route="/event-info" icon="&#xe904;" [isSelected]="isPageSelected('Event Info')"></MyDrawerItem>
+            <MyDrawerItem title="Agenda" route="/sessions/1" icon="&#xe953;" [isSelected]="isPageSelected('Agenda')"></MyDrawerItem>
+            <MyDrawerItem title="My Sessions" route="/sessions/0" icon="&#xe9d9;" [isSelected]="isPageSelected('My Sessions')"></MyDrawerItem>
 
             <StackLayout class="hr-light"></StackLayout>
 
-            <MyDrawerItem title="Settings" route="/settings" icon="&#xf013;" [isSelected]="isPageSelected('Settings')">
-            </MyDrawerItem>
+            <MyDrawerItem title="Floor Plans" route="/floor-plans" icon="&#xe94b;" [isSelected]="isPageSelected('Floor Plans')"></MyDrawerItem>
+            <MyDrawerItem title="Location" route="/location" icon="&#xe947;" [isSelected]="isPageSelected('Location')"></MyDrawerItem>
         </StackLayout>
     </ScrollView>
 </GridLayout>

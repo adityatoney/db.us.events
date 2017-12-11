@@ -12,7 +12,7 @@ import { SessionModel } from "../shared/session.model";
     moduleId: module.id,
     selector: "session-modal",
     templateUrl: "session-modal.component.html",
-    styleUrls: ["session-modal.component.css"]
+    styleUrls: ["session-modal.component.scss"]
 })
 export class SessionModalComponent {
 

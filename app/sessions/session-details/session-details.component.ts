@@ -23,7 +23,7 @@ import { SessionModel } from "../shared/session.model";
   moduleId: module.id,
   selector: "session-details",
   templateUrl: "session-details.component.html",
-  styleUrls: ["session-details.component.css"]
+  styleUrls: ["session-details.component.scss"]
 })
 export class SessionDetailsComponent implements OnInit {
 

@@ -2,15 +2,14 @@
     <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
     </ActionItem>
-    <Label class="action-bar-title" text="Featured"></Label>
+    <Label class="action-bar-title" text="Location"></Label>
 </ActionBar>
 
 <RadSideDrawer #drawer showOverNavigation="true" [drawerTransition]="sideDrawerTransition">
     <StackLayout tkDrawerContent>
-        <MyDrawer [selectedPage]="'Featured'"></MyDrawer>
+        <MyDrawer [selectedPage]="'Location'"></MyDrawer>
     </StackLayout>
     <GridLayout class="page page-content" tkMainContent>
-        <Label class="page-icon fa" text="&#xf005;"></Label>
         <Label class="page-placeholder" text="<!-- Page content goes here -->"></Label>
     </GridLayout>
 </RadSideDrawer>
