@@ -4,10 +4,15 @@
 
 .sidedrawer-list-item Label {
     vertical-align: center;
-    color: #022734
+    color: #000000
 }
 
 .sidedrawer-list-item .fa {
+    width: 20;
+    margin-right: 10
+}
+
+.sidedrawer-list-item .icon {
     width: 20;
     margin-right: 10
 }
@@ -17,5 +22,5 @@
 }
 
 .sidedrawer-list-item.selected Label {
-    color: #e4ba4e
+color: #fac950
 }

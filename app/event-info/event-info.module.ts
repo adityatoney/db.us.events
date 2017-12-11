@@ -2,20 +2,20 @@ import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 
 import { SharedModule } from "../shared/shared.module";
-import { settingsRouting } from "./settings-routing.module";
-import { SettingsComponent } from "./settings.component";
+import { eventInfoRouting } from "./event-info-routing.module";
+import { EventInfoComponent } from "./event-info.component";
 
 @NgModule({
     imports: [
         NativeScriptModule,
-        settingsRouting,
+        eventInfoRouting,
         SharedModule
     ],
     declarations: [
-        SettingsComponent
+        EventInfoComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
 })
-export class SettingsModule { }
+export class EventInfoModule { }

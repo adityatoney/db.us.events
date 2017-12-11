@@ -3,12 +3,11 @@ import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-u
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 
 @Component({
-    selector: "home",
+    selector: "location",
     moduleId: module.id,
-    templateUrl: "./home.component.html"
+    templateUrl: "./location.component.html"
 })
-export class HomeComponent implements OnInit {
-
+export class LocationComponent implements OnInit {
     @ViewChild("drawer") public drawerComponent: RadSideDrawerComponent;
 
     private _sideDrawerTransition: DrawerTransitionBase;

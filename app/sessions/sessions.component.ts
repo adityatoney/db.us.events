@@ -29,6 +29,8 @@ import { SessionModel } from "./shared/session.model";
 import { SearchFilterState } from "./shared/search.filter.model";
 import { Visibility } from "tns-core-modules/ui/enums/enums";
 
+declare var UISearchBarStyle: any;
+declare var UIImage: any;
 declare var UIVisualEffectView,
     UIViewAutoresizingFlexibleWidth,
     UIViewAutoresizingFlexibleHeight,
@@ -47,6 +49,7 @@ export class SessionsComponent implements OnInit {
     public showSearchBar = false;
     public selectedViewIndex: number;
     public actionBarTitle: string = "All sessions";
+    public selectedPageTitle: string = "";
     public selectedIndex: number;
     public selectedSession: SessionModel = null;
     @ViewChild("drawer") public drawerComponent: RadSideDrawerComponent;
@@ -59,7 +62,8 @@ export class SessionsComponent implements OnInit {
         private _sessionsService: SessionsService,
         private _zone: NgZone,
         private _page: Page,
-        private _router: Router
+        private _router: Router,
+        private route: ActivatedRoute
     ) {
         _page.backgroundSpanUnderStatusBar = true;
         this.selectedViewIndex = 1;
@@ -73,10 +77,29 @@ export class SessionsComponent implements OnInit {
             if (e instanceof NavigationEnd) {
             }
         });
+        
+        this.route.params.forEach((params: Params) => {
+            if (this.selectedPageTitle !== "") {
+                this.drawerComponent.sideDrawer.closeDrawer();
+            }
+            
+            this.selectedViewIndex = +params["id"];
+            if (this.selectedViewIndex === 1) {
+                this.selectedPageTitle = "Agenda";
+            } else {
+                this.selectedPageTitle = "My Sessions";
+            }
+        });
     }
     
     public load() {
         this.hideHorizontalScrollBar();
+        if (platform.isIOS) {
+            // iOS renders two thin lines above and below the SearchBar. These lines comes with the default styling applied via UISearchBarStyle.
+            // The below code will change the default search bar style to render it correctly.
+            this.searchBar.nativeElement.ios.searchBarStyle = UISearchBarStyle.Prominent;
+            this.searchBar.nativeElement.ios.backgroundImage = UIImage.new();
+        }
     }
     
     public hideHorizontalScrollBar() {

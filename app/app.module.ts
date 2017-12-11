@@ -10,9 +10,9 @@ import { AppComponent } from "./app.component";
 import { SessionsService } from "./services/sessions.service";
 import { FavoritesService } from "./services/favorites.service";
 import { SessionsModule } from "./sessions/sessions.module";
-import { HomeModule } from "./home/home.module";
-import { FeaturedModule } from "./featured/featured.module";
-import { SettingsModule } from "./settings/settings.module";
+import { EventInfoModule } from "./event-info/event-info.module";
+import { LocationModule } from "./location/location.module";
+import { FloorPlansModule } from "./floor-plans/floor-plans.module";
 
 @NgModule({
     bootstrap: [
@@ -22,9 +22,9 @@ import { SettingsModule } from "./settings/settings.module";
         NativeScriptRouterModule,
         AppRoutingModule,
         SessionsModule,
-        HomeModule,
-        FeaturedModule,
-        SettingsModule
+        EventInfoModule,
+        LocationModule,
+        FloorPlansModule
     ],
     declarations: [
         AppComponent

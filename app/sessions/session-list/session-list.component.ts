@@ -18,7 +18,7 @@ import { SessionModel } from "../shared/session.model";
     moduleId: module.id,
     selector: "session-list",
     templateUrl: "session-list.component.html",
-    styleUrls: ["session-list.component.css"],
+    styleUrls: ["session-list.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: slideInAnimations
 })

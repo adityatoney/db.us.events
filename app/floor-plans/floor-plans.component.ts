@@ -3,16 +3,16 @@ import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-u
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 
 @Component({
-    selector: "featured",
+    selector: "floor-plans",
     moduleId: module.id,
-    templateUrl: "./featured.component.html"
+    templateUrl: "./floor-plans.component.html"
 })
-export class FeaturedComponent implements OnInit {
-    @ViewChild("drawer") public drawerComponent: RadSideDrawerComponent;
+export class FloorPlansComponent implements OnInit {
+    @ViewChild("drawer") drawerComponent: RadSideDrawerComponent;
 
     private _sideDrawerTransition: DrawerTransitionBase;
 
-    public ngOnInit(): void {
+    ngOnInit(): void {
         this._sideDrawerTransition = new SlideInOnTopTransition();
     }
 
@@ -20,7 +20,7 @@ export class FeaturedComponent implements OnInit {
         return this._sideDrawerTransition;
     }
 
-    public onDrawerButtonTap(): void {
+    onDrawerButtonTap(): void {
         this.drawerComponent.sideDrawer.showDrawer();
     }
 }
