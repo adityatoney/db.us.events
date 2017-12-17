@@ -5,8 +5,11 @@ import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 @Component({
     selector: "floor-plans",
     moduleId: module.id,
-    templateUrl: "./floor-plans.component.html"
+    templateUrl: "./floor-plans.component.html",
+    styleUrls: ["floor-plans.component.scss"]
 })
+
+
 export class FloorPlansComponent implements OnInit {
     @ViewChild("drawer") drawerComponent: RadSideDrawerComponent;
 
