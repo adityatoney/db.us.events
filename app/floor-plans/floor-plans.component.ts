@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-ui/sidedrawer";
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
+import { NativeScriptRouterModule, RouterExtensions } from "nativescript-angular/router";
 
 @Component({
     selector: "floor-plans",
@@ -11,6 +12,11 @@ import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 
 
 export class FloorPlansComponent implements OnInit {
+    constructor(
+        private routerExtensions: RouterExtensions
+    ){
+        
+    }
     @ViewChild("drawer") drawerComponent: RadSideDrawerComponent;
 
     private _sideDrawerTransition: DrawerTransitionBase;
@@ -19,11 +25,15 @@ export class FloorPlansComponent implements OnInit {
         this._sideDrawerTransition = new SlideInOnTopTransition();
     }
 
-    get sideDrawerTransition(): DrawerTransitionBase {
+    get sideDrawerTransition(): DrawerTransitionBase { 
         return this._sideDrawerTransition;
     }
 
     onDrawerButtonTap(): void {
         this.drawerComponent.sideDrawer.showDrawer();
+    }
+    public homeTap() {
+        let link = ['/sessions/1'];
+        this.routerExtensions.navigate(link);
     }
 }

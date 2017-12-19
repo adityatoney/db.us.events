@@ -10,14 +10,17 @@
   color: white;
 }
 ActionBar .action-bar-title {
-  horizontal-align: center
+  horizontal-align: center;
 }
-
+.home-button{
+  font-family: icomoon;
+  font-size: 20px;
+}
 .floor-image{
     background-color: white;
     text-align: center;
     padding: 30px 0 30px 0;
 }
-#floor-1{
+#floor-body{
   margin-bottom: 20px;
 }
