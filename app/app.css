@@ -103,7 +103,7 @@ SegmentedBar {
     width: 100%;
     background-color:#fac950;
     animation-name: example-search;
-    animation-duration: 1.7;
+    animation-duration: 1;
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;
 }
