@@ -3,21 +3,25 @@
 
 		<GridLayout rows="auto, *" (swipe)="backSwipe($event)">
 			<!-- HEADER -->
+			
 			<GridLayout columns="auto, *" rows="auto, auto" class="page-header">
 
 				<GridLayout class="action-bar" colSpan="2">
 					<StackLayout (tap)="backTap()" orientation="horizontal" class="action-wrap" horizontalAlignment="left">
-						<Label text="Back" class="back-text"></Label>
+						<Image stretch="none" class="icon-image" src="res://ic_arrow_back"></Image>
 					</StackLayout>
-
+					<!-- <StackLayout (tap)="backTap()" orientation="horizontal" class="action-wrap" horizontalAlignment="right">
+						<Image stretch="none" class="icon-image" src="res://ic_home_white"></Image>
+					</StackLayout> -->
 				</GridLayout>
-				<GridLayout row="1">
+				
+				<GridLayout class="session-favorite-container" row="1">
 					<session-favorite [item]="session"></session-favorite>
 				</GridLayout>
 
-				<StackLayout margin="16 16 16 0" row="1" col="1">
+				<StackLayout class="session-title-container" margin="16 16 16 0" row="1" col="1">
 					<Label [text]="session.title" textWrap="true" class="session-page-title"></Label>
-					<Label [text]="session.range + ', ' + session.room" textWrap="true" class="session-page-subtitle"></Label>
+					<Label [text]="session.range + ', ' + session.room + ', ' + 'First Floor'" textWrap="true" class="session-page-subtitle"></Label>
 				</StackLayout>
 
 			</GridLayout>

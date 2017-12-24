@@ -1,4 +1,4 @@
-﻿/* Page */
+/* Page */
 Page {
     background-color: #fac950;
 }
@@ -102,6 +102,15 @@ SegmentedBar {
     height: 44;
     width: 100%;
     background-color:#fac950;
+    animation-name: example-search;
+    animation-duration: 1.7;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes example-search {
+    from { transform: translate(100, 0); }
+    to { transform: translate(0, 0); }
 }
 
 .action-bar-title {
@@ -111,8 +120,9 @@ SegmentedBar {
     color: white;
 }
 
-.darker {
-    background-color: #55000000;
+.darker { 
+    /* causing VS Code css to reformat to single line*/
+    background-color: #57000000;
 }
 
 .page-header {
@@ -125,10 +135,16 @@ SegmentedBar {
     color: #fac950;
 }
 
+.session-favorite-container{
+    margin-top: 200px;
+}
+
 .session-page-title {
     font-size: 17;
     color: #fac950;
-    background-color:"ff0000";
+    /* color: #e0e0e0; */
+    margin-top: 200px;
+    /* background-color:"ff0000"; */
 }
 
 .info-page-header {
