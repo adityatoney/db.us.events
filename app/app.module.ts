@@ -13,6 +13,12 @@ import { SessionsModule } from "./sessions/sessions.module";
 import { EventInfoModule } from "./event-info/event-info.module";
 import { LocationModule } from "./location/location.module";
 import { FloorPlansModule } from "./floor-plans/floor-plans.module";
+import * as platform from "platform";
+declare var GMSServices: any;
+
+if(platform.isIOS) {
+    GMSServices.provideAPIKey("AIzaSyBAfPOpn0GEORT5PhQqIVN7b7cl8fRBYHQ");
+}
 
 @NgModule({
     bootstrap: [
