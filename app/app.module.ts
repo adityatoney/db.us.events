@@ -10,7 +10,7 @@ import { AppComponent } from "./app.component";
 import { SessionsService } from "./services/sessions.service";
 import { FavoritesService } from "./services/favorites.service";
 import { SessionsModule } from "./sessions/sessions.module";
-import { EventInfoModule } from "./event-info/event-info.module";
+import { EventListModule } from "./event-list/event-list.module";
 import { LocationModule } from "./location/location.module";
 import { FloorPlansModule } from "./floor-plans/floor-plans.module";
 
@@ -22,7 +22,7 @@ import { FloorPlansModule } from "./floor-plans/floor-plans.module";
         NativeScriptRouterModule,
         AppRoutingModule,
         SessionsModule,
-        EventInfoModule,
+        EventListModule,
         LocationModule,
         FloorPlansModule
     ],

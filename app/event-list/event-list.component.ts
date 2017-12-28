@@ -3,11 +3,11 @@ import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-u
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 
 @Component({
-    selector: "event-info",
+    selector: "event-list",
     moduleId: module.id,
-    templateUrl: "./event-info.component.html"
+    templateUrl: "./event-list.component.html"
 })
-export class EventInfoComponent implements OnInit {
+export class EventListComponent implements OnInit {
 
     @ViewChild("drawer") public drawerComponent: RadSideDrawerComponent;
 
