@@ -2,20 +2,20 @@ import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 
 import { SharedModule } from "../shared/shared.module";
-import { eventInfoRouting } from "./event-info-routing.module";
-import { EventInfoComponent } from "./event-info.component";
+import { eventListRouting } from "./event-list-routing.module";
+import { EventListComponent } from "./event-list.component";
 
 @NgModule({
     imports: [
         NativeScriptModule,
-        eventInfoRouting,
+        eventListRouting,
         SharedModule
     ],
     declarations: [
-        EventInfoComponent
+        EventListComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
 })
-export class EventInfoModule { }
+export class EventListModule { }
