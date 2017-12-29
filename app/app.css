@@ -94,12 +94,12 @@ SegmentedBar {
 }
 
 .action-bar {
-    height: 44;
+    /* height: 44; */
     background-color:#fac950;
 }
 
 .action-bar-search {
-    height: 44;
+    /* height: 44; */
     width: 100%;
     background-color:#fac950;
     animation-name: example-search;
