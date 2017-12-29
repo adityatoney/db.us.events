@@ -5,10 +5,10 @@
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
         ios.position="left"></ActionItem>
     <!--Home button for Android  Need to add tap functionality and redirect route to session-list for both andoir+ios like above-->
-    <NavigationButton ios:visibility="collapsed" icon="res://ic_home_white" (tap)="homeTap()"></NavigationButton>
+    <!-- <NavigationButton ios:visibility="collapsed" icon="res://ic_home_white" (tap)="homeTap()"></NavigationButton> -->
     <!--Home button for ios -->
-    <ActionItem class="home-button" icon="res://ic_home_white" ios.position="right" android:visibility="collapsed" (tap)="homeTap()"
-        ios.position="right"></ActionItem>
+    <!-- <ActionItem class="home-button" icon="res://ic_home_white" ios.position="right" android:visibility="collapsed" (tap)="homeTap()"
+        ios.position="right"></ActionItem> -->
     <Label class="action-bar-title" text="Floor Plans"></Label>
 </ActionBar>
 
@@ -21,28 +21,28 @@
     <GridLayout class="page page-content" tkMainContent>
         <ScrollView>
             <StackLayout orientation="vertical">
-                <StackLayout id="floor-body" horizontalAlignment="center">
+                <StackLayout class="floor-body">
                     <StackLayout class="hr-light"></StackLayout>
                     <Image class="floor-image" src="res://floorplan_1"></Image>
-                    <Label text="First Floor" class="floor-name h3 text-muted u"></Label>
+                    <Label text="First Floor" class="floor-name"></Label>
                 </StackLayout>
                 
-                <StackLayout id="floor-body" horizontalAlignment="center">
+                <StackLayout class="floor-body">
                     <StackLayout class="hr-light"></StackLayout>
                     <Image class="floor-image" src="res://floorplan_2"></Image>
-                    <Label text="Second Floor" class="floor-name h3 text-muted u"></Label>
+                    <Label text="Second Floor" class="floor-name"></Label>
                 </StackLayout>
                 
-                <StackLayout id="floor-body">
+                <StackLayout class="floor-body">
                     <StackLayout class="hr-light"></StackLayout>
                     <Image class="floor-image" src="res://floorplan_3"></Image>
-                    <Label text="Third Floor" class="floor-name h3 text-muted u"></Label>
+                    <Label text="Third Floor" class="floor-name"></Label>
                 </StackLayout>
                 
-                <StackLayout id="floor-body">
+                <StackLayout class="floor-body">
                     <StackLayout class="hr-light"></StackLayout>
                     <Image class="floor-image" src="res://floorplan_3"></Image>
-                    <Label text="Fourth Floor" class="floor-name h3 text-muted u"></Label>
+                    <Label text="Fourth Floor" class="floor-name"></Label>
                 </StackLayout>
             </StackLayout>
         </ScrollView>
