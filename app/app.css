@@ -160,6 +160,7 @@ SegmentedBar {
 .icon-image {
     vertical-align: center;
     horizontal-align: left;
+    margin: 20px 0 0 10px;
 }
 
 .action-wrap {

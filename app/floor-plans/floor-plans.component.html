@@ -1,15 +1,13 @@
 <ActionBar class="action-bar">
-    <!--This is for android-->
     <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
-    <!--This is for ios-->
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
         ios.position="left"></ActionItem>
-    <!--Home button for Android  Need to add tap functionality and redirect route to session-list for both andoir+ios like above-->
+    <!--Home button for Android -->
     <!-- <NavigationButton ios:visibility="collapsed" icon="res://ic_home_white" (tap)="homeTap()"></NavigationButton> -->
     <!--Home button for ios -->
     <!-- <ActionItem class="home-button" icon="res://ic_home_white" ios.position="right" android:visibility="collapsed" (tap)="homeTap()"
         ios.position="right"></ActionItem> -->
-    <Label class="action-bar-title" text="Floor Plans"></Label>
+   <Label class="action-bar-title" text="Floor Plans"></Label>
 </ActionBar>
 
 <!--RadSideDrawer Allows for scrolling across page-->
