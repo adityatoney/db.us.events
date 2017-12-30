@@ -3,10 +3,10 @@
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
         ios.position="left"></ActionItem>
     <!--Home button for Android -->
-    <!-- <NavigationButton ios:visibility="collapsed" icon="res://ic_home_white" (tap)="homeTap()"></NavigationButton> -->
+    <NavigationButton ios:visibility="collapsed" android.position="actionBar" icon="res://ic_home_white" (tap)="homeTap()"></NavigationButton>
     <!--Home button for ios -->
-    <!-- <ActionItem class="home-button" icon="res://ic_home_white" ios.position="right" android:visibility="collapsed" (tap)="homeTap()"
-        ios.position="right"></ActionItem> -->
+    <ActionItem class="home-button" icon="res://ic_home_white" ios.position="right" android:visibility="collapsed" (tap)="homeTap()"
+        ios.position="right"></ActionItem>
    <Label class="action-bar-title" text="Floor Plans"></Label>
 </ActionBar>
 
