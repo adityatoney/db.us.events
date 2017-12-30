@@ -1,7 +1,8 @@
 
 <GridLayout rows="auto, *" class="sidedrawer sidedrawer-left">
     <StackLayout row="0" class="sidedrawer-header">
-        <Label class="sidedrawer-header-brand" text="Gurupurnima 2018, USA" style="margin-top: 10; font-weight: bold; font-size: 16;"></Label>
+        <Label class="sidedrawer-header-image fa" text="&#xf2bd;"></Label>
+        <Label class="sidedrawer-header-brand" text="Gurupurnima 2018, USA" style="font-weight: bold; font-size: 16; padding-bottom:15px;"></Label>
     </StackLayout>
 
     <ScrollView row="1">
@@ -14,6 +15,7 @@
 
             <MyDrawerItem title="Floor Plans" route="/floor-plans" icon="&#xe94b;" [isSelected]="isPageSelected('Floor Plans')"></MyDrawerItem>
             <MyDrawerItem title="Location" route="/location" icon="&#xe947;" [isSelected]="isPageSelected('Location')"></MyDrawerItem>
+             <MyDrawerItem title="General Information" route="/general-information" icon="&#xe94b;" [isSelected]="isPageSelected('General Information')"></MyDrawerItem>
         </StackLayout>
     </ScrollView>
 </GridLayout>

@@ -21,7 +21,9 @@
 
 				<StackLayout class="session-title-container" margin="16 16 16 0" row="1" col="1">
 					<Label [text]="session.title" textWrap="true" class="session-page-title"></Label>
-					<Label [text]="session.range + ', ' + session.room + ', ' + 'First Floor'" textWrap="true" class="session-page-subtitle"></Label>
+					<Label [text]="session.range + ', ' + session.room + ', '" textWrap="true" class="session-page-subtitle"></Label>
+					<!-- Need to add floorplans as session.floor for custom floor rendering -->
+					<Label text="First Floor" (tap)="onTapFloorPlan()" textWrap="true" class="session-page-subtitle"></Label>
 				</StackLayout>
 
 			</GridLayout>
@@ -44,7 +46,7 @@
 					<Label text="SPEAKERS" class="section-header" row="3" col="1"></Label>
 
 					<ListView id="sepakers-list" [items]="session.speakers" row="4" colSpan="2" height="{{ session.speakers.length * 72 + 46 }}"
-					 selectedBackgroundColor="#fac950" separatorColor="#FFFFFF">
+					 selectedBackgroundColor="#F44336" separatorColor="#FFFFFF">
 						<ng-template let-item="item">
 							<GridLayout columns="56, *" class="speakers-row" (swipe)="backSwipe($event)">
 								<Image [src]="item.picture" class="speaker-image" stretch="aspectFit" rowSpan="2"></Image>

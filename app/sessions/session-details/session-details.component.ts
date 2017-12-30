@@ -65,6 +65,11 @@ export class SessionDetailsComponent implements OnInit {
     this.routerExtensions.back();
   }
 
+  public onTapFloorPlan() {
+    let link = ['/floor-plans'];
+    this.routerExtensions.navigate(link);
+  }
+
   public toggleFavorite() {
     this._sessionsService.toggleFavorite(this.session)
       .then(() => {
