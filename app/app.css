@@ -1,11 +1,11 @@
 /* Page */
 Page {
-    background-color: #fac950;
+    background-color: #F44336;
 }
 
 .scrollViewStyle {
     margin-bottom: 0;
-    background-color: #fac950;
+    background-color: #F44336;
 }
 
 .dayScrollViewStyle {
@@ -16,7 +16,7 @@ Page {
 }
 
 .dayScrollViewSelectedStyle {
-    background-color: #fac950;
+    background-color: #F44336;
     width: 74;
     height: 36;
     opacity: 1;
@@ -24,7 +24,7 @@ Page {
 }
 
 .dayScrollViewBottomBorder{
-    background-color: #fac950;
+    background-color: #F44336;
     height: 2;
     vertical-align: bottom;
 }
@@ -37,7 +37,7 @@ Page {
 
 SegmentedBar {
     background-color: transparent;
-    color: #fac950;
+    color: #F44336;
     margin: 12 12;
 }
 
@@ -53,24 +53,24 @@ SegmentedBar {
     text-align: left;
     margin: 12;
     font-weight: bold;
-    height: 44;
+    /* height: 44; */
 }
 
 .slide-out-btn {
-    color: #fac950;
+    color: #F44336;
     background-color: #053140;
     font-size: 19;
-    height: 44;
+    /* height: 44; */
     text-align: left;
     horizontal-align: stretch;
     margin: 0 12;
 }
 
 .slide-out-btn-selected {
-    color: #fac950;
+    color: #F44336;
     background-color: #053140;
     font-size: 19;
-    height: 44;
+    /* height: 44; */
     text-align: left;
     horizontal-align: stretch;
     margin: 0 12;
@@ -94,14 +94,14 @@ SegmentedBar {
 }
 
 .action-bar {
-    height: 44;
-    background-color:#fac950;
+    /* height: 44; */
+    background-color:#F44336;
 }
 
 .action-bar-search {
-    height: 44;
+    /* height: 44; */
     width: 100%;
-    background-color:#fac950;
+    background-color:#F44336;
     animation-name: example-search;
     animation-duration: 1;
     animation-timing-function: ease-out;
@@ -132,7 +132,7 @@ SegmentedBar {
 
 .page-title {
     font-size: 14;
-    color: #fac950;
+    color: #F44336;
 }
 
 .session-favorite-container{
@@ -141,7 +141,7 @@ SegmentedBar {
 
 .session-page-title {
     font-size: 17;
-    color: #fac950;
+    color: #F44336;
     /* color: #e0e0e0; */
     margin-top: 200px;
     /* background-color:"ff0000"; */
@@ -153,13 +153,14 @@ SegmentedBar {
 
 .session-page-subtitle {
     font-size: 12;
-    color: #fac950;
+    color: #F44336;
     font-weight: bold;
 }
 
 .icon-image {
     vertical-align: center;
     horizontal-align: left;
+    margin: 20px 0 0 10px;
 }
 
 .action-wrap {
@@ -182,8 +183,8 @@ SegmentedBar {
 
 .search {
     font-size: 14;
-    background-color: #fac950;
-    color: #fac950;
+    background-color: #F44336;
+    color: #F44336;
 }
 
 .info {
@@ -223,7 +224,7 @@ SegmentedBar {
 
 .horizontal-line {
     height: 1;
-    background-color: #FAC950;
+    background-color: #F44336;
     vertical-align: center;
     margin: 12 0 8 0;
 }
@@ -1736,7 +1737,7 @@ SegmentedBar {
 
 .sidedrawer-header {
     background-color: #fafafa;
-    height: 60;
+    /* height: 60; */
     width: 100%
 }
 
@@ -1749,7 +1750,9 @@ SegmentedBar {
 }
 
 .sidedrawer-header-image {
-    background-color: #e0e0e0
+    background-color: #e0e0e0;
+    background-image: url('res://icon');
+    background-repeat: no-repeat;
 }
 
 .sidedrawer-left .sidedrawer-header-image {
@@ -1757,7 +1760,7 @@ SegmentedBar {
     width: 64;
     border-radius: 32;
     horizontal-align: left;
-    margin-bottom: 36
+    margin-bottom: 36;
 }
 
 .sidedrawer-center .sidedrawer-header-image {
@@ -1765,7 +1768,7 @@ SegmentedBar {
     width: 74;
     border-radius: 37;
     horizontal-align: center;
-    margin-bottom: 24
+    margin-bottom: 24;
 }
 
 .sidedrawer-header-brand {
@@ -1798,12 +1801,12 @@ SegmentedBar {
 }
 
 .sidedrawer-list-item.active {
-    color: #fac950;
+    color: #F44336;
     background-color: #F8F8F8
 }
 
 .sidedrawer-list-item.active .sidedrawer-list-item-icon {
-    color: #fac950
+    color: #F44336
 }
 
 .sidedrawer-left .sidedrawer-list-item-icon {
