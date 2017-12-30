@@ -19,3 +19,4 @@ platforms/android/*
 *.ipa
 *.js
 .cloud/
+.DS_Store

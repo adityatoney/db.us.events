@@ -21,7 +21,9 @@
 
 				<StackLayout class="session-title-container" margin="16 16 16 0" row="1" col="1">
 					<Label [text]="session.title" textWrap="true" class="session-page-title"></Label>
-					<Label [text]="session.range + ', ' + session.room + ', ' + 'First Floor'" textWrap="true" class="session-page-subtitle"></Label>
+					<Label [text]="session.range + ', ' + session.room + ', '" textWrap="true" class="session-page-subtitle"></Label>
+					<!-- Need to add floorplans as session.floor for custom floor rendering -->
+					<Label text="First Floor" (tap)="onTapFloorPlan()" textWrap="true" class="session-page-subtitle"></Label>
 				</StackLayout>
 
 			</GridLayout>
