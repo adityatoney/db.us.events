@@ -1,3 +1,4 @@
+@import url('~/platform.scss');
 /* Page */
 Page {
     background-color: #F44336;
@@ -102,13 +103,13 @@ SegmentedBar {
     /* height: 44; */
     width: 100%;
     background-color:#F44336;
-    animation-name: example-search;
+    animation-name: linear-search;
     animation-duration: 1;
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;
 }
 
-@keyframes example-search {
+@keyframes linear-search {
     from { transform: translate(100, 0); }
     to { transform: translate(0, 0); }
 }
@@ -123,6 +124,7 @@ SegmentedBar {
 .darker { 
     /* causing VS Code css to reformat to single line*/
     background-color: #57000000;
+    /* background-color: #1b1b1b; */
 }
 
 .page-header {
@@ -160,12 +162,12 @@ SegmentedBar {
 .icon-image {
     vertical-align: center;
     horizontal-align: left;
-    margin: 20px 0 0 10px;
+    margin: 5px 0 0 10px;
 }
 
 .action-wrap {
     padding-left: 12;
-    padding-right: 12;
+    padding-right: 6;
 }
 
 .favourite-wrap {
@@ -265,7 +267,7 @@ SegmentedBar {
 }
 
 .menu-button {
-    margin-top: 15;
+    margin-top: 8;
 }
 
 .bar {
