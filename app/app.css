@@ -157,12 +157,6 @@ SegmentedBar {
     font-weight: bold;
 }
 
-.icon-image {
-    vertical-align: center;
-    horizontal-align: left;
-    margin: 20px 0 0 10px;
-}
-
 .action-wrap {
     padding-left: 12;
     padding-right: 12;
@@ -1718,7 +1712,11 @@ SegmentedBar {
 
 .list-group .list-group-item .list-group-item-text {
     color: #000000;
-    font-size: 14
+    font-size: 14;
+}
+
+.list-group-item-text {
+     padding-bottom: 15px
 }
 
 .page {
@@ -1973,7 +1971,12 @@ SegmentedBar {
 }
 
 .list-group .list-group-item .list-group-item-heading {
-    margin-bottom: 5
+    margin-bottom: 5;
+}
+
+.list-group-item-heading {
+    font-size: 20;
+    text-decoration: underline
 }
 
 .fa {
@@ -2009,4 +2012,8 @@ ActionBar .fa {
 
 ActionBar .icon {
     padding: 40px 40px 40px 0
+}
+
+.eventListView {
+    background-color: #e0e0e0;
 }

@@ -1,8 +1,14 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from "@angular/core";
 import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-ui/sidedrawer";
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 import { RouterExtensions } from "nativescript-angular/router";
 
+class Event {
+    constructor(public name: string) { }
+}
+
+let eventList = ["South East Gurupurnima 2018"];
+    
 @Component({
     selector: "event-list",
     moduleId: module.id,
@@ -10,10 +16,14 @@ import { RouterExtensions } from "nativescript-angular/router";
     styleUrls: ["event-list.component.scss"]
 })
 export class EventListComponent implements OnInit {
-    constructor(
-        private routerExtensions: RouterExtensions
-    ){
+    public allevents: Array<Event>;
+     
+    constructor(private routerExtensions: RouterExtensions){
+        this.allevents = [];
         
+        for (let i = 0; i < eventList.length; i++) {
+            this.allevents.push(new Event(eventList[i]));
+        }
     }
 
     @ViewChild("drawer") public drawerComponent: RadSideDrawerComponent;
@@ -31,6 +41,7 @@ export class EventListComponent implements OnInit {
     public onDrawerButtonTap(): void {
         this.drawerComponent.sideDrawer.showDrawer();
     }
+    
     public selectEvent() {
         let link = ['/sessions/1'];
         this.routerExtensions.navigate(link);
