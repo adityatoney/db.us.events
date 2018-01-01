@@ -7,11 +7,11 @@
 </ActionBar>
 
 <GridLayout class="eventListView">
-    <ListView class="list-group" [items]="allevents" (itemTap)="selectEvent()" separatorColor="#e0e0e0">
+    <ListView class="list-group" [items]="allevents" (tap)="selectEvent()" separatorColor="white">
         <ng-template let-event="item">
             <GridLayout rows="* auto" columns="*" class="list-group-item active" style="border:1;"> 
                 <Image row="0" col="0" src="~/images/jacksonville.jpg"></Image>
-                <StackLayout row="1" col="0" backgroundColor="white" class="list-group-item">
+                <StackLayout row="1" col="0" backgroundColor="#e0e0e0" class="list-group-item">
                     <Label class="list-group-item-heading" [text]="event.name"></Label>
                     <Label class="list-group-item-text fa" text="&#xf073;" [text]="'Start Date: July 22, 2018'"></Label>
                     <Label class="list-group-item-text fa" text="&#xf073;" [text]="'End Date: July 28, 2018'"></Label>          
