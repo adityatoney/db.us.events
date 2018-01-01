@@ -16,7 +16,9 @@
          <Label flexGrow="1" [text]="title" class="h2 p-l-15 p-r-15 p-t-15" textWrap="true"></Label>
         <Image #img style.zIndex="1" flexGrow="1" [src]="imageSrc"stretch="fill"></Image>
         <FlexboxLayout #content style.zIndex="2" flexDirection="column">
-         
+             <Label flexGrow="1" [text]="startDate" class="p-15" textWrap="true"></Label>
+             <Label flexGrow="1" [text]="endDate" class="p-15" textWrap="true"></Label>
+          <Label flexGrow="1" [text]="address" class="p-15" textWrap="true"></Label>
             <Label flexGrow="1" [text]="desc" class="p-15" textWrap="true"></Label>
            
         </FlexboxLayout>

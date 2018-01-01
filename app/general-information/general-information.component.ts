@@ -11,14 +11,17 @@ import { FlexboxLayout } from "ui/layouts/flexbox-layout";
 @Component({
     selector: "general-information",
     moduleId: module.id,
+    // styleUrls: ["general-information.component.scss"],
     templateUrl: "./general-information.component.html"
 })
 export class GeneralInformationComponent implements OnInit {
     
     public title: string;
+    public startDate: string;
     public desc: string;
+    public endDate: string;
+    public address: string;
     public imageSrc: string;
-    public bgSrc: string;
     public image: Image;
     public flex: FlexboxLayout;
 
@@ -45,15 +48,10 @@ export class GeneralInformationComponent implements OnInit {
         this._sideDrawerTransition = new SlideInOnTopTransition();
         this.imageSrc = "~/images/jacksonville.jpg";
         this.title = "South West Gurupurnima 2018";
-        this.bgSrc= "~/images/star_unfav.png";
-        this.desc = "Start Date: July 22, 2018" +
-            "                                 " +
-            "End Date: July 28, 2018" +
-            "                            " + 
-            "                            " +
-            "Address: Jacksonville (TBD) " +
-            "                            " +
-            "Our theme for Gurupurnima 2018 is global unity, and in this spirit, our tagline is YOUnity starts with YOU! As individuals, we can all play a role in making this event a success! " ;
+        this.startDate = "Start Date: July 22, 2018";
+        this.endDate = "End Date: July 28, 2018";
+        this.address = "Address: Jacksonville (TBD) ";
+       this.desc = "Our theme for Gurupurnima 2018 is global unity, and in this spirit, our tagline is YOUnity starts with YOU! As individuals, we can all play a role in making this event a success! " ;
         this.image = this.img.nativeElement;
         this.flex = this.content.nativeElement;
     }
