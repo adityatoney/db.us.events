@@ -49,7 +49,7 @@ export class SessionsComponent implements OnInit {
     public isSessionsPage = true;
     public showSearchBar = false;
     public selectedViewIndex: number;
-    public actionBarTitle: string = "All sessions";
+    public actionBarTitle: string = "Sessions";
     public selectedPageTitle: string = "";
     public selectedIndex: number;
     public selectedSession: SessionModel = null;
@@ -86,7 +86,7 @@ export class SessionsComponent implements OnInit {
             
             this.selectedViewIndex = +params["id"];
             if (this.selectedViewIndex === 1) {
-                this.selectedPageTitle = "Agenda";
+                this.selectedPageTitle = "Sessions";
             } else {
                 this.selectedPageTitle = "My Sessions";
             }

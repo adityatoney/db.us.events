@@ -1,28 +1,28 @@
 <ActionBar class="action-bar">
-    <NavigationButton ios:visibility="collapsed" icon="res://navigation/menu" (tap)="onDrawerButtonTap()"></NavigationButton>
-    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
+    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+    <ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
     </ActionItem>
-    <Label class="action-bar-title" text="Genral Information"></Label>
+    <Label class="action-bar-title" text="Event Information"></Label>
 </ActionBar>
 
 <RadSideDrawer #drawer showOverNavigation="true" [drawerTransition]="sideDrawerTransition">
     <StackLayout tkDrawerContent>
-        <MyDrawer [selectedPage]="'General Information'"></MyDrawer>
+        <MyDrawer [selectedPage]="'Event Info'"></MyDrawer>
     </StackLayout>
     <GridLayout class="page page-content" tkMainContent>
-      <!-- >> content-paralax-page-html -->
-<ScrollView sdkExampleTitle sdkToggleNavButton  (scroll)="onScroll($event)">
-    <FlexboxLayout flexDirection="column">
-         <Label flexGrow="1" [text]="title" class="h2 p-l-15 p-r-15 p-t-15" textWrap="true"></Label>
-        <Image #img style.zIndex="1" flexGrow="1" [src]="imageSrc"stretch="fill"></Image>
-        <FlexboxLayout #content style.zIndex="2" flexDirection="column">
-             <Label flexGrow="1" [text]="startDate" class="p-15" textWrap="true"></Label>
-             <Label flexGrow="1" [text]="endDate" class="p-15" textWrap="true"></Label>
-          <Label flexGrow="1" [text]="address" class="p-15" textWrap="true"></Label>
-            <Label flexGrow="1" [text]="desc" class="p-15" textWrap="true"></Label>
-           
-        </FlexboxLayout>
-    </FlexboxLayout>
-</ScrollView> 
+        <ScrollView sdkExampleTitle sdkToggleNavButton  (scroll)="onScroll($event)">
+            <FlexboxLayout flexDirection="column">
+                <Image #img style.zIndex="1" flexGrow="1" [src]="imageSrc"stretch="fill"></Image>
+                <Label flexGrow="1" [text]="title" class="h2 p-l-10 p-t-10" textWrap="true" style="text-decoration: underline;"></Label>
+                <FlexboxLayout #content style.zIndex="2" flexDirection="column">
+                    <Label flexGrow="1" [text]="startDate" class="p-l-10 p-t-10" textWrap="true"></Label>
+                    <Label flexGrow="1" [text]="endDate" class="p-l-10 p-t-10" textWrap="true"></Label>
+                    <Label flexGrow="1" [text]="address" class="p-l-10 p-t-10" textWrap="true"></Label>
+                    <!-- <Label flexGrow="1" [text]="desc" class="p-l-10 p-t-10" textWrap="true"></Label> -->
+                    <Label flexGrow="1" [text]="scheduleTitle" class="h3 p-l-10 p-t-10" textWrap="true" style="text-decoration: underline;"></Label>
+                    <Label flexGrow="1" [text]="schedule" class="p-l-10" textWrap="true"></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+        </ScrollView> 
        </GridLayout>
 </RadSideDrawer>
