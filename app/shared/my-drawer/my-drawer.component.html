@@ -8,15 +8,13 @@
 
     <ScrollView row="1">
         <StackLayout class="sidedrawer-content">
+            <MyDrawerItem title="Event Info" route="/general-information" icon="&#xe94b;" [isSelected]="isPageSelected('Event Info')"></MyDrawerItem>
             <MyDrawerItem title="Event List" route="/event-list" icon="&#xe904;" [isSelected]="isPageSelected('Event List')"></MyDrawerItem>
-            <MyDrawerItem title="Agenda" route="/sessions/1" icon="&#xe953;" [isSelected]="isPageSelected('Agenda')"></MyDrawerItem>
-            <MyDrawerItem title="My Sessions" route="/sessions/0" icon="&#xe9d9;" [isSelected]="isPageSelected('My Sessions')"></MyDrawerItem>
-
-            <StackLayout class="hr-light"></StackLayout>
-
             <MyDrawerItem title="Floor Plans" route="/floor-plans" icon="&#xe94b;" [isSelected]="isPageSelected('Floor Plans')"></MyDrawerItem>
             <MyDrawerItem title="Location" route="/location" icon="&#xe947;" [isSelected]="isPageSelected('Location')"></MyDrawerItem>
-             <MyDrawerItem title="General Information" route="/general-information" icon="&#xe94b;" [isSelected]="isPageSelected('General Information')"></MyDrawerItem>
+            <MyDrawerItem title="Sessions" route="/sessions/1" icon="&#xe953;" [isSelected]="isPageSelected('Sessions')"></MyDrawerItem>
+            <StackLayout class="hr-light"></StackLayout>
+            <MyDrawerItem title="My Sessions" route="/sessions/0" icon="&#xe9d9;" [isSelected]="isPageSelected('My Sessions')"></MyDrawerItem>
         </StackLayout>
     </ScrollView>
 </GridLayout>
