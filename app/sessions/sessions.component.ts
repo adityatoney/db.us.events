@@ -40,7 +40,8 @@ let _blurEffectView = null;
 @Component({
     moduleId: module.id,
     selector: "sessions",
-    templateUrl: "./sessions.component.html"
+    templateUrl: "./sessions.component.html",
+    styleUrls: ["sessions.component.scss"]
 })
 export class SessionsComponent implements OnInit {
 
