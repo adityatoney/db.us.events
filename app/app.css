@@ -1,3 +1,4 @@
+@import url('~/platform.css');
 /* Page */
 Page {
     background-color: #F44336;
@@ -102,13 +103,13 @@ SegmentedBar {
     /* height: 44; */
     width: 100%;
     background-color:#F44336;
-    animation-name: example-search;
+    animation-name: linear-search;
     animation-duration: 1;
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;
 }
 
-@keyframes example-search {
+@keyframes linear-search {
     from { transform: translate(100, 0); }
     to { transform: translate(0, 0); }
 }
@@ -123,6 +124,7 @@ SegmentedBar {
 .darker { 
     /* causing VS Code css to reformat to single line*/
     background-color: #57000000;
+    /* background-color: #1b1b1b; */
 }
 
 .page-header {
@@ -141,8 +143,7 @@ SegmentedBar {
 
 .session-page-title {
     font-size: 17;
-    color: #F44336;
-    /* color: #e0e0e0; */
+    color: #f57c00;
     margin-top: 200px;
     /* background-color:"ff0000"; */
 }
@@ -153,13 +154,24 @@ SegmentedBar {
 
 .session-page-subtitle {
     font-size: 12;
-    color: #F44336;
+    color: #f57c00;
     font-weight: bold;
+}
+
+.icon-image {
+    vertical-align: center;
+    horizontal-align: left;
+    margin: 0 0 0 10px;
+}
+.icon-image-back-details {
+    vertical-align: center;
+    horizontal-align: left;
+    margin: 25px 0 0 13px;
 }
 
 .action-wrap {
     padding-left: 12;
-    padding-right: 12;
+    padding-right: 6;
 }
 
 .favourite-wrap {
@@ -259,7 +271,7 @@ SegmentedBar {
 }
 
 .menu-button {
-    margin-top: 15;
+    margin-top: 8;
 }
 
 .bar {
@@ -1707,7 +1719,7 @@ SegmentedBar {
 }
 
 .list-group .list-group-item.active {
-    background-color: #e0e0e0
+    background-color: white;
 }
 
 .list-group .list-group-item .list-group-item-text {
@@ -2015,5 +2027,5 @@ ActionBar .icon {
 }
 
 .eventListView {
-    background-color: #e0e0e0;
+    background-color: white;
 }
