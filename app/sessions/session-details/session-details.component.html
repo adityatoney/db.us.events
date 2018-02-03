@@ -1,7 +1,7 @@
 <StackLayout class="session-detail-wrapper">
 	<StackLayout *ngIf="session">
 
-		<GridLayout rows="auto, *" (swipe)="backSwipe($event)">
+		<GridLayout rows="auto, auto, *" (swipe)="backSwipe($event)">
 			<!-- HEADER -->
 			
 			<GridLayout columns="auto, *" rows="auto, auto" class="page-header">
@@ -22,15 +22,26 @@
 				<StackLayout class="session-title-container" margin="16 16 16 0" row="1" col="1">
 					<Label [text]="session.title" textWrap="true" class="session-page-title"></Label>
 					<Label [text]="session.range + ', ' + session.room + ', '" textWrap="true" class="session-page-subtitle"></Label>
-					<!-- Need to add floorplans as session.floor for custom floor rendering -->
 					<Label text="First Floor" (tap)="onTapFloorPlan()" textWrap="true" class="session-page-subtitle"></Label>
 				</StackLayout>
 
 			</GridLayout>
+			<!-- Added -->
+			<!-- <GridLayout columns="auto, *" >
+				<GridLayout class="session-favorite-container" row="1">
+					<session-favorite [item]="session"></session-favorite>
+				</GridLayout>
 
+				<StackLayout class="session-title-container" margin="16 16 16 0" row="1" col="1" class="page-sub-headers">
+					<Label [text]="session.title" textWrap="true" class="session-page-title"></Label>
+					<Label [text]="session.range + ', ' + session.room + ', '" textWrap="true" class="session-page-subtitle"></Label>
+					<Label text="First Floor" (tap)="onTapFloorPlan()" textWrap="true" class="session-page-subtitle"></Label>
+				</StackLayout>
+			</GridLayout> -->
+			
 			<!-- Content -->
 			<ScrollView row="1" id="scroll">
-				<GridLayout row="1" rows="auto, auto, auto, auto, *" columns="56, *" class="content">
+				<GridLayout row="1" rows="auto, auto, auto, auto, auto, *" columns="56, *" class="content">
 					<!-- Description -->
 					<GridLayout #lblDescWrapper col="1" style="width: 100%" (loaded)="descWrapperLoaded(lblDescWrapper, txtDesc, lblDesc)">
 						<TextView #txtDesc class="description" editable="false" [text]="session.description" style="padding: 1; margin: 1;vertical-align: top; width:100%;"></TextView>
@@ -38,7 +49,7 @@
 					</GridLayout>
 					<!-- Button -->
 					<Button #btnDesc text="MORE" (tap)="toogleDescription(lblDescWrapper)" class="more-button" row="1" col="1"></Button>
-
+					
 					<!-- Line -->
 					<StackLayout class="horizontal-line" row="2" col="1" margin="0 0 0 0"></StackLayout>
 
@@ -61,6 +72,7 @@
 							</GridLayout>
 						</ng-template>
 					</ListView>
+					
 				</GridLayout>
 			</ScrollView>
 
