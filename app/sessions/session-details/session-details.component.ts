@@ -82,10 +82,10 @@ export class SessionDetailsComponent implements OnInit {
     this.descHeight = lblHeight;
 
     lblDesc.visibility = "collapse";
-    lblDescWrapper.height = 60;
+    lblDescWrapper.height = 100;
 
     if (txtDesc.ios) {
-      txtDesc.ios.scrollEnabled = false;
+      txtDesc.ios.scrollEnabled = true;
     }
     if (txtDesc.android) {
       // txtDesc.android.//android equivalent of scrollEnabled
@@ -96,16 +96,16 @@ export class SessionDetailsComponent implements OnInit {
   public toogleDescription(wrapper: Layout) {
     let btn = <Button>this.btnDesc.nativeElement;
     let lbl = <Label>this.lblDesc.nativeElement;
-    if (btn.text === "MORE") {
-      btn.text = "LESS";
+    if (btn.text === "LESS") {
+      btn.text = "MORE";
       // lbl.text = this.session.description;
-      changeHeight(wrapper, toTheFifth, 1000, 60, this.descHeight);
+      changeHeight(wrapper, toTheFifth, 1000, 100, this.descHeight);
     }
     else {
-      btn.text = "MORE";
+      btn.text = "LESS";
       // lbl.text = this.session.descriptionShort;
       // scroll.scrollToVerticalOffset(0, false);
-      changeHeight(wrapper, toTheFifth, 1000, this.descHeight, 60);
+      changeHeight(wrapper, toTheFifth, 1000, this.descHeight, 100);
     }
   }
 
