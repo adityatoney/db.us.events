@@ -10,9 +10,6 @@
 					<StackLayout (tap)="backTap()" orientation="horizontal" class="action-wrap" horizontalAlignment="left">
 						<Image stretch="none" class="icon-image-back-details" src="res://ic_arrow_back"></Image>
 					</StackLayout>
-					<!-- <StackLayout (tap)="backTap()" orientation="horizontal" class="action-wrap" horizontalAlignment="right">
-						<Image stretch="none" class="icon-image" src="res://ic_home_white"></Image>
-					</StackLayout> -->
 				</GridLayout>
 				
 				<GridLayout class="session-favorite-container" row="1">
@@ -37,7 +34,7 @@
 						<Label #lblDesc class="description" textWrap="true" id="txtDescription" [text]="session.description"></Label>
 					</GridLayout>
 					<!-- Button -->
-					<Button #btnDesc text="MORE" (tap)="toogleDescription(lblDescWrapper)" class="more-button" row="1" col="1"></Button>
+					<Button #btnDesc text="LESS" (tap)="toogleDescription(lblDescWrapper)" class="more-button" row="1" col="1"></Button>
 
 					<!-- Line -->
 					<StackLayout class="horizontal-line" row="2" col="1" margin="0 0 0 0"></StackLayout>
@@ -49,7 +46,7 @@
 					 selectedBackgroundColor="#F44336" separatorColor="#FFFFFF">
 						<ng-template let-item="item">
 							<GridLayout columns="56, *" class="speakers-row" (swipe)="backSwipe($event)">
-								<Image [src]="item.picture" class="speaker-image" stretch="aspectFit" rowSpan="2"></Image>
+								<Image src="https://docs.nativescript.org/img/cli-getting-started/angular/chapter0/NativeScript_logo.png" class="speaker-image" stretch="aspectFit" rowSpan="2"></Image>
 
 								<StackLayout col="1">
 									<StackLayout orientation="horizontal">
