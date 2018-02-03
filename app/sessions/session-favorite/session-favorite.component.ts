@@ -40,42 +40,15 @@ export class SessionFavoriteComponent {
 
     private toggleFavVisual(session: SessionModel, lbl: Label) {
         return new Promise((resolve, reject) => {
-            if (!session.favorite) {
-                this.animateUnfavorite(lbl)
-                    .then(() => {
-                        resolve();
-                    });
-            } else {
                 this.animateFavorite(lbl)
                     .then(() => {
                         resolve();
                     });
-            }
         });
     }
 
     private animateFavorite(lbl: Label) {
         return new Promise((resolve, reject) => {
-            let x = 0;
-            let y = 0;
-            let index = 1;
-
-            let cancelId = setInterval(() => {
-                this.setBackgroundPosition(lbl, x + " " + y);
-                x = x - 50;
-                index++;
-                if (index === 30) {
-                    clearInterval(cancelId);
-                    resolve();
-                }
-            }, 20);
-        });
-    }
-
-    private animateUnfavorite(lbl: Label) {
-        return new Promise((resolve, reject) => {
-            this.setBackgroundPosition(lbl, "0 0");
-
             lbl.animate({
                 duration: 500,
                 scale: { x: 1.5, y: 1.5 },
@@ -89,7 +62,6 @@ export class SessionFavoriteComponent {
                     resolve();
                 });
             });
-
         });
     }
 
