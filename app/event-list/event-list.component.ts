@@ -3,6 +3,11 @@ import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-u
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 import { RouterExtensions } from "nativescript-angular/router";
 
+import { EventModel } from './../shared/event.model';
+import { EventService } from './../services/event.service';
+import { IEvent } from "../shared/interfaces";
+
+
 class Event {
     constructor(public name: string) { }
 }
@@ -17,6 +22,8 @@ let eventList = ["South East Gurupurnima 2018"];
 })
 export class EventListComponent implements OnInit {
     public allevents: Array<Event>;
+    public event: EventModel;
+    public _eventServices: EventService;
      
     constructor(private routerExtensions: RouterExtensions){
         this.allevents = [];
@@ -32,8 +39,14 @@ export class EventListComponent implements OnInit {
 
     public ngOnInit(): void {
         this._sideDrawerTransition = new SlideInOnTopTransition();
+        // console.log("TESTING before:: "); 
+        // let p = this._eventServices.loadEvents<Array<IEvent>>().
+        //     then((newSessions: Array<IEvent>) => {
+        //         console.log("DO NOTHING");
+        //     });
+        // console.log("TESTING :: ", p);
     }
-
+    
     get sideDrawerTransition(): DrawerTransitionBase {
         return this._sideDrawerTransition;
     }

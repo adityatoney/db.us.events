@@ -14,32 +14,11 @@
                 <StackLayout row="1" col="0" backgroundColor="#e0e0e0" class="list-group-item">
                     <Label class="list-group-item-heading" [text]="event.name"></Label>
                     <Label class="list-group-item-text fa" text="&#xf073;" [text]="'Start Date: July 22, 2018'"></Label>
-                    <Label class="list-group-item-text fa" text="&#xf073;" [text]="'End Date: July 28, 2018'"></Label>    
-                    <Label class="list-group-item-text fa" text="&#xf073;" [text]="'Location: Jacksonville Florida, USA'"></Label>          
+                    <Label class="list-group-item-text fa" text="&#xf073;" [text]="'End Date: July 28 2018'"></Label>    
+                    <!-- <Label class="list-group-item-text fa" text="&#xf073;" [text]="event.address + event.endDate"></Label>     -->
+                    <Label class="list-group-item-text fa" text="&#xf073;" [text]="'Location: Jacksonville Florida, USA'"></Label>       
                 </StackLayout>
             </GridLayout>
         </ng-template>
     </ListView>
 </GridLayout>
-
-<!-- <GridLayout class="page page-content" tkMainContent>
-    <ScrollView class="listView">
-        <StackLayout class="event-container">
-            <GridLayout [@slideIn]="animationState" columns="auto, *" (tap)="selectEvent()">
-                <Image class="event-image" src="~/images/jacksonville.jpg"></Image>
-                <StackLayout class="event-info-body" [@slideIn]="animationState" row="1" col="1">
-                    <Label text="South East Gurupurnima 2018" textWrap="true" class="info-bigger"></Label>
-                    <StackLayout orientation="horizontal">
-                        <Label class="date-range-img"></Label>
-                        <Label text="Start: 22-July-2018" class="info-dates bold"></Label>
-                    </StackLayout>
-                    <StackLayout orientation="horizontal">
-                        <Label class="date-range-img"></Label>
-                        <Label text="End: 28-July-2018" class="info-dates bold"></Label>    
-                    </StackLayout>
-                </StackLayout>
-            </GridLayout>
-            <StackLayout class="horizontal-line" margin="0 0 0 10"></StackLayout>
-        </StackLayout>
-    </ScrollView>
-</GridLayout> -->

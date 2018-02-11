@@ -1,12 +1,15 @@
 import * as fileSystemModule from "file-system";
 import { IRoomInfo, ISession, ISessionDay, ISessionTimeSlot, ISpeaker } from "../shared/interfaces";
-import { sessionDays, SessionTypes } from "../shared/static-data";
+import { sessionDays, SessionTypes, SessionFloor, EventList, MainSessionTitles, MainSessionDate } from "../shared/static-data";
+import { IMainEventSessions, IEvent } from './../shared/interfaces';
 
 import faker = require("faker");
+import { IScheduler } from 'rxjs/Scheduler';
 
 let NUM_SPEAKERS = 40;
 let NUM_ROOM_INFOS = 10;
 let SESSION_LENGTH = 60;
+let NUM_MAIN_SESSIONS = 5;
 
 export function generateSpeakers(): Array<ISpeaker> {
     let speakerList: Array<ISpeaker> = [];
@@ -30,6 +33,18 @@ export function generateSpeakers(): Array<ISpeaker> {
     }
     return speakerList;
 }
+export function generateSchedule(): Array<IMainEventSessions> {
+	let mainSessions: Array<IMainEventSessions> = [];
+	//Hardcoded for now, Change these to API data later
+	for(let i = 0; i < NUM_MAIN_SESSIONS; i++){
+		let s: IMainEventSessions = {
+			title: MainSessionTitles[i],
+			date: MainSessionDate[i]
+		}
+		mainSessions.push(s);
+	}
+	return mainSessions;
+}
 
 export function generateRoomInfos(): Array<IRoomInfo> {
     let roomInfoList: Array<IRoomInfo> = [];
@@ -44,6 +59,34 @@ export function generateRoomInfos(): Array<IRoomInfo> {
     }
 
     return roomInfoList;
+}
+
+export function generateEvents (schedule: Array<IMainEventSessions>): Array<IEvent> {
+    //Todo
+    let eventList: Array<IEvent> = [];
+    let idSeed = 2000;
+		console.log("GENERATING", idSeed);
+    for (let i = 0; i<EventList.length; i++){
+        let s: IEvent = {
+            id: (idSeed++).toString(),
+            name: EventList[i].name,
+            imageURL: EventList[i].imageURL,
+            address: EventList[i].address,
+            city: EventList[i].city,
+            state: EventList[i].state,
+            country: EventList[i].state,
+            zipcode: EventList[i].zipcode,
+            startDate: EventList[i].startDate,
+            endDate: EventList[i].endDate,
+            description : EventList[i].description,
+            schedule: EventList[i].schedule, // Todo, this should hold every main session for that event
+            accomodation: EventList[i].accomodation,
+            transportation: EventList[i].transportation,
+            contantInfo: EventList[i].contantInfo
+        }
+        eventList.push(s);
+    }
+    return eventList;
 }
 
 export function generateSessions(speakers: Array<ISpeaker>, roomInfos: Array<IRoomInfo>): Array<ISession> {
@@ -64,7 +107,8 @@ export function generateSessions(speakers: Array<ISpeaker>, roomInfos: Array<IRo
                     speakers: [],
                     description: "",
                     descriptionShort: "",
-                    type: ""
+                    type: "",
+                    floor: "",
                 };
                 sessionList.push(s);
             }
@@ -72,7 +116,7 @@ export function generateSessions(speakers: Array<ISpeaker>, roomInfos: Array<IRo
                 let subSpeakers = getRandomArrayElements(speakers, faker.random.number({ min: 1, max: 3 }));
                 let roomInfo = roomInfos[faker.random.number(roomInfos.length - 1)];
                 var randomTypeIndex = Math.floor(Math.random() * SessionTypes.length); 
-                				
+                var randomFloorIndex = Math.floor(Math.random() * SessionFloor.length);
                 let s: ISession = {
                     id: (idSeed++).toString(),
                     title: toTitleCase(faker.company.bs()),
@@ -84,7 +128,8 @@ export function generateSessions(speakers: Array<ISpeaker>, roomInfos: Array<IRo
                     speakers: subSpeakers,
                     description: faker.lorem.paragraph(8),
                     descriptionShort: faker.lorem.sentence(),
-                    type: SessionTypes[randomTypeIndex]
+                    type: SessionTypes[randomTypeIndex],
+                    floor: SessionFloor[randomFloorIndex],
                 };
                 sessionList.push(s);
             }
