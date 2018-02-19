@@ -17,8 +17,9 @@ import * as fakeDataServiceModule from "./fake-data.service";
 export class EventService {
 
 	public eventsLoaded = false;
-	public ignoreCache = true;
+	public ignoreCache = false; //Todo: Only refresh cache if any changes are made, or refresh upon a certain timer
 	public items: BehaviorSubject<Array<EventModel>> = new BehaviorSubject([]);
+	public events : Array<EventModel> = []; //Used for front-end html
 	private _useHttpService: boolean = false;
 	private _allEvents: Array<EventModel> = [];
 
@@ -26,9 +27,10 @@ export class EventService {
 		private _zone: NgZone,
 	) { 
 		try {
-			let cahcedEvents = <Array<EventModel>>JSON.parse(appSettingsModule.getString('ALLSESSIONS', '[]'));
-			if (cahcedEvents.length > 0 ) {
-				this._allEvents = cahcedEvents.map((s) => new EventModel(s));
+			let cachedEvents = <Array<EventModel>>JSON.parse(appSettingsModule.getString('ALLEVENTS', '[]'));
+			if (cachedEvents.length > 0 && !this.ignoreCache) {
+				this._allEvents = cachedEvents.map((s) => new EventModel(s));
+				this.events = cachedEvents.map((s) => new EventModel(s));
 				this.eventsLoaded = true;
 			}
 		}
@@ -38,7 +40,8 @@ export class EventService {
 	}
 	
 	public loadEvents<T>(): Promise<T> {
-		console.log("inside load events");
+		// console.log("inside load events");
+		//Todo: Fix ignoreCache = true, not sending back Promise.resolve
 		return new Promise((resolve, reject) => {
 			if (this.eventsLoaded && !this.ignoreCache) {
 				Promise.resolve(this._allEvents);
@@ -51,7 +54,7 @@ export class EventService {
 						});
 				}
 				else {
-					console.log("Loading event services!!");
+					// console.log("Loading event services!!");
 					return this.loadEventsViaFaker<Array<IEvent>>()
 						.then((newEvents: Array<IEvent>) => {
 								return this.updateEvents<Array<IEvent>>(newEvents);
@@ -62,8 +65,9 @@ export class EventService {
 	}
 	
 	private updateEvents<T>(newEvents: Array<IEvent>): Promise<T>{
-		console.log("Loading event services!!");
+		// console.log("Loading event services!!");
 		return new Promise<T>((resolve, reject) => {
+			this.updateCache(newEvents);
 			this._allEvents = newEvents.map((s) => new EventModel(s));
 			this.eventsLoaded = true;
 			Promise.resolve(this._allEvents);
@@ -79,11 +83,25 @@ export class EventService {
 		return httpModule.getJSON<T>(reqParams);
 	}
 	
+	public updateCache(sessions: Array<IEvent>) {
+		var sessionsJsonStr = JSON.stringify(sessions);
+		appSettingsModule.setString('ALLEVENTS', sessionsJsonStr);
+	}
+    
 	private loadEventsViaFaker<T>(): Promise<T> {
 		return new Promise<T>((resolve, reject) => {
-			let speakers = <any>fakeDataServiceModule.generateSchedule();
-			let events = <any>fakeDataServiceModule.generateEvents(speakers);
+			let scheudle = fakeDataServiceModule.generateSchedule();
+			let events = <any>fakeDataServiceModule.generateEvents(scheudle);
 			resolve(events);
+		});
+	}
+	
+	//Not used 
+	public update() {		
+		// Make sure all updates are published inside NgZone so that change detection is triggered if needed
+		this._zone.run(() => {
+			// must emit a *new* value (immutability!)
+			this.items.next([...this._allEvents]);
 		});
 	}
 }

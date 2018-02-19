@@ -53,6 +53,10 @@ export class SessionListComponent implements OnInit {
         });
     }
     
+    //Todo: Have a set timer, that refreshes the cache for both event-list and session-list to check for changes 
+    //made to the data received from API (stat-data.ts for now). When timer ticks (5mins mark), reload the loadEvents
+    //with a resetCache parameter passed in as true (override the ignoreCache with this)
+    
     public get selectedViewIndex() {
         return this._selectedViewIndex;
     }

@@ -8,6 +8,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { SessionsService } from "./services/sessions.service";
+import { EventService } from "./services/event.service";
 import { FavoritesService } from "./services/favorites.service";
 import { SessionsModule } from "./sessions/sessions.module";
 import { EventListModule } from "./event-list/event-list.module";
@@ -39,6 +40,7 @@ if(platform.isIOS) {
     ],
     providers: [
         SessionsService,
+        EventService,
         FavoritesService
     ],
     schemas: [
