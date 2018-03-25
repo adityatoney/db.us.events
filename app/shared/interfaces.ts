@@ -32,6 +32,7 @@ export interface ISession {
     descriptionShort: string;
     type: string;
     isBreak: boolean;
+    floor: string;
 }
 
 export interface IFavouriteSession {
@@ -43,4 +44,27 @@ export interface ISessionTimeSlot {
     isBreak: boolean;
     start: Date;
     end: Date;
+}
+
+export interface IEvent {
+    id: string;
+    name: string;
+    imageURL: string;
+    address: string;
+    city: string;
+    state: string;
+    country: string;
+    zipcode: string;
+    startDate: string;
+    endDate: string;
+    description: string;
+    schedule: Array<IMainEventSessions>;
+    accomodation: string;
+    transportation: string;
+    contantInfo: string; 
+}
+
+export interface IMainEventSessions {
+    title: string;
+    date: string;
 }
