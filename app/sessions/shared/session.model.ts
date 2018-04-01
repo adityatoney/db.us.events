@@ -80,6 +80,10 @@ export class SessionModel implements ISession {
         return this._session.isBreak;
     }
 
+    get floor(): string {
+        return this._session.floor;
+    }
+    
     get description(): string {
         return this._session.description;
     }
