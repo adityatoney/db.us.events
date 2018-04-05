@@ -1,4 +1,4 @@
-<ActionBar class="action-bar">
+<ActionBar *ngIf="fromDrawermenu" class="action-bar">
     <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
         ios.position="left"></ActionItem>

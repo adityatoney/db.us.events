@@ -161,6 +161,11 @@ SegmentedBar {
     font-weight: bold;
 }
 
+.floor-subtitle {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 .icon-image {
     vertical-align: center;
     horizontal-align: left;
