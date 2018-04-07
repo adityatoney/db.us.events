@@ -16,18 +16,14 @@ import { Label } from "ui/label";
 import { StackLayout } from "ui/layouts/stack-layout";
 import { ItemEventData } from "ui/list-view";
 import { Page } from "ui/page";
-import { SearchBar } from 'ui/search-bar';
 import { SegmentedBarItem } from "ui/segmented-bar";
 import { GestureEventData, SwipeGestureEventData, SwipeDirection } from "ui/gestures";
 import { TabView, SelectedIndexChangedEventData } from "ui/tab-view";
 
 // app
-import { SessionsService } from "../services/sessions.service";
 import { hideSearchKeyboard, sessionDays } from "../shared";
 import { ISession, ISessionDay } from "../shared/interfaces";
 import { SessionModel } from "./shared/session.model";
-import { SearchFilterState } from "./shared/search.filter.model";
-import { Visibility } from "tns-core-modules/ui/enums/enums";
 
 declare var UISearchBarStyle: any;
 declare var UIImage: any;
@@ -47,28 +43,23 @@ export class SessionsComponent implements OnInit {
 
     public isLoading = true;
     public isSessionsPage = true;
-    public showSearchBar = false;
     public selectedViewIndex: number;
     public actionBarTitle: string = "Sessions";
     public selectedPageTitle: string = "";
     public selectedIndex: number;
     public selectedSession: SessionModel = null;
     @ViewChild("drawer") public drawerComponent: RadSideDrawerComponent;
-    @ViewChild("searchBar") public searchBar: ElementRef;
     
     private _sideDrawerTransition: DrawerTransitionBase;
-    private _search = "";
 
     constructor(
-        private _sessionsService: SessionsService,
-        private _zone: NgZone,
         private _page: Page,
         private _router: Router,
         private route: ActivatedRoute
     ) {
         _page.backgroundSpanUnderStatusBar = true;
+        this.setSelectedIndex(0);
         this.selectedViewIndex = 1;
-        this.setSelectedIndex(0, true);
         _page.actionBarHidden = true;
         
         console.log("SessionsComponent ctor: " + this.selectedIndex);
@@ -97,12 +88,6 @@ export class SessionsComponent implements OnInit {
     
     public load() {
         this.hideHorizontalScrollBar();
-        if (platform.isIOS) {
-            // iOS renders two thin lines above and below the SearchBar. These lines comes with the default styling applied via UISearchBarStyle.
-            // The below code will change the default search bar style to render it correctly.
-            this.searchBar.nativeElement.ios.searchBarStyle = UISearchBarStyle.Prominent;
-            this.searchBar.nativeElement.ios.backgroundImage = UIImage.new();
-        }
     }
     
     public hideHorizontalScrollBar() {
@@ -139,15 +124,10 @@ export class SessionsComponent implements OnInit {
         });
     }
     
-    private setSelectedIndex(index : number, refresh: boolean) {
+    private setSelectedIndex(index : number) {
         this.selectedIndex = index;
         this.resetIsSelected();
         sessionDays[index].isSelected = true;
-        
-        if (this._search !== "") {
-            this._search = "";
-        } 
-            this.refresh();
         
         console.log("SessionComponent selectedIndex: " + this.selectedIndex);
     }
@@ -156,7 +136,7 @@ export class SessionsComponent implements OnInit {
         let index: number = 0;
         index = sessionDays.findIndex(x => x.title == args.title);
         if (this.selectedIndex !== index) {
-            this.setSelectedIndex(index, true);
+            this.setSelectedIndex(index);
         }
     }
     
@@ -166,67 +146,16 @@ export class SessionsComponent implements OnInit {
             if (index === (sessionDays.length - 1)) {
                 // We are already at the end. Skip.
             } else {
-                this.setSelectedIndex(++index, true);
+                this.setSelectedIndex(++index);
             }
         }
         else if (args.direction === SwipeDirection.right) {
             if (index === 0) {
                 // We are already at the begining. Skip.
             } else {
-                this.setSelectedIndex(--index, true);
+                this.setSelectedIndex(--index);
             }
         }
-    }
-    
-    public get search(): string {
-        return this._search;
-    }
-    public set search(value: string) {
-        if (this._search !== value) {
-            this._search = value;
-            this.refresh();
-        }
-    }
-    
-    public onSearchBarTextChanged(args) {
-        let searchBar = <SearchBar>args.object;
-        if (this._search !== searchBar.text) {
-            this._search = searchBar.text;
-            this.refresh();
-        }
-    }
-    
-    public onSearchBarClear(args) {
-        this._search = "";
-        this.refresh();
-    }
-    
-    public hideSearchBar() {
-        this._search = "";
-        this.refresh();
-        this.showSearchBar = false;
-        this.hideSearchKeyboard();
-    }
-    
-    public searcIconTapped() {
-        this.showSearchBar = true;
-        var searchBar = this._page.getViewById("searchBar");
-        this.searchBar.nativeElement.focus();
-    }
-    
-    private refresh() {
-        console.log("SessionComponent Refresh called.");
-        
-        let searchFilterState: SearchFilterState = new SearchFilterState(
-            sessionDays[this.selectedIndex].date.getDate(),
-            this.search,
-            this.selectedViewIndex,
-            "");
-        this._sessionsService.update(searchFilterState);
-    }
-    
-    private hideSearchKeyboard() {
-        hideSearchKeyboard(this.searchBar.nativeElement);
     }
     
     public startBackgroundAnimation(background) {
@@ -249,15 +178,10 @@ export class SessionsComponent implements OnInit {
         this.selectedViewIndex = viewIndex;
         this.actionBarTitle = pageTitle;
         this.isSessionsPage = this.selectedViewIndex < 2;
-        if (this.selectedViewIndex < 2) {
-            this.refresh();
-        }
-        this.hideSearchKeyboard();
     }
 
     public sessionSelected(session: SessionModel) {
         this.selectedSession = session;
-        this.hideSearchKeyboard();
     }
 
     public hideSessionCard() {

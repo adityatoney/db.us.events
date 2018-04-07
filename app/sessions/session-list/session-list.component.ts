@@ -25,16 +25,17 @@ import { SessionModel } from "../shared/session.model";
 export class SessionListComponent implements OnInit {
 
     @Output() public notifySessionSelected: EventEmitter<SessionModel> = new EventEmitter<SessionModel>();
+    @ViewChild("searchBar") public searchBar: ElementRef;
     @Input() public sessionCardVisible: boolean;
 
+    private _search = "";
     private _selectedIndex: number = 0;
     private _selectedViewIndex: number;
 
     constructor(
         private _zone: NgZone,
         private _sessionsService: SessionsService,
-        private _routerExtensions: RouterExtensions,
-        private _changeDetectorRef: ChangeDetectorRef) {
+        private _routerExtensions: RouterExtensions) {
         this._selectedIndex = 0;
         
         console.log("SessionListComponent ctor: " + this._selectedIndex);
@@ -49,9 +50,6 @@ export class SessionListComponent implements OnInit {
                     value.triggerShow.next(true);
                 }, delay);
             });
-            // An update has happened but it hasn't been inside the Angular Zone.
-            // This will notify Angular to detect those changes
-            this._changeDetectorRef.detectChanges();
         });
     }
     
@@ -67,6 +65,7 @@ export class SessionListComponent implements OnInit {
         if (this._selectedViewIndex < 2) {
             this.refresh();
         }
+        this.hideSearchKeyboard();
     }
 
     public get selectedIndex(): number {
@@ -75,11 +74,24 @@ export class SessionListComponent implements OnInit {
     @Input() public set selectedIndex(value: number) {
         if (this._selectedIndex !== value) {
             this._selectedIndex = value;
+
+            if (this._search !== "") {
+                this._search = "";
+            }
+            this.refresh();
         }
         
-        this.refresh();
-        
         console.log("SessionListComponent selectedIndex: " + this._selectedIndex);
+    }
+    
+    public get search(): string {
+        return this._search;
+    }
+    public set search(value: string) {
+        if (this._search !== value) {
+            this._search = value;
+            this.refresh();
+        }
     }
 
     public get animationState() {
@@ -98,6 +110,7 @@ export class SessionListComponent implements OnInit {
             return;
         }
 
+        this.hideSearchKeyboard();
         if (!session.isBreak) {
             let link = ['/session-details', session.sessionId];
             this._routerExtensions.navigate(link);
@@ -113,11 +126,13 @@ export class SessionListComponent implements OnInit {
         
         let searchFilterState: SearchFilterState = new SearchFilterState(
             sessionDays[this.selectedIndex].date.getDate(),
-            "",
+            this.search,
             this.selectedViewIndex,
             "");
         this._sessionsService.update(searchFilterState);
-        
-        this._changeDetectorRef.detectChanges();
+    }
+    
+    private hideSearchKeyboard() {
+        hideSearchKeyboard(this.searchBar.nativeElement);
     }
 }
