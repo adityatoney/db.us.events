@@ -9,11 +9,11 @@
 
 					<StackLayout [@slideIn]="animationState" col="1" (tap)="selectSession($event, item)">
 						<Label [text]="item.range" class="info-orange bold"></Label>
-						<Label [text]="item.title" textWrap="true" class="info-bigger"></Label>
+						<Label [text]="item.sessionTitle" textWrap="true" class="info-bigger"></Label>
 						
 						<StackLayout orientation="horizontal">
-						<Label [visibility]="item.room ? 'visible' : 'collapse' " [text]="item.room" class="info-orange"></Label>
-							<Label [visibility]=" item.room ? 'visible' : 'collapse' " [text]=" '  ' + item.type" class="info-orange bold"></Label>
+						<Label [visibility]="item.roomName ? 'visible' : 'collapse' " [text]="item.roomName" class="info-orange"></Label>
+							<Label [visibility]=" item.roomName ? 'visible' : 'collapse' " [text]=" '  ' + item.type" class="info-orange bold"></Label>
 						</StackLayout>
 						
 					</StackLayout>

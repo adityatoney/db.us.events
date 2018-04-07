@@ -80,14 +80,14 @@ export class SessionsService {
 	
 	public applyCachedFavorites() {
 		for (let fav of this._favoritesService.favourites) {
-			var sessionObj = this._allSessions.find(x => x.id === fav.sessionId);
+			var sessionObj = this._allSessions.find(x => x.sessionId === fav.sessionId);
 			sessionObj.favorite = true;
 		}
 	};
 	
 	public getSessionById(sessionId: string) {
 		return new Promise((resolve, reject) => {
-			let filtered = this._allSessions.filter((s) => s.id === sessionId);
+			let filtered = this._allSessions.filter((s) => s.sessionId === sessionId);
 			if (filtered.length > 0) {
 				resolve(filtered[0]);
 			}
@@ -145,12 +145,12 @@ export class SessionsService {
 		}
 		else {
 			return s.startDt.getDate() === date
-				&& s.title.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+				&& s.sessionTitle.toLowerCase().indexOf(search.toLowerCase()) >= 0;
 		}
 		});
 	
 		if (viewIndex === 0) {
-		filteredSessions = filteredSessions.filter((i) => i.favorite || i.isBreak);
+			filteredSessions = filteredSessions.filter((i) => i.favorite || i.isBreak);
 		}
 	
 		// Make sure all updates are published inside NgZone so that change detection is triggered if needed

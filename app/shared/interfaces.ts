@@ -21,18 +21,19 @@ export interface IRoomInfo {
 }
 
 export interface ISession {
-    id: string;
-    title: string;
-    start: string;
-    end: string;
-    room: string;
+    sessionId: string;
+    sessionTitle: string;
+    sessionStartTime: string;
+    sessionEndTime: string;
+    roomName: string;
     roomInfo: IRoomInfo;
-    speakers: Array<ISpeaker>;
+    speakerName: string;
+    speakerId: number;
     description: string;
     descriptionShort: string;
     type: string;
     isBreak: boolean;
-    floor: string;
+    floorName: string;
 }
 
 export interface IFavouriteSession {
@@ -47,21 +48,21 @@ export interface ISessionTimeSlot {
 }
 
 export interface IEvent {
-    id: string;
-    name: string;
-    imageURL: string;
-    address: string;
-    city: string;
-    state: string;
-    country: string;
-    zipcode: string;
-    startDate: string;
-    endDate: string;
+    eventId: string;
+    eventName: string;
+    eventImageUrl: string;
+    eventStreetAddress: string;
+    eventCity: string;
+    eventState: string;
+    eventCountry: string;
+    eventZipCode: string;
+    eventStartDate: string;
+    eventEndDate: string;
     description: string;
     schedule: Array<IMainEventSessions>;
     accomodation: string;
     transportation: string;
-    contantInfo: string; 
+    contactInformation: string; 
 }
 
 export interface IMainEventSessions {

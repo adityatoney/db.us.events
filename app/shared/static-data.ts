@@ -15,16 +15,16 @@ export let MainSessionDate = ["July 22 2018", "July 23 2018", "July 24 2018", "J
 
 export let EventList: Array<IEvent> = [
     {
-    id: "0",
-    name: "South East Gurupurnima 2018",
-    imageURL: "path-to/fake-image.jpeg",
-    address: "123 Baker Street",
-    city: "Jacksonville",
-    state: "Florida",
-    country: "USA",
-    zipcode: "123456",
-    startDate: "July 22 2018",
-    endDate: "July 28 2018",
+    eventId: "0",
+    eventName: "South East Gurupurnima 2018",
+    eventImageUrl: "path-to/fake-image.jpeg",
+    eventStreetAddress: "123 Baker Street",
+    eventCity: "Jacksonville",
+    eventState: "Florida",
+    eventCountry: "USA",
+    eventZipCode: "123456",
+    eventStartDate: "July 22 2018",
+    eventEndDate: "July 28 2018",
     description: "",
     schedule: [{ // this should be an Array<IMainEventSessions> array
         title: "Welcome Ceremony",
@@ -32,6 +32,6 @@ export let EventList: Array<IEvent> = [
     }], 
     accomodation: "",
     transportation: "",
-    contantInfo: "",
+    contactInformation: "",
     }
 ];

@@ -33,16 +33,16 @@ export class FavoritesService {
     }
 
     public addToFavourites(session: ISession) { 
-        if (this.getFavouriteIndex(session.id) >= 0) {
+        if (this.getFavouriteIndex(session.sessionId) >= 0) {
             return;
         }
         
-        this.favourites.push({sessionId: session.id});
+        this.favourites.push({sessionId: session.sessionId});
         this.updateFavourites();
     }
 
     public removeFromFavourites(session: ISession) { 
-        var index = this.getFavouriteIndex(session.id);
+        var index = this.getFavouriteIndex(session.sessionId);
         if (index >= 0) {
             this.favourites.splice(index, 1);
             this.updateFavourites();

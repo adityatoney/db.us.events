@@ -11,17 +11,17 @@ export class SessionModel implements ISession {
     private _startDt: Date;
     private _endDt: Date;
 
-    get id(): string {
-        return this._session.id;
+    get sessionId(): string {
+        return this._session.sessionId;
     }
 
-    get title(): string {
-        return this._session.title;
+    get sessionTitle(): string {
+        return this._session.sessionTitle;
     }
 
-    get room(): string {
-        if (this._session.room) {
-            return this._session.room;
+    get roomName(): string {
+        if (this._session.roomName) {
+            return this._session.roomName;
         }
         if (this._session.roomInfo) {
             return this._session.roomInfo.name;
@@ -34,12 +34,12 @@ export class SessionModel implements ISession {
         return this._session.roomInfo;
     }
 
-    get start(): string {
-        return this._session.start;
+    get sessionStartTime(): string {
+        return this._session.sessionStartTime;
     }
 
-    get end(): string {
-        return this._session.end;
+    get sessionEndTime(): string {
+        return this._session.sessionEndTime;
     }
 
     get startDt(): Date {
@@ -50,8 +50,12 @@ export class SessionModel implements ISession {
         return this._endDt;
     }
 
-    get speakers(): Array<ISpeaker> {
-        return this._session.speakers;
+    get speakerName(): string {
+        return this._session.speakerName;
+    }
+    
+    get speakerId(): number {
+        return this._session.speakerId;
     }
 
     get favorite(): boolean {
@@ -80,8 +84,8 @@ export class SessionModel implements ISession {
         return this._session.isBreak;
     }
 
-    get floor(): string {
-        return this._session.floor;
+    get floorName(): string {
+        return this._session.floorName;
     }
     
     get description(): string {
@@ -104,8 +108,8 @@ export class SessionModel implements ISession {
     constructor(public source: ISession) {
         if (source) {
             this._session = source;
-            this._startDt = this.fixDate(new Date(source.start));
-            this._endDt = this.fixDate(new Date(source.end));
+            this._startDt = this.fixDate(new Date(source.sessionStartTime));
+            this._endDt = this.fixDate(new Date(source.sessionEndTime));
         }
     }
 

@@ -13,10 +13,10 @@
                 <GridLayout rows="* auto" columns="*" class="list-group-item active" style="border:1;"> 
                     <Image row="0" col="0" src="~/images/jacksonville.jpg"></Image>
                     <StackLayout row="1" col="0" backgroundColor="#e0e0e0" class="list-group-item">
-                        <Label class="list-group-item-heading" [text]="item.name"></Label>
-                        <Label class="list-group-item-text fa" text="&#xf073;" [text]="'Start Date: '+ item.startDate"></Label>
-                        <Label class="list-group-item-text fa" text="&#xf073;" [text]="'End Date: ' + item.endDate"></Label>    
-                        <Label class="list-group-item-text fa" text="&#xf073;" [text]="'Location: ' + item.city + ' ' + item.state + ', ' + item.country"></Label>       
+                        <Label class="list-group-item-heading" [text]="item.eventName"></Label>
+                        <Label class="list-group-item-text fa" text="&#xf073;" [text]="'Start Date: '+ item.eventStartDate"></Label>
+                        <Label class="list-group-item-text fa" text="&#xf073;" [text]="'End Date: ' + item.eventEndDate"></Label>    
+                        <Label class="list-group-item-text fa" text="&#xf073;" [text]="'Location: ' + item.eventCity + ' ' + item.eventState + ', ' + item.eventCountry"></Label>       
                     </StackLayout>
                 </GridLayout>
             </ng-template>

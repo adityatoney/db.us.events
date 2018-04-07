@@ -67,21 +67,21 @@ export function generateEvents (schedule: Array<IMainEventSessions>): Array<IEve
 	let idSeed = 2000;
 	for (let i = 0; i<EventList.length; i++){
 		let s: IEvent = {
-			id: (idSeed++).toString(),
-			name: EventList[i].name,
-			imageURL: EventList[i].imageURL,
-			address: EventList[i].address,
-			city: EventList[i].city,
-			state: EventList[i].state,
-			country: EventList[i].country,
-			zipcode: EventList[i].zipcode,
-			startDate: EventList[i].startDate,
-			endDate: EventList[i].endDate,
+			eventId: (idSeed++).toString(),
+			eventName: EventList[i].eventName,
+			eventImageUrl: EventList[i].eventImageUrl,
+			eventStreetAddress: EventList[i].eventStreetAddress,
+			eventCity: EventList[i].eventCity,
+			eventState: EventList[i].eventState,
+			eventCountry: EventList[i].eventCountry,
+			eventZipCode: EventList[i].eventZipCode,
+			eventStartDate: EventList[i].eventStartDate,
+			eventEndDate: EventList[i].eventEndDate,
 			description : EventList[i].description,
 			schedule: EventList[i].schedule, // Todo, this should hold every main session for that event
 			accomodation: EventList[i].accomodation,
 			transportation: EventList[i].transportation,
-			contantInfo: EventList[i].contantInfo 
+			contactInformation: EventList[i].contactInformation 
 		}
 		eventList.push(s);
 	}
@@ -96,42 +96,45 @@ export function generateSessions(speakers: Array<ISpeaker>, roomInfos: Array<IRo
 		for (let confTimeSlot of timeSlots) {
 			if (confTimeSlot.isBreak) {
 				let s: ISession = {
-					id: (idSeed++).toString(),
-					title: toTitleCase(confTimeSlot.title),
+					sessionId: (idSeed).toString(),
+					sessionTitle: toTitleCase(confTimeSlot.title),
 					isBreak: true,
-					start: confTimeSlot.start.toString(),
-					end: confTimeSlot.end.toString(),
-					room: "",
+					sessionStartTime: confTimeSlot.start.toString(),
+					sessionEndTime: confTimeSlot.end.toString(),
+					roomName: "",
 					roomInfo: null,
-					speakers: [],
+					speakerName: "",
+					speakerId: idSeed,
 					description: "",
 					descriptionShort: "",
 					type: "",
-					floor: "",
+					floorName: "",
 				};
 				sessionList.push(s);
 			}
 			else {
-				let subSpeakers = getRandomArrayElements(speakers, faker.random.number({ min: 1, max: 3 }));
 				let roomInfo = roomInfos[faker.random.number(roomInfos.length - 1)];
 				var randomTypeIndex = Math.floor(Math.random() * SessionTypes.length); 
 				var randomFloorIndex = Math.floor(Math.random() * SessionFloor.length);
 				let s: ISession = {
-					id: (idSeed++).toString(),
-					title: toTitleCase(faker.company.bs()),
+					sessionId: (idSeed++).toString(),
+					sessionTitle: toTitleCase(faker.company.bs()),
 					isBreak: false,
-					start: confTimeSlot.start.toString(),
-					end: confTimeSlot.end.toString(),
-					room: roomInfo.name,
+					sessionStartTime: confTimeSlot.start.toString(),
+					sessionEndTime: confTimeSlot.end.toString(),
+					roomName: roomInfo.name,
 					roomInfo: roomInfo,
-					speakers: subSpeakers,
+					speakerName: speakers[0].name,
+					speakerId: +speakers[0].id,
 					description: faker.lorem.paragraph(8),
 					descriptionShort: faker.lorem.sentence(),
 					type: SessionTypes[randomTypeIndex],
-					floor: SessionFloor[randomFloorIndex],
+					floorName: SessionFloor[randomFloorIndex],
 				};
 				sessionList.push(s);
 			}
+			
+			idSeed++;
 		}
 	}
 	return sessionList;

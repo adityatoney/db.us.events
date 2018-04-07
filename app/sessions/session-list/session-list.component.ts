@@ -36,6 +36,8 @@ export class SessionListComponent implements OnInit {
         private _routerExtensions: RouterExtensions,
         private _changeDetectorRef: ChangeDetectorRef) {
         this._selectedIndex = 0;
+        
+        console.log("SessionListComponent ctor: " + this._selectedIndex);
     }
 
     public ngOnInit() {
@@ -73,8 +75,11 @@ export class SessionListComponent implements OnInit {
     @Input() public set selectedIndex(value: number) {
         if (this._selectedIndex !== value) {
             this._selectedIndex = value;
-            this.refresh();
         }
+        
+        this.refresh();
+        
+        console.log("SessionListComponent selectedIndex: " + this._selectedIndex);
     }
 
     public get animationState() {
@@ -94,7 +99,7 @@ export class SessionListComponent implements OnInit {
         }
 
         if (!session.isBreak) {
-            let link = ['/session-details', session.id];
+            let link = ['/session-details', session.sessionId];
             this._routerExtensions.navigate(link);
         }
     }
@@ -104,11 +109,15 @@ export class SessionListComponent implements OnInit {
     }
 
     private refresh() {
+        console.log("SessionListComponent Refresh called.");
+        
         let searchFilterState: SearchFilterState = new SearchFilterState(
             sessionDays[this.selectedIndex].date.getDate(),
             "",
             this.selectedViewIndex,
             "");
         this._sessionsService.update(searchFilterState);
+        
+        this._changeDetectorRef.detectChanges();
     }
 }

@@ -68,8 +68,10 @@ export class SessionsComponent implements OnInit {
     ) {
         _page.backgroundSpanUnderStatusBar = true;
         this.selectedViewIndex = 1;
-        this.setSelectedIndex(0, false);
+        this.setSelectedIndex(0, true);
         _page.actionBarHidden = true;
+        
+        console.log("SessionsComponent ctor: " + this.selectedIndex);
     }
 
     public ngOnInit() {
@@ -144,9 +146,10 @@ export class SessionsComponent implements OnInit {
         
         if (this._search !== "") {
             this._search = "";
-        } else {
+        } 
             this.refresh();
-        }
+        
+        console.log("SessionComponent selectedIndex: " + this.selectedIndex);
     }
     
     public selectedIndexChange(args) {
@@ -212,6 +215,8 @@ export class SessionsComponent implements OnInit {
     }
     
     private refresh() {
+        console.log("SessionComponent Refresh called.");
+        
         let searchFilterState: SearchFilterState = new SearchFilterState(
             sessionDays[this.selectedIndex].date.getDate(),
             this.search,
