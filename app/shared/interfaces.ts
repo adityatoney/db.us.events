@@ -25,15 +25,18 @@ export interface ISession {
     sessionTitle: string;
     sessionStartTime: string;
     sessionEndTime: string;
-    roomName: string;
-    roomInfo: IRoomInfo;
-    speakerName: string;
-    speakerId: number;
-    description: string;
-    descriptionShort: string;
-    type: string;
     isBreak: boolean;
+    roomId: number;
+    roomName: string;
+    floorId: number;
     floorName: string;
+    floorPlanImageUrl: string;
+    speakerId: number;    
+    speakerName: string;
+    eventSessionTypeId: number;
+    eventSessionTypeName: string;
+    sessionPhotoUrl: string;
+    sessionContent: string;
 }
 
 export interface IFavouriteSession {

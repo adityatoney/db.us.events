@@ -25,8 +25,20 @@
 			</GridLayout>
 			<!-- Content -->
 			<ScrollView row="1" id="scroll">
-				<GridLayout row="1" rows="auto, *" columns="56, *" class="content">
-					<GridLayout row="1" colSpan="2" columns="56, *" class="speakers-row" (swipe)="backSwipe($event)">
+				<GridLayout row="1" rows="auto, auto, auto, *" columns="56, *" class="content">
+					<!-- Description -->
+					<GridLayout #lblDescWrapper col="1" style="width: 100%" (loaded)="descWrapperLoaded(lblDescWrapper, txtDesc, lblDesc)">
+						<TextView #txtDesc class="description" editable="false" [text]="session.sessionContent" style="padding: 1; margin: 1;vertical-align: top; width:100%;"></TextView>
+						<Label #lblDesc class="description" textWrap="true" id="txtDescription" [text]="session.sessionContent"></Label>
+					</GridLayout>
+					
+					<!-- Button -->
+					<Button #btnDesc text="LESS" (tap)="toogleDescription(lblDescWrapper)" class="more-button" row="1" col="1"></Button>
+					
+					<!-- Line -->
+					<StackLayout class="horizontal-line" row="2" col="1" margin="0 0 0 0"></StackLayout>
+					
+					<GridLayout row="3" colSpan="2" columns="56, *" class="speakers-row" (swipe)="backSwipe($event)">
 						<Image src="https://docs.nativescript.org/img/cli-getting-started/angular/chapter0/NativeScript_logo.png" class="speaker-image" stretch="aspectFit" rowSpan="2"></Image>
 
 						<StackLayout col="1">

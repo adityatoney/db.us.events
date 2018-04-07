@@ -101,14 +101,17 @@ export function generateSessions(speakers: Array<ISpeaker>, roomInfos: Array<IRo
 					isBreak: true,
 					sessionStartTime: confTimeSlot.start.toString(),
 					sessionEndTime: confTimeSlot.end.toString(),
+					roomId: 0,
 					roomName: "",
-					roomInfo: null,
-					speakerName: "",
-					speakerId: idSeed,
-					description: "",
-					descriptionShort: "",
-					type: "",
+					floorId: 0,
 					floorName: "",
+					floorPlanImageUrl: "",
+					speakerId: 0,					
+					speakerName: "",
+					eventSessionTypeId: 0,
+					eventSessionTypeName: "",
+					sessionPhotoUrl: "",
+					sessionContent: ""
 				};
 				sessionList.push(s);
 			}
@@ -119,17 +122,20 @@ export function generateSessions(speakers: Array<ISpeaker>, roomInfos: Array<IRo
 				let s: ISession = {
 					sessionId: (idSeed++).toString(),
 					sessionTitle: toTitleCase(faker.company.bs()),
-					isBreak: false,
 					sessionStartTime: confTimeSlot.start.toString(),
 					sessionEndTime: confTimeSlot.end.toString(),
+					isBreak: false,
+					roomId: +roomInfo.roomId,
 					roomName: roomInfo.name,
-					roomInfo: roomInfo,
-					speakerName: speakers[0].name,
-					speakerId: +speakers[0].id,
-					description: faker.lorem.paragraph(8),
-					descriptionShort: faker.lorem.sentence(),
-					type: SessionTypes[randomTypeIndex],
+					floorId: randomFloorIndex,
 					floorName: SessionFloor[randomFloorIndex],
+					floorPlanImageUrl: "",
+					speakerId: +speakers[0].id,
+					speakerName: speakers[0].name,
+					eventSessionTypeId: randomTypeIndex,
+					eventSessionTypeName: SessionTypes[randomTypeIndex],
+					sessionPhotoUrl: "",
+					sessionContent: faker.lorem.paragraph(8)
 				};
 				sessionList.push(s);
 			}

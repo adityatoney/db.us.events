@@ -19,21 +19,6 @@ export class SessionModel implements ISession {
         return this._session.sessionTitle;
     }
 
-    get roomName(): string {
-        if (this._session.roomName) {
-            return this._session.roomName;
-        }
-        if (this._session.roomInfo) {
-            return this._session.roomInfo.name;
-        }
-
-        return null;
-    }
-
-    get roomInfo(): IRoomInfo {
-        return this._session.roomInfo;
-    }
-
     get sessionStartTime(): string {
         return this._session.sessionStartTime;
     }
@@ -49,15 +34,55 @@ export class SessionModel implements ISession {
     get endDt(): Date {
         return this._endDt;
     }
-
-    get speakerName(): string {
-        return this._session.speakerName;
+    
+    get isBreak(): boolean {
+        return this._session.isBreak;
+    }
+    
+    get roomId(): number {
+        return this._session.roomId;
+    }
+    
+    get roomName(): string {
+        return this._session.roomName;
+    }
+    
+    get floorId(): number {
+        return this._session.floorId;
+    }
+    
+    get floorName(): string {
+        return this._session.floorName;
+    }
+    
+    get floorPlanImageUrl(): string {
+        return this._session.floorPlanImageUrl;
     }
     
     get speakerId(): number {
         return this._session.speakerId;
     }
 
+    get speakerName(): string {
+        return this._session.speakerName;
+    }
+    
+    get eventSessionTypeId(): number {
+        return this._session.eventSessionTypeId;
+    }
+    
+    get eventSessionTypeName(): string {
+        return this._session.eventSessionTypeName;
+    }
+    
+    get sessionPhotoUrl(): string {
+        return this._session.sessionPhotoUrl;
+    }
+    
+    get sessionContent(): string {
+        return this._session.sessionContent;
+    }
+    
     get favorite(): boolean {
         return this._favorite;
     }
@@ -80,31 +105,6 @@ export class SessionModel implements ISession {
             " - " + (endHours.length === 1 ? "0" + endHours : endHours) + ":" + (endMinutes.length === 1 ? "0" + endMinutes : endMinutes) + endAM;
     }
 
-    get isBreak(): boolean {
-        return this._session.isBreak;
-    }
-
-    get floorName(): string {
-        return this._session.floorName;
-    }
-    
-    get description(): string {
-        return this._session.description;
-    }
-
-    get descriptionShort(): string {
-        if (this.description.length > 160) {
-            return this.description.substr(0, 160) + "...";
-        }
-        else {
-            return this.description;
-        }
-    }
-    
-    get type(): string {
-        return this._session.type;
-    }
-
     constructor(public source: ISession) {
         if (source) {
             this._session = source;
@@ -120,5 +120,4 @@ export class SessionModel implements ISession {
     private fixDate(date: Date): Date {
         return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
     }
-
 }

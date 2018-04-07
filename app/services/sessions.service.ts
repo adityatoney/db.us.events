@@ -141,7 +141,7 @@ export class SessionsService {
 		let filteredSessions = this._allSessions.filter((s) => {
 		if (SessionTypes.find(x => x === search.toUpperCase())) {
 			return s.startDt.getDate() === date
-				&& s.type.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+				&& s.eventSessionTypeName.toLowerCase().indexOf(search.toLowerCase()) >= 0;
 		}
 		else {
 			return s.startDt.getDate() === date
