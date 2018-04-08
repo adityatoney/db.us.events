@@ -1,22 +1,22 @@
 <StackLayout class="session-detail-wrapper">
 	<StackLayout *ngIf="session">
 
-		<GridLayout rows="auto, *" (swipe)="backSwipe($event)">
+		<!-- <GridLayout rows="auto, *" (swipe)="backSwipe($event)"> -->
 			<!-- HEADER -->
 			
-			<GridLayout columns="auto, *" rows="auto, auto" class="page-header">
-
+			<GridLayout columns="auto, *" rows="auto, auto, auto" class="page-header">
+<!-- 
 				<GridLayout class="action-bar" colSpan="2">
 					<StackLayout (tap)="backTap()" orientation="horizontal" class="action-wrap" horizontalAlignment="left">
 						<Image stretch="none" class="icon-image-back-details" src="res://ic_arrow_back"></Image>
 					</StackLayout>
-				</GridLayout>
+				</GridLayout> -->
 				
-				<GridLayout class="session-favorite-container" row="1">
+				<GridLayout class="session-favorite-container" row="1" col="0">
 					<session-favorite [item]="session"></session-favorite>
 				</GridLayout>
 
-				<StackLayout class="session-title-container" margin="16 16 16 0" row="1" col="1">
+				<StackLayout class="session-title-container" row="1" col="1">
 					<Label [text]="session.title" textWrap="true" class="session-page-title"></Label>
 					<Label [text]="session.range + ', ' + session.room + ', '" textWrap="true" class="session-page-subtitle"></Label>
 					<Label [text]="session.floor" (tap)="onTapFloorPlan()" textWrap="true" class="session-page-subtitle"></Label> 
@@ -60,6 +60,6 @@
 				</GridLayout>
 			</ScrollView>
 
-		</GridLayout>
+		<!-- </GridLayout> -->
 	</StackLayout>
 </StackLayout>

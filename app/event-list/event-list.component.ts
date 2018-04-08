@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-ui/sidedrawer";
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 import { RouterExtensions } from "nativescript-angular/router";
@@ -26,7 +26,8 @@ export class EventListComponent implements OnInit {
      
     constructor(
         private routerExtensions: RouterExtensions, 
-        public _eventServices: EventService){
+        public _eventServices: EventService, 
+        private _changeDetectorRef: ChangeDetectorRef){
         this.allevents = []; 
         if (this._eventServices.events.length > 0 ) {
             this.events = this._eventServices.events.map((s) => new EventModel(s));
@@ -52,7 +53,7 @@ export class EventListComponent implements OnInit {
             });
             // An update has happened but it hasn't been inside the Angular Zone.
             // This will notify Angular to detect those changes
-            // this._changeDetectorRef.detectChanges();
+            this._changeDetectorRef.detectChanges();
         });
         
         // console.log("TESTING before:: ", this._eventServices);  
