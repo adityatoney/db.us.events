@@ -1,3 +1,4 @@
+import { SessionModel } from "../sessions/shared/session.model";
 
 export interface ISessionDay {
     date: Date;
@@ -65,7 +66,8 @@ export interface IEvent {
     schedule: Array<IMainEventSessions>;
     accomodation: string;
     transportation: string;
-    contactInformation: string; 
+    contactInformation: string;
+    eventSessions: Array<SessionModel>;
 }
 
 export interface IMainEventSessions {

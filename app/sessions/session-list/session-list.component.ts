@@ -10,7 +10,7 @@ import { ItemEventData } from "ui/list-view";
 import { FavoritesService } from "../../services/favorites.service";
 import { SessionsService } from "../../services/sessions.service";
 import { hideSearchKeyboard, sessionDays, slideInAnimations } from "../../shared";
-import { ISession, ISessionDay } from "../../shared/interfaces";
+import { ISession, ISessionDay, IEvent } from "../../shared/interfaces";
 import { SearchFilterState } from "../shared/search.filter.model";
 import { SessionModel } from "../shared/session.model";
 
@@ -99,8 +99,8 @@ export class SessionListComponent implements OnInit {
     }
 
     public load() {
-        let p = this._sessionsService.loadSessions<Array<ISession>>()
-            .then((newSessions: Array<ISession>) => {
+        let p = this._sessionsService.loadSessions<IEvent>()
+            .then((newSessions: IEvent) => {
                 this.refresh();
             });
     }

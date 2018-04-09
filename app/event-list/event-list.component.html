@@ -6,9 +6,9 @@
     <Label class="action-bar-title" text="Event List"></Label>
 </ActionBar>
 
-<StackLayout *ngFor="let item of events">
+<StackLayout *ngFor="let item of events" (loaded)="load()">
     <GridLayout class="eventListView">
-        <ListView class="list-group" [items]="allevents" (tap)="selectEvent()" separatorColor="white">
+        <ListView class="list-group" [items]="allevents" (tap)="selectEvent($event, item)" separatorColor="white">
             <ng-template let-event="item">
                 <GridLayout rows="* auto" columns="*" class="list-group-item active" style="border:1;"> 
                     <Image row="0" col="0" src="~/images/jacksonville.jpg"></Image>

@@ -1,4 +1,5 @@
-import { IMainEventSessions, IEvent } from "../shared/interfaces";
+import { IMainEventSessions, IEvent, ISession } from "../shared/interfaces";
+import { SessionModel } from "../sessions/shared/session.model";
 
 import { BehaviorSubject } from "rxjs/Rx";
 
@@ -54,6 +55,8 @@ export class EventModel implements IEvent {
         if(this._event.schedule.length > 0){
             return this._event.schedule;
         }
+        
+        return [];
     }
     get accomodation(): string {
         if(this._event.accomodation){
@@ -71,4 +74,11 @@ export class EventModel implements IEvent {
         }
     }
     
+    get eventSessions(): Array<SessionModel> {
+        if(this._event.eventSessions.length > 0){
+            return this._event.eventSessions;
+        }
+        
+        return [];
+    }
 }

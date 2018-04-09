@@ -13,12 +13,13 @@ import { ISession } from "../shared/interfaces";
 import { SessionTypes } from "../shared/static-data";
 import { FavoritesService } from "./favorites.service";
 import * as fakeDataServiceModule from "./fake-data.service";
+import { Data } from "../providers/data/data";
 
 @Injectable()
 export class SessionsService {
 
 	public sessionsLoaded = false;
-	public ignoreCache = true; //Todo: Only refresh cache if any changes are made, or refresh upon a certain timer
+	public ignoreCache = false; //Todo: Only refresh cache if any changes are made, or refresh upon a certain timer
 	public items: BehaviorSubject<Array<SessionModel>> = new BehaviorSubject([]);
 	private _useHttpService: boolean = false;
 	private _allSessions: Array<SessionModel> = [];
@@ -26,18 +27,22 @@ export class SessionsService {
 	
 	constructor(
 		private _zone: NgZone,
-		private _favoritesService: FavoritesService
+		private _favoritesService: FavoritesService,
+		private data: Data
 	) { 
-		try {  
-		let cahcedSessions = <Array<SessionModel>>JSON.parse(appSettingsModule.getString('ALLSESSIONS', '[]'));
-		if (cahcedSessions.length > 0 && !this.ignoreCache) {
+		try {
+			var eventId = this.data.storage["eventId"];
+			console.log("SessionsService ctor EventId: " + eventId);
+			let cahcedSessions = <Array<SessionModel>>JSON.parse(appSettingsModule.getString(eventId, '[]'));
+			if (cahcedSessions.length > 0 && !this.ignoreCache) {
 			this._allSessions = cahcedSessions.map((s) => new SessionModel(s));
+			console.log("SessionsService cache: " + this._allSessions.length);
 			this.applyCachedFavorites();
 			this.sessionsLoaded = true;
 		}
 		}
 		catch (error) {
-		console.log('Error while retrieveing sessions from the local cache: ' + error);
+			console.log('Error while retrieveing sessions from the local cache: ' + error);
 		}
 	}
 	
@@ -75,7 +80,8 @@ export class SessionsService {
 	
 	public updateCache(sessions: Array<ISession>) {
 		var sessionsJsonStr = JSON.stringify(sessions);
-		appSettingsModule.setString('ALLSESSIONS', sessionsJsonStr);
+		var eventId = this.data.storage["eventId"];
+		appSettingsModule.setString(eventId, sessionsJsonStr);
 	}
 	
 	public applyCachedFavorites() {

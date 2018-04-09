@@ -33,5 +33,6 @@ export let EventList: Array<IEvent> = [
     accomodation: "",
     transportation: "",
     contactInformation: "",
+    eventSessions: []
     }
 ];

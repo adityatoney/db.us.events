@@ -81,7 +81,8 @@ export function generateEvents (schedule: Array<IMainEventSessions>): Array<IEve
 			schedule: EventList[i].schedule, // Todo, this should hold every main session for that event
 			accomodation: EventList[i].accomodation,
 			transportation: EventList[i].transportation,
-			contactInformation: EventList[i].contactInformation 
+			contactInformation: EventList[i].contactInformation,
+			eventSessions: []
 		}
 		eventList.push(s);
 	}
