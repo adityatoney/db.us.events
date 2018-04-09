@@ -6,15 +6,17 @@ import * as platformModule from "platform";
 import * as typesModule from "utils/types";
 
 import { IFavouriteSession, ISession } from "../shared/interfaces";
+import { Data } from "../providers/data/data";
 
 @Injectable()
 export class FavoritesService {
 
     public favourites: Array<IFavouriteSession> = [];
 
-    public constructor() { 
+    public constructor(private data: Data) { 
         try {
-            this.favourites = <Array<IFavouriteSession>>JSON.parse(appSettingsModule.getString('FAVOURITES', '[]'));
+            var eventId = this.data.storage["eventId"];
+            this.favourites = <Array<IFavouriteSession>>JSON.parse(appSettingsModule.getString('FAVOURITES_' + eventId, '[]'));
         }
         catch (error) {
             console.log('Error while retrieveing favourites from the local cache: ' + error);
@@ -52,6 +54,7 @@ export class FavoritesService {
     public updateFavourites() { 
         var updatedFavList = JSON.stringify(this.favourites);
         console.log('Updating favourites: ' + updatedFavList);
-        appSettingsModule.setString('FAVOURITES', updatedFavList);
+        var eventId = this.data.storage["eventId"];
+        appSettingsModule.setString('FAVOURITES_' + eventId, updatedFavList);
     }
 }

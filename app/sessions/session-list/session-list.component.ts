@@ -37,8 +37,6 @@ export class SessionListComponent implements OnInit {
         private _sessionsService: SessionsService,
         private _routerExtensions: RouterExtensions) {
         this._selectedIndex = 0;
-        
-        console.log("SessionListComponent ctor: " + this._selectedIndex);
     }
 
     public ngOnInit() {
@@ -80,8 +78,6 @@ export class SessionListComponent implements OnInit {
             }
             this.refresh();
         }
-        
-        console.log("SessionListComponent selectedIndex: " + this._selectedIndex);
     }
     
     public get search(): string {
@@ -122,8 +118,6 @@ export class SessionListComponent implements OnInit {
     }
 
     private refresh() {
-        console.log("SessionListComponent Refresh called.");
-        
         let searchFilterState: SearchFilterState = new SearchFilterState(
             sessionDays[this.selectedIndex].date.getDate(),
             this.search,

@@ -61,8 +61,6 @@ export class SessionsComponent implements OnInit {
         this.setSelectedIndex(0);
         this.selectedViewIndex = 1;
         _page.actionBarHidden = true;
-        
-        console.log("SessionsComponent ctor: " + this.selectedIndex);
     }
 
     public ngOnInit() {
@@ -128,8 +126,6 @@ export class SessionsComponent implements OnInit {
         this.selectedIndex = index;
         this.resetIsSelected();
         sessionDays[index].isSelected = true;
-        
-        console.log("SessionComponent selectedIndex: " + this.selectedIndex);
     }
     
     public selectedIndexChange(args) {

@@ -32,14 +32,14 @@ export class SessionsService {
 	) { 
 		try {
 			var eventId = this.data.storage["eventId"];
-			console.log("SessionsService ctor EventId: " + eventId);
-			let cahcedSessions = <Array<SessionModel>>JSON.parse(appSettingsModule.getString(eventId, '[]'));
+			console.log("Checking for cached session for EventId: " + eventId);
+			let cahcedSessions = <Array<SessionModel>>JSON.parse(appSettingsModule.getString('SESSIONS_' + eventId, '[]'));
 			if (cahcedSessions.length > 0 && !this.ignoreCache) {
-			this._allSessions = cahcedSessions.map((s) => new SessionModel(s));
-			console.log("SessionsService cache: " + this._allSessions.length);
-			this.applyCachedFavorites();
-			this.sessionsLoaded = true;
-		}
+				this._allSessions = cahcedSessions.map((s) => new SessionModel(s));
+				console.log("Cached sessions found: " + this._allSessions.length);
+				this.applyCachedFavorites();
+				this.sessionsLoaded = true;
+			}
 		}
 		catch (error) {
 			console.log('Error while retrieveing sessions from the local cache: ' + error);
@@ -81,7 +81,7 @@ export class SessionsService {
 	public updateCache(sessions: Array<ISession>) {
 		var sessionsJsonStr = JSON.stringify(sessions);
 		var eventId = this.data.storage["eventId"];
-		appSettingsModule.setString(eventId, sessionsJsonStr);
+		appSettingsModule.setString('SESSIONS_' + eventId, sessionsJsonStr);
 	}
 	
 	public applyCachedFavorites() {
