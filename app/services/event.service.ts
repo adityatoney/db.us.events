@@ -40,7 +40,6 @@ export class EventService {
 	}
 	
 	public loadEvents<T>(): Promise<T> {
-		// console.log("inside load events");
 		//Todo: Fix ignoreCache = true, not sending back Promise.resolve
 		return new Promise((resolve, reject) => {
 			if (this.eventsLoaded && !this.ignoreCache) {
@@ -54,7 +53,6 @@ export class EventService {
 						});
 				}
 				else {
-					// console.log("Loading event services!!");
 					return this.loadEventsViaFaker<Array<IEvent>>()
 						.then((newEvents: Array<IEvent>) => {
 								return this.updateEvents<Array<IEvent>>(newEvents);
@@ -65,7 +63,6 @@ export class EventService {
 	}
 	
 	private updateEvents<T>(newEvents: Array<IEvent>): Promise<T>{
-		// console.log("Loading event services!!");
 		return new Promise<T>((resolve, reject) => {
 			this.updateCache(newEvents);
 			this._allEvents = newEvents.map((s) => new EventModel(s));

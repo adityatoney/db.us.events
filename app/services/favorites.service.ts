@@ -17,7 +17,6 @@ export class FavoritesService {
             this.favourites = <Array<IFavouriteSession>>JSON.parse(appSettingsModule.getString('FAVOURITES', '[]'));
         }
         catch (error) {
-            console.log('Error while retrieveing favourites from the local cache: ' + error);
             this.favourites = new Array<IFavouriteSession>();
             this.updateFavourites();
         }
@@ -51,7 +50,6 @@ export class FavoritesService {
 
     public updateFavourites() { 
         var updatedFavList = JSON.stringify(this.favourites);
-        console.log('Updating favourites: ' + updatedFavList);
         appSettingsModule.setString('FAVOURITES', updatedFavList);
     }
 }

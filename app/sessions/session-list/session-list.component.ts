@@ -49,7 +49,9 @@ export class SessionListComponent implements OnInit {
             });
             // An update has happened but it hasn't been inside the Angular Zone.
             // This will notify Angular to detect those changes
-            this._changeDetectorRef.detectChanges();
+            if (!this._changeDetectorRef['destroyed']) {
+                this._changeDetectorRef.detectChanges();
+            }
         });
     }
     

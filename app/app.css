@@ -130,7 +130,7 @@ SegmentedBar {
 .page-header {
     background-image: url('res://background');
     background-size: cover;
-    height: 25%;
+    height: 22%;
 }
 
 .page-title {
@@ -147,6 +147,12 @@ SegmentedBar {
     color: #f57c00;
     margin-top: 200px;
     /* background-color:"ff0000"; */
+}
+
+.session-detail-page-title {
+    font-size: 17;
+    color: #f57c00;
+    margin-top: 150px;
 }
 
 .info-page-header {

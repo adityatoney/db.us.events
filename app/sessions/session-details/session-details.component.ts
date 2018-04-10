@@ -14,6 +14,7 @@ import { Label } from "ui/label";
 import { View } from "ui/core/view";
 import { Layout } from "ui/layouts/layout";
 import { TextView } from "ui/text-view";
+import { BottomNavigation, BottomNavigationTab, OnTabSelectedEventData } from 'nativescript-bottom-navigation';
 
 // app
 import { SessionsService } from "../../services/sessions.service";
@@ -32,6 +33,13 @@ export class SessionDetailsComponent implements OnInit {
   @ViewChild("lblDesc") public lblDesc: ElementRef;
 
   private descHeight = 20;
+
+  //Tab-View (Bottom-Navigation) Reference: https://market.nativescript.org/plugins/nativescript-bottom-navigation
+  public tabs: BottomNavigationTab[] = [
+    new BottomNavigationTab('Session Detail', 'ic_view_list_black'),
+    new BottomNavigationTab('Floor Plan', 'ic_info_black'),
+    new BottomNavigationTab('Back', 'ic_view_list_black')
+  ];
 
   constructor(
     private _page: Page,
@@ -109,6 +117,19 @@ export class SessionDetailsComponent implements OnInit {
     }
   }
 
+  onBottomNavigationTabSelected(args: OnTabSelectedEventData): void {
+    if (args.newIndex == 0 && args.oldIndex == 0) {
+      args.newIndex == 0; //default will be tab 0, dont want to redirect anywhere as they're already on event-info
+    }
+    else {
+      if (args.newIndex == 1) {
+       this.routerExtensions.navigate(['/floor-plans']);
+      }
+      else if (args.newIndex == 2) {
+        this.routerExtensions.back();
+      }
+    }
+  }
 }
 
 function changeHeight(view: View, deltaCalc: (p) => {}, duration?: number, from?: number, to?: number) {
