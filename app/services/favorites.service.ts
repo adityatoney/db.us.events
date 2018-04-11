@@ -6,15 +6,17 @@ import * as platformModule from "platform";
 import * as typesModule from "utils/types";
 
 import { IFavouriteSession, ISession } from "../shared/interfaces";
+import { Data } from "../providers/data/data";
 
 @Injectable()
 export class FavoritesService {
 
     public favourites: Array<IFavouriteSession> = [];
 
-    public constructor() { 
+    public constructor(private data: Data) { 
         try {
-            this.favourites = <Array<IFavouriteSession>>JSON.parse(appSettingsModule.getString('FAVOURITES', '[]'));
+            var eventId = this.data.storage["eventId"];
+            this.favourites = <Array<IFavouriteSession>>JSON.parse(appSettingsModule.getString('FAVOURITES_' + eventId, '[]'));
         }
         catch (error) {
             this.favourites = new Array<IFavouriteSession>();
@@ -32,16 +34,16 @@ export class FavoritesService {
     }
 
     public addToFavourites(session: ISession) { 
-        if (this.getFavouriteIndex(session.id) >= 0) {
+        if (this.getFavouriteIndex(session.sessionId) >= 0) {
             return;
         }
         
-        this.favourites.push({sessionId: session.id});
+        this.favourites.push({sessionId: session.sessionId});
         this.updateFavourites();
     }
 
     public removeFromFavourites(session: ISession) { 
-        var index = this.getFavouriteIndex(session.id);
+        var index = this.getFavouriteIndex(session.sessionId);
         if (index >= 0) {
             this.favourites.splice(index, 1);
             this.updateFavourites();
@@ -50,6 +52,8 @@ export class FavoritesService {
 
     public updateFavourites() { 
         var updatedFavList = JSON.stringify(this.favourites);
-        appSettingsModule.setString('FAVOURITES', updatedFavList);
+        console.log('Updating favourites: ' + updatedFavList);
+        var eventId = this.data.storage["eventId"];
+        appSettingsModule.setString('FAVOURITES_' + eventId, updatedFavList);
     }
 }

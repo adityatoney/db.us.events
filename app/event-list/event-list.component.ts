@@ -2,9 +2,12 @@ import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from "@angular/
 import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-ui/sidedrawer";
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 import { RouterExtensions } from "nativescript-angular/router";
+import { Router, NavigationExtras} from "@angular/router";
+import { ItemEventData } from "ui/list-view";
 
 import { EventModel } from './../shared/event.model';
 import { EventService } from './../services/event.service';
+import { Data } from "../providers/data/data";
 import { IEvent } from "../shared/interfaces";
 
 
@@ -25,10 +28,11 @@ export class EventListComponent implements OnInit {
     public events: Array<EventModel> = []; //Used for front-end html
 
     constructor(
-        private routerExtensions: RouterExtensions,
-        public _eventServices: EventService) {
-        this.allevents = [];
-        if (this._eventServices.events.length > 0) {
+        private routerExtensions: RouterExtensions, 
+        public _eventServices: EventService,
+        private data: Data){
+        this.allevents = []; 
+        if (this._eventServices.events.length > 0 ) {
             this.events = this._eventServices.events.map((s) => new EventModel(s));
         }
         //Dummy, card view seems to depend on this for initial loadup
@@ -54,13 +58,20 @@ export class EventListComponent implements OnInit {
             // This will notify Angular to detect those changes
             //this._changeDetectorRef.detectChanges();
         });
- 
+    
+        // console.log("TESTING before:: ", this._eventServices);  
         let p = this._eventServices.loadEvents<Array<IEvent>>()
             .then((newEvents: Array<IEvent>) => {
                 this.refresh();
-            });
-
+        });
+            
         this.events = this._eventServices.events.map((s) => new EventModel(s));
+        // console.log("TESTING after:: ", this.events.length);          
+        if (this.events.length > 0)
+        {
+            // console.log("Events :: ", this.events[0].eventState, this.events[0].eventCountry);
+            // console.log("EventService Events :: ", this._eventServices.events[0].eventState, this.events[0].eventCountry);
+        }
     }
 
     //Todo: Have a set timer, that refreshes the cache for both event-list and session-list to check for changes 
@@ -74,8 +85,12 @@ export class EventListComponent implements OnInit {
     public onDrawerButtonTap(): void {
         this.drawerComponent.sideDrawer.showDrawer();
     }
-
-    public selectEvent() {
+    
+    public selectEvent(args: ItemEventData, event: EventModel) {
+        this.data.storage = {
+            "eventId": event.eventId
+        }
+        
         let link = ['/sessions/1'];
         this.routerExtensions.navigate(link);
     }

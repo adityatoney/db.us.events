@@ -1,34 +1,53 @@
-<GridLayout class="session-detail-wrapper" rows="*, auto" width="100%">
-	<StackLayout *ngIf="session" row="0" orientation="vertical">
-		<!-- HEADER -->
-		<GridLayout columns="auto, *" rows="auto, auto, auto" class="page-header">
-			<GridLayout class="session-favorite-container" row="1" col="0">
-				<session-favorite [item]="session"></session-favorite>
-			</GridLayout>
+<StackLayout class="session-detail-wrapper">
+	<StackLayout *ngIf="session">
 
-			<StackLayout class="session-title-container" row="1" col="1">
-				<Label [text]="session.title" textWrap="true" class="session-detail-page-title"></Label>
-				<Label [text]="session.range + ', ' + session.room" textWrap="true" class="session-page-subtitle"></Label>
-				<!-- <Label [text]="session.floor" (tap)="onTapFloorPlan()" textWrap="true" class="session-page-subtitle"></Label> -->
-			</StackLayout>
-		</GridLayout>
-		<!-- Content -->
-		<ScrollView sdkToggleNavButton id="scroll">
-			<FlexboxLayout flexDirection="column">
-				<FlexboxLayout #content style.zIndex="2" flexDirection="column">
-					<Label flexGrow="1" [text]="session.title" class="h2 p-l-15 p-r-15 p-t-15" textWrap="true"></Label>
-					<Label flexGrow="1" [text]="session.description" class="p-15" textWrap="true"></Label>
-				</FlexboxLayout>
-			</FlexboxLayout>
-		</ScrollView>
-	</StackLayout>
-	<StackLayout row="1">
-			<BottomNavigation [tabs]="tabs"
-            activeColor="red"
-            inactiveColor="black"
-            backgroundColor="white"
-            keyLineColor="black"
-            (tabSelected)="onBottomNavigationTabSelected($event)">
-        </BottomNavigation> 
-	</StackLayout>
-</GridLayout>
+		<GridLayout rows="auto, *" (swipe)="backSwipe($event)">
+			<!-- HEADER -->
+			
+			<GridLayout columns="auto, *" rows="auto, auto" class="page-header">
+
+				<GridLayout class="action-bar" colSpan="2">
+					<StackLayout (tap)="backTap()" orientation="horizontal" class="action-wrap" horizontalAlignment="left">
+						<Image stretch="none" class="icon-image-back-details" src="res://ic_arrow_back"></Image>
+					</StackLayout>
+				</GridLayout>
+				
+				<GridLayout class="session-favorite-container" row="1">
+					<session-favorite [item]="session"></session-favorite>
+				</GridLayout>
+
+				<StackLayout class="session-title-container" margin="16 16 16 0" row="1" col="1">
+					<Label [text]="session.sessionTitle" textWrap="true" class="session-page-title"></Label>
+					<Label [text]="session.range + ', ' + session.roomName + ', '" textWrap="true" class="session-page-subtitle"></Label>
+					<Label [text]="session.floorName" (tap)="onTapFloorPlan()" textWrap="true" class="session-page-subtitle"></Label> 
+				</StackLayout>
+
+			</GridLayout>
+			<!-- Content -->
+			<ScrollView row="1" id="scroll">
+				<GridLayout row="1" rows="auto, auto, auto, *" columns="56, *" class="content">
+					<!-- Description -->
+					<GridLayout #lblDescWrapper col="1" style="width: 100%" (loaded)="descWrapperLoaded(lblDescWrapper, txtDesc, lblDesc)">
+						<TextView #txtDesc class="description" editable="false" [text]="session.sessionContent" style="padding: 1; margin: 1;vertical-align: top; width:100%;"></TextView>
+						<Label #lblDesc class="description" textWrap="true" id="txtDescription" [text]="session.sessionContent"></Label>
+					</GridLayout>
+					
+					<!-- Button -->
+					<Button #btnDesc text="LESS" (tap)="toogleDescription(lblDescWrapper)" class="more-button" row="1" col="1"></Button>
+					
+					<!-- Line -->
+					<StackLayout class="horizontal-line" row="2" col="1" margin="0 0 0 0"></StackLayout>
+					
+					<GridLayout row="3" colSpan="2" columns="56, *" class="speakers-row" (swipe)="backSwipe($event)">
+						<Image src="https://docs.nativescript.org/img/cli-getting-started/angular/chapter0/NativeScript_logo.png" class="speaker-image" stretch="aspectFit" rowSpan="2"></Image>
+
+						<StackLayout col="1">
+							<StackLayout orientation="horizontal">
+								<Label [text]="session.speakerName" class="info bold"></Label>
+							</StackLayout>
+
+							<Label [text]="session.speakerName" class="info" textWrap="true" style="font-style: italic;"></Label>
+						</StackLayout>
+					</GridLayout>
+				</GridLayout>
+			</ScrollView>
