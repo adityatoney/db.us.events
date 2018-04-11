@@ -98,12 +98,13 @@ export class SessionDetailsComponent implements OnInit {
     let lbl = <Label>this.lblDesc.nativeElement;
     if (btn.text === "LESS") {
       btn.text = "MORE";
-      // lbl.text = this.session.description;
+      lbl.text = this.session.sessionContent.substr(0, 160) + "...";
+      
       changeHeight(wrapper, toTheFifth, 1000, 100, this.descHeight);
     }
     else {
       btn.text = "LESS";
-      // lbl.text = this.session.descriptionShort;
+      lbl.text = this.session.sessionContent;
       // scroll.scrollToVerticalOffset(0, false);
       changeHeight(wrapper, toTheFifth, 1000, this.descHeight, 100);
     }
