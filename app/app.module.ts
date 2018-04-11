@@ -17,6 +17,7 @@ import { EventListModule } from "./event-list/event-list.module";
 import { LocationModule } from "./location/location.module";
 import { GeneralInformationModule } from "./general-information/general-information.module";
 import { FloorPlansModule } from "./floor-plans/floor-plans.module";
+import { Data } from "./providers/data/data";
 import * as platform from "platform";
 declare var GMSServices: any;
 
@@ -44,7 +45,8 @@ if(platform.isIOS) {
     providers: [
         SessionsService,
         EventService,
-        FavoritesService
+        FavoritesService,
+        Data
     ],
     schemas: [
         NO_ERRORS_SCHEMA

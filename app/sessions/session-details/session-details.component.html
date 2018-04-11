@@ -17,46 +17,38 @@
 				</GridLayout>
 
 				<StackLayout class="session-title-container" margin="16 16 16 0" row="1" col="1">
-					<Label [text]="session.title" textWrap="true" class="session-page-title"></Label>
-					<Label [text]="session.range + ', ' + session.room + ', '" textWrap="true" class="session-page-subtitle"></Label>
-					<Label [text]="session.floor" (tap)="onTapFloorPlan()" textWrap="true" class="session-page-subtitle"></Label> 
+					<Label [text]="session.sessionTitle" textWrap="true" class="session-page-title"></Label>
+					<Label [text]="session.range + ', ' + session.roomName + ', '" textWrap="true" class="session-page-subtitle"></Label>
+					<Label [text]="session.floorName" (tap)="onTapFloorPlan()" textWrap="true" class="session-page-subtitle"></Label> 
 				</StackLayout>
 
 			</GridLayout>
 			<!-- Content -->
 			<ScrollView row="1" id="scroll">
-				<GridLayout row="1" rows="auto, auto, auto, auto, *" columns="56, *" class="content">
+				<GridLayout row="1" rows="auto, auto, auto, *" columns="56, *" class="content">
 					<!-- Description -->
 					<GridLayout #lblDescWrapper col="1" style="width: 100%" (loaded)="descWrapperLoaded(lblDescWrapper, txtDesc, lblDesc)">
-						<TextView #txtDesc class="description" editable="false" [text]="session.description" style="padding: 1; margin: 1;vertical-align: top; width:100%;"></TextView>
-						<Label #lblDesc class="description" textWrap="true" id="txtDescription" [text]="session.description"></Label>
+						<TextView #txtDesc class="description" editable="false" [text]="session.sessionContent" style="padding: 1; margin: 1;vertical-align: top; width:100%;"></TextView>
+						<Label #lblDesc class="description" textWrap="true" id="txtDescription" [text]="session.sessionContent"></Label>
 					</GridLayout>
+					
 					<!-- Button -->
 					<Button #btnDesc text="LESS" (tap)="toogleDescription(lblDescWrapper)" class="more-button" row="1" col="1"></Button>
-
+					
 					<!-- Line -->
 					<StackLayout class="horizontal-line" row="2" col="1" margin="0 0 0 0"></StackLayout>
-
-					<!-- Speakers -->
-					<Label text="SPEAKERS" class="section-header" row="3" col="1"></Label>
-
-					<ListView id="sepakers-list" [items]="session.speakers" row="4" colSpan="2" height="{{ session.speakers.length * 72 + 46 }}"
-					 selectedBackgroundColor="#F44336" separatorColor="#FFFFFF">
-						<ng-template let-item="item">
-							<GridLayout columns="56, *" class="speakers-row" (swipe)="backSwipe($event)">
-								<Image src="https://docs.nativescript.org/img/cli-getting-started/angular/chapter0/NativeScript_logo.png" class="speaker-image" stretch="aspectFit" rowSpan="2"></Image>
-
-								<StackLayout col="1">
-									<StackLayout orientation="horizontal">
-										<Label [text]="item.name" class="info bold"></Label>
-									</StackLayout>
-
-									<Label [text]="item.title" class="info" textWrap="true" style="font-style: italic;"></Label>
-								</StackLayout>
-							</GridLayout>
-						</ng-template>
-					</ListView>
 					
+					<GridLayout row="3" colSpan="2" columns="56, *" class="speakers-row" (swipe)="backSwipe($event)">
+						<Image src="https://docs.nativescript.org/img/cli-getting-started/angular/chapter0/NativeScript_logo.png" class="speaker-image" stretch="aspectFit" rowSpan="2"></Image>
+
+						<StackLayout col="1">
+							<StackLayout orientation="horizontal">
+								<Label [text]="session.speakerName" class="info bold"></Label>
+							</StackLayout>
+
+							<Label [text]="session.speakerName" class="info" textWrap="true" style="font-style: italic;"></Label>
+						</StackLayout>
+					</GridLayout>
 				</GridLayout>
 			</ScrollView>
 
