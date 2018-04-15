@@ -6,7 +6,7 @@
     <Label class="action-bar-title" text="Event List"></Label>
 </ActionBar>
 
-<StackLayout *ngFor="let item of events" (loaded)="load()">
+<StackLayout *ngFor="let item of events">
     <GridLayout class="eventListView">
         <ListView class="list-group" [items]="allevents" (tap)="selectEvent($event, item)" separatorColor="white">
             <ng-template let-event="item">

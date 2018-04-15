@@ -130,7 +130,7 @@ SegmentedBar {
 .page-header {
     background-image: url('res://background');
     background-size: cover;
-    height: 22%;
+    height: 23%;
 }
 
 .page-title {
@@ -139,20 +139,20 @@ SegmentedBar {
 }
 
 .session-favorite-container{
-    margin-top: 100px;
+    margin-top: 70px;
 }
 
 .session-page-title {
     font-size: 17;
     color: #f57c00;
-    margin-top: 200px;
+    /* margin-top: 40px; */
     /* background-color:"ff0000"; */
 }
 
 .session-detail-page-title {
     font-size: 17;
     color: #f57c00;
-    margin-top: 150px;
+    margin-top: 120px;
 }
 
 .info-page-header {
