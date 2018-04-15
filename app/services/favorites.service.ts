@@ -19,7 +19,6 @@ export class FavoritesService {
             this.favourites = <Array<IFavouriteSession>>JSON.parse(appSettingsModule.getString('FAVOURITES_' + eventId, '[]'));
         }
         catch (error) {
-            console.log('Error while retrieveing favourites from the local cache: ' + error);
             this.favourites = new Array<IFavouriteSession>();
             this.updateFavourites();
         }

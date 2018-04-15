@@ -16,7 +16,7 @@ class Event {
 }
 
 let eventList = ["South East TEST Gurupurnima 2018"];
-    
+
 @Component({
     selector: "event-list",
     moduleId: module.id,
@@ -25,8 +25,8 @@ let eventList = ["South East TEST Gurupurnima 2018"];
 })
 export class EventListComponent implements OnInit {
     public allevents: Array<Event>;
-    public events : Array<EventModel> = []; //Used for front-end html
-     
+    public events: Array<EventModel> = []; //Used for front-end html
+
     constructor(
         private routerExtensions: RouterExtensions, 
         public _eventServices: EventService,
@@ -43,7 +43,7 @@ export class EventListComponent implements OnInit {
     @ViewChild("drawer") public drawerComponent: RadSideDrawerComponent;
 
     private _sideDrawerTransition: DrawerTransitionBase;
- 
+
     public ngOnInit(): void { //Called after constructor
         this._sideDrawerTransition = new SlideInOnTopTransition();
         this._eventServices.items.subscribe((observer) => {
@@ -56,13 +56,12 @@ export class EventListComponent implements OnInit {
             });
             // An update has happened but it hasn't been inside the Angular Zone.
             // This will notify Angular to detect those changes
-            // this._changeDetectorRef.detectChanges();
+            //this._changeDetectorRef.detectChanges();
         });
     
         // console.log("TESTING before:: ", this._eventServices);  
         let p = this._eventServices.loadEvents<Array<IEvent>>()
             .then((newEvents: Array<IEvent>) => {
-                console.log("DO NOTHING");
                 this.refresh();
         });
             
@@ -74,11 +73,11 @@ export class EventListComponent implements OnInit {
             // console.log("EventService Events :: ", this._eventServices.events[0].eventState, this.events[0].eventCountry);
         }
     }
-    
+
     //Todo: Have a set timer, that refreshes the cache for both event-list and session-list to check for changes 
     //made to the data received from API (stat-data.ts for now). When timer ticks (5mins mark), reload the loadEvents
     //with a resetCache parameter passed in as true (override the ignoreCache with this)
-    
+
     get sideDrawerTransition(): DrawerTransitionBase {
         return this._sideDrawerTransition;
     }
