@@ -130,9 +130,7 @@ SegmentedBar {
 .page-header {
     background-image: url('res://background');
     background-size: cover;
-    height: 35%;
-}
-.page-sub-headers{
+    height: 23%;
 }
 
 .page-title {
@@ -141,14 +139,20 @@ SegmentedBar {
 }
 
 .session-favorite-container{
-    margin-top: 200px;
+    margin-top: 70px;
 }
 
 .session-page-title {
     font-size: 17;
     color: #f57c00;
-    margin-top: 200px;
+    /* margin-top: 40px; */
     /* background-color:"ff0000"; */
+}
+
+.session-detail-page-title {
+    font-size: 17;
+    color: #f57c00;
+    margin-top: 120px;
 }
 
 .info-page-header {
@@ -1763,25 +1767,25 @@ SegmentedBar {
 }
 
 .sidedrawer-header-image {
-    background-color: #e0e0e0;
-    background-image: url('res://icon');
-    background-repeat: no-repeat;
+    /* background-color: #e0e0e0; */
+    /* background-image: url('res://icon'); */
+    /* background-repeat: no-repeat; */
 }
 
 .sidedrawer-left .sidedrawer-header-image {
-    height: 64;
+    /* height: 64;
     width: 64;
     border-radius: 32;
     horizontal-align: left;
-    margin-bottom: 36;
+    margin-bottom: 36; */
 }
 
 .sidedrawer-center .sidedrawer-header-image {
-    height: 74;
+    /* height: 74;
     width: 74;
     border-radius: 37;
     horizontal-align: center;
-    margin-bottom: 24;
+    margin-bottom: 24; */
 }
 
 .sidedrawer-header-brand {

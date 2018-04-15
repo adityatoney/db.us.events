@@ -14,6 +14,7 @@ import { Label } from "ui/label";
 import { View } from "ui/core/view";
 import { Layout } from "ui/layouts/layout";
 import { TextView } from "ui/text-view";
+import { BottomNavigation, BottomNavigationTab, OnTabSelectedEventData } from 'nativescript-bottom-navigation';
 
 // app
 import { SessionsService } from "../../services/sessions.service";
@@ -33,6 +34,14 @@ export class SessionDetailsComponent implements OnInit {
 
   private descHeight = 20;
   message: boolean;
+
+  //Tab-View (Bottom-Navigation) Reference: https://market.nativescript.org/plugins/nativescript-bottom-navigation
+  public tabs: BottomNavigationTab[] = [
+    new BottomNavigationTab('Session Detail', 'ic_view_list_black'),
+    new BottomNavigationTab('Floor Plan', 'ic_map'),
+    new BottomNavigationTab('Back', 'ic_arrow_back')
+  ];
+
   constructor(
     private _page: Page,
     private _sessionsService: SessionsService,
@@ -69,7 +78,6 @@ export class SessionDetailsComponent implements OnInit {
 
   public onTapFloorPlan() {
     let link = ['/floor-plans'];
-    this.data.changeMessage(true);
     this.routerExtensions.navigate(link);
   }
 
@@ -101,17 +109,35 @@ export class SessionDetailsComponent implements OnInit {
     let lbl = <Label>this.lblDesc.nativeElement;
     if (btn.text === "LESS") {
       btn.text = "MORE";
-      // lbl.text = this.session.description;
+      lbl.text = this.session.sessionContent.substr(0, 160) + "...";
+
       changeHeight(wrapper, toTheFifth, 1000, 100, this.descHeight);
     }
     else {
       btn.text = "LESS";
-      // lbl.text = this.session.descriptionShort;
+      lbl.text = this.session.sessionContent;
       // scroll.scrollToVerticalOffset(0, false);
       changeHeight(wrapper, toTheFifth, 1000, this.descHeight, 100);
     }
   }
 
+  onBottomNavigationTabSelected(args: OnTabSelectedEventData): void {
+    if (args.newIndex == 0 && args.oldIndex == 0) {
+      args.newIndex == 0; //default will be tab 0, dont want to redirect anywhere as they're already on event-info
+    }
+    else {
+      if (args.newIndex == 1) {
+        this.data.changeMessage(true);
+        console.log("setting boolean to true");
+        this.routerExtensions.navigate(['/floor-plans']);
+      }
+      else if (args.newIndex == 2) {
+        this.data.changeMessage(false);
+        console.log("setting boolean to false");
+        this.routerExtensions.back();
+      }
+    }
+  }
 }
 
 function changeHeight(view: View, deltaCalc: (p) => {}, duration?: number, from?: number, to?: number) {

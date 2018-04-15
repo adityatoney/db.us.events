@@ -10,7 +10,7 @@ import { ItemEventData } from "ui/list-view";
 import { FavoritesService } from "../../services/favorites.service";
 import { SessionsService } from "../../services/sessions.service";
 import { hideSearchKeyboard, sessionDays, slideInAnimations } from "../../shared";
-import { ISession, ISessionDay } from "../../shared/interfaces";
+import { ISession, ISessionDay, IEvent } from "../../shared/interfaces";
 import { SearchFilterState } from "../shared/search.filter.model";
 import { SessionModel } from "../shared/session.model";
 
@@ -25,8 +25,10 @@ import { SessionModel } from "../shared/session.model";
 export class SessionListComponent implements OnInit {
 
     @Output() public notifySessionSelected: EventEmitter<SessionModel> = new EventEmitter<SessionModel>();
+    @ViewChild("searchBar") public searchBar: ElementRef;
     @Input() public sessionCardVisible: boolean;
 
+    private _search = "";
     private _selectedIndex: number = 0;
     private _selectedViewIndex: number;
     message: boolean;
@@ -50,9 +52,6 @@ export class SessionListComponent implements OnInit {
                     value.triggerShow.next(true);
                 }, delay);
             });
-            // An update has happened but it hasn't been inside the Angular Zone.
-            // This will notify Angular to detect those changes
-            this._changeDetectorRef.detectChanges();
         });
     }
     
@@ -68,6 +67,7 @@ export class SessionListComponent implements OnInit {
         if (this._selectedViewIndex < 2) {
             this.refresh();
         }
+        this.hideSearchKeyboard();
     }
 
     public get selectedIndex(): number {
@@ -76,6 +76,20 @@ export class SessionListComponent implements OnInit {
     @Input() public set selectedIndex(value: number) {
         if (this._selectedIndex !== value) {
             this._selectedIndex = value;
+
+            if (this._search !== "") {
+                this._search = "";
+            }
+            this.refresh();
+        }
+    }
+    
+    public get search(): string {
+        return this._search;
+    }
+    public set search(value: string) {
+        if (this._search !== value) {
+            this._search = value;
             this.refresh();
         }
     }
@@ -85,12 +99,12 @@ export class SessionListComponent implements OnInit {
     }
 
     public load() {
-        let p = this._sessionsService.loadSessions<Array<ISession>>()
-            .then((newSessions: Array<ISession>) => {
+        this.hideSearchKeyboard();
+        let p = this._sessionsService.loadSessions<IEvent>()
+            .then((newSessions: IEvent) => {
                 this.refresh();
             });
-        // let setFloor = this._data.changeMessage(false);
-        console.log("from data after::", this._data);
+        // this._data.changeMessage(false);
     }
 
     public selectSession(args: ItemEventData, session: SessionModel) {
@@ -98,8 +112,9 @@ export class SessionListComponent implements OnInit {
             return;
         }
 
+        this.hideSearchKeyboard();
         if (!session.isBreak) {
-            let link = ['/session-details', session.id];
+            let link = ['/session-details', session.sessionId];
             this._routerExtensions.navigate(link);
         }
     }
@@ -111,10 +126,13 @@ export class SessionListComponent implements OnInit {
     private refresh() {
         let searchFilterState: SearchFilterState = new SearchFilterState(
             sessionDays[this.selectedIndex].date.getDate(),
-            "",
+            this.search,
             this.selectedViewIndex,
             "");
-        this._data.changeMessage(false);
         this._sessionsService.update(searchFilterState);
+    }
+    
+    private hideSearchKeyboard() {
+        hideSearchKeyboard(this.searchBar.nativeElement);
     }
 }

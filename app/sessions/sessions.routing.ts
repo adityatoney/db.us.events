@@ -6,8 +6,8 @@ import { SessionDetailsComponent } from "./session-details/session-details.compo
 import { SessionsComponent } from "./sessions.component";
 
 const sessionsRoutes: Routes = [
-  { path: "sessions/:id", component: SessionsComponent },
-  { path: "session-details/:id", component: SessionDetailsComponent }
+  { path: "sessions/:id", component: SessionsComponent, pathMatch: "full" },
+  { path: "session-details/:id", component: SessionDetailsComponent, pathMatch: "full" }
 ];
 
 @NgModule({

@@ -45,7 +45,7 @@ export class GeneralInformationComponent implements OnInit {
     onScroll(args: ScrollEventData) {
         if (args.scrollY <= this.flex.getMeasuredHeight()) {
             this.image.animate({
-                translate: { x: 0, y: args.scrollY * 0.3 }
+                translate: { x: 0, y: args.scrollY * 0 }
             });
         }
     }
@@ -78,7 +78,7 @@ export class GeneralInformationComponent implements OnInit {
     
     onBottomNavigationTabSelected(args: OnTabSelectedEventData): void {
         if(args.newIndex == 0 && args.oldIndex == 0){
-            console.log("do nothing"); //default will be tab 0, dont want to redirect anywhere as they're already on event-info
+           args.newIndex = 0; //default will be tab 0, dont want to redirect anywhere as they're already on event-info
         }
         else{
             if(args.newIndex == 0){

@@ -13,12 +13,13 @@ import { ISession } from "../shared/interfaces";
 import { SessionTypes } from "../shared/static-data";
 import { FavoritesService } from "./favorites.service";
 import * as fakeDataServiceModule from "./fake-data.service";
+import { Data } from "../providers/data/data";
 
 @Injectable()
 export class SessionsService {
 
 	public sessionsLoaded = false;
-	public ignoreCache = true; //Todo: Only refresh cache if any changes are made, or refresh upon a certain timer
+	public ignoreCache = false; //Todo: Only refresh cache if any changes are made, or refresh upon a certain timer
 	public items: BehaviorSubject<Array<SessionModel>> = new BehaviorSubject([]);
 	private _useHttpService: boolean = false;
 	private _allSessions: Array<SessionModel> = [];
@@ -29,18 +30,22 @@ export class SessionsService {
 	
 	constructor(
 		private _zone: NgZone,
-		private _favoritesService: FavoritesService
+		private _favoritesService: FavoritesService,
+		private data: Data
 	) { 
-		try {  
-		let cahcedSessions = <Array<SessionModel>>JSON.parse(appSettingsModule.getString('ALLSESSIONS', '[]'));
-		if (cahcedSessions.length > 0 && !this.ignoreCache) {
-			this._allSessions = cahcedSessions.map((s) => new SessionModel(s));
-			this.applyCachedFavorites();
-			this.sessionsLoaded = true;
-		}
+		try {
+			var eventId = this.data.storage["eventId"];
+			console.log("Checking for cached session for EventId: " + eventId);
+			let cahcedSessions = <Array<SessionModel>>JSON.parse(appSettingsModule.getString('SESSIONS_' + eventId, '[]'));
+			if (cahcedSessions.length > 0 && !this.ignoreCache) {
+				this._allSessions = cahcedSessions.map((s) => new SessionModel(s));
+				console.log("Cached sessions found: " + this._allSessions.length);
+				this.applyCachedFavorites();
+				this.sessionsLoaded = true;
+			}
 		}
 		catch (error) {
-		console.log('Error while retrieveing sessions from the local cache: ' + error);
+			console.log('Error while retrieveing sessions from the local cache: ' + error);
 		}
 	}
 	
@@ -83,19 +88,20 @@ export class SessionsService {
 	
 	public updateCache(sessions: Array<ISession>) {
 		var sessionsJsonStr = JSON.stringify(sessions);
-		appSettingsModule.setString('ALLSESSIONS', sessionsJsonStr);
+		var eventId = this.data.storage["eventId"];
+		appSettingsModule.setString('SESSIONS_' + eventId, sessionsJsonStr);
 	}
 	
 	public applyCachedFavorites() {
 		for (let fav of this._favoritesService.favourites) {
-			var sessionObj = this._allSessions.find(x => x.id === fav.sessionId);
+			var sessionObj = this._allSessions.find(x => x.sessionId === fav.sessionId);
 			sessionObj.favorite = true;
 		}
 	};
 	
 	public getSessionById(sessionId: string) {
 		return new Promise((resolve, reject) => {
-			let filtered = this._allSessions.filter((s) => s.id === sessionId);
+			let filtered = this._allSessions.filter((s) => s.sessionId === sessionId);
 			if (filtered.length > 0) {
 				resolve(filtered[0]);
 			}
@@ -149,16 +155,16 @@ export class SessionsService {
 		let filteredSessions = this._allSessions.filter((s) => {
 		if (SessionTypes.find(x => x === search.toUpperCase())) {
 			return s.startDt.getDate() === date
-				&& s.type.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+				&& s.eventSessionTypeName.toLowerCase().indexOf(search.toLowerCase()) >= 0;
 		}
 		else {
 			return s.startDt.getDate() === date
-				&& s.title.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+				&& s.sessionTitle.toLowerCase().indexOf(search.toLowerCase()) >= 0;
 		}
 		});
 	
 		if (viewIndex === 0) {
-		filteredSessions = filteredSessions.filter((i) => i.favorite || i.isBreak);
+			filteredSessions = filteredSessions.filter((i) => i.favorite || i.isBreak);
 		}
 	
 		// Make sure all updates are published inside NgZone so that change detection is triggered if needed
