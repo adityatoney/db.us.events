@@ -29,16 +29,19 @@ export class SessionListComponent implements OnInit {
 
     private _selectedIndex: number = 0;
     private _selectedViewIndex: number;
-
+    message: boolean;
+    
     constructor(
         private _zone: NgZone,
         private _sessionsService: SessionsService,
         private _routerExtensions: RouterExtensions,
-        private _changeDetectorRef: ChangeDetectorRef) {
+        private _changeDetectorRef: ChangeDetectorRef,
+        private _data: SessionsService) {
         this._selectedIndex = 0;
     }
 
     public ngOnInit() {
+        this._data.currentMessage.subscribe(message => this.message = message);
         this._sessionsService.items.subscribe((observer) => {
             let delay = 0;
             observer.forEach((value: SessionModel, i: number, array: Array<SessionModel>) => {
@@ -86,6 +89,8 @@ export class SessionListComponent implements OnInit {
             .then((newSessions: Array<ISession>) => {
                 this.refresh();
             });
+        // let setFloor = this._data.changeMessage(false);
+        console.log("from data after::", this._data);
     }
 
     public selectSession(args: ItemEventData, session: SessionModel) {
@@ -109,6 +114,7 @@ export class SessionListComponent implements OnInit {
             "",
             this.selectedViewIndex,
             "");
+        this._data.changeMessage(false);
         this._sessionsService.update(searchFilterState);
     }
 }

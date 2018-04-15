@@ -32,19 +32,21 @@ export class SessionDetailsComponent implements OnInit {
   @ViewChild("lblDesc") public lblDesc: ElementRef;
 
   private descHeight = 20;
-
+  message: boolean;
   constructor(
     private _page: Page,
     private _sessionsService: SessionsService,
     private route: ActivatedRoute,
     private location: Location,
-    private routerExtensions: RouterExtensions
+    private routerExtensions: RouterExtensions,
+    private data: SessionsService
   ) {
     this._page.actionBarHidden = true;
     this._page.backgroundSpanUnderStatusBar = true;
   }
 
   public ngOnInit() {
+    this.data.currentMessage.subscribe(message => this.message = message);
     this.route.params.forEach((params: Params) => {
       let id: string = params.id;
 
@@ -67,6 +69,7 @@ export class SessionDetailsComponent implements OnInit {
 
   public onTapFloorPlan() {
     let link = ['/floor-plans'];
+    this.data.changeMessage(true);
     this.routerExtensions.navigate(link);
   }
 
