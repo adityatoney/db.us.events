@@ -1,4 +1,4 @@
-<ActionBar class="action-bar" *ngIf="!message">
+<ActionBar class="action-bar">
     <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
         ios.position="left"></ActionItem>
@@ -22,7 +22,6 @@
                 <StackLayout class="floor-body">
                     <StackLayout class="hr-light"></StackLayout>
                     <Image class="floor-image" src="res://floorplan_1"></Image>
-                    <Label [text]="message" class="floor-name"></Label>
                     <Label text="First Floor" class="floor-name"></Label>
                 </StackLayout>
                 

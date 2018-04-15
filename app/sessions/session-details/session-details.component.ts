@@ -33,7 +33,6 @@ export class SessionDetailsComponent implements OnInit {
   @ViewChild("lblDesc") public lblDesc: ElementRef;
 
   private descHeight = 20;
-  message: boolean;
 
   //Tab-View (Bottom-Navigation) Reference: https://market.nativescript.org/plugins/nativescript-bottom-navigation
   public tabs: BottomNavigationTab[] = [
@@ -48,14 +47,12 @@ export class SessionDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private routerExtensions: RouterExtensions,
-    private data: SessionsService
   ) {
     this._page.actionBarHidden = true;
     this._page.backgroundSpanUnderStatusBar = true;
   }
 
   public ngOnInit() {
-    this.data.currentMessage.subscribe(message => this.message = message);
     this.route.params.forEach((params: Params) => {
       let id: string = params.id;
 
@@ -127,13 +124,9 @@ export class SessionDetailsComponent implements OnInit {
     }
     else {
       if (args.newIndex == 1) {
-        this.data.changeMessage(true);
-        console.log("setting boolean to true");
         this.routerExtensions.navigate(['/floor-plans']);
       }
       else if (args.newIndex == 2) {
-        this.data.changeMessage(false);
-        console.log("setting boolean to false");
         this.routerExtensions.back();
       }
     }

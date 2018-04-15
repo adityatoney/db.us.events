@@ -13,11 +13,9 @@ import { NativeScriptRouterModule, RouterExtensions } from "nativescript-angular
 
 
 export class FloorPlansComponent implements OnInit {
-    message: boolean;
     
     constructor(
         private routerExtensions: RouterExtensions,
-        private data: SessionsService
     ){
         
     }
@@ -27,7 +25,6 @@ export class FloorPlansComponent implements OnInit {
 
     ngOnInit(): void {
         this._sideDrawerTransition = new SlideInOnTopTransition();
-        this.data.currentMessage.subscribe(message => this.message = message);
     }
 
     get sideDrawerTransition(): DrawerTransitionBase { 
