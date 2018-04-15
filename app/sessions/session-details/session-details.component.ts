@@ -37,8 +37,8 @@ export class SessionDetailsComponent implements OnInit {
   //Tab-View (Bottom-Navigation) Reference: https://market.nativescript.org/plugins/nativescript-bottom-navigation
   public tabs: BottomNavigationTab[] = [
     new BottomNavigationTab('Session Detail', 'ic_view_list_black'),
-    new BottomNavigationTab('Floor Plan', 'ic_info_black'),
-    new BottomNavigationTab('Back', 'ic_view_list_black')
+    new BottomNavigationTab('Floor Plan', 'ic_map'),
+    new BottomNavigationTab('Back', 'ic_arrow_back')
   ];
 
   constructor(
