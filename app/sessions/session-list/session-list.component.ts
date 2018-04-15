@@ -95,6 +95,7 @@ export class SessionListComponent implements OnInit {
     }
 
     public load() {
+        this.hideSearchKeyboard();
         let p = this._sessionsService.loadSessions<IEvent>()
             .then((newSessions: IEvent) => {
                 this.refresh();
