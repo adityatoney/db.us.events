@@ -18,6 +18,7 @@ import { BottomNavigation, BottomNavigationTab, OnTabSelectedEventData } from 'n
 
 // app
 import { SessionsService } from "../../services/sessions.service";
+import { FloorPlanNavService } from "../../services/floorplan-nav.service";
 import { SessionModel } from "../shared/session.model";
 
 @Component({
@@ -47,6 +48,7 @@ export class SessionDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private routerExtensions: RouterExtensions,
+    private _floorplanNavService: FloorPlanNavService
   ) {
     this._page.actionBarHidden = true;
     this._page.backgroundSpanUnderStatusBar = true;
@@ -124,9 +126,11 @@ export class SessionDetailsComponent implements OnInit {
     }
     else {
       if (args.newIndex == 1) {
+        this._floorplanNavService.setData(true); //show back button, disable drawermenu icon on floorplan
         this.routerExtensions.navigate(['/floor-plans']);
       }
       else if (args.newIndex == 2) {
+        this._floorplanNavService.setData(false); //show drawermenu icon
         this.routerExtensions.back();
       }
     }
