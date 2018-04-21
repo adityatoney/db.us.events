@@ -19,9 +19,9 @@ import { Data } from "../providers/data/data";
 export class SessionsService {
 
 	public sessionsLoaded = false;
-	public ignoreCache = false; //Todo: Only refresh cache if any changes are made, or refresh upon a certain timer
+	public ignoreCache = true; //Todo: Only refresh cache if any changes are made, or refresh upon a certain timer
 	public items: BehaviorSubject<Array<SessionModel>> = new BehaviorSubject([]);
-	private _useHttpService: boolean = false;
+	private _useHttpService: boolean = true;
 	private _allSessions: Array<SessionModel> = [];
 	private _searchFilterState: SearchFilterState;
 	
@@ -55,7 +55,7 @@ export class SessionsService {
 				if (this._useHttpService) {
 				return this.loadSessionsViaHttp<Array<ISession>>()
 					.then((newSessions: Array<ISession>) => {
-						console.log("Load Sessions from the service: " + JSON.stringify(newSessions));
+						console.log("Load Sessions from the service: " + JSON.stringify(this._allSessions));
 						return this.updateSessions<Array<ISession>>(newSessions);
 					});
 				}
@@ -122,8 +122,9 @@ export class SessionsService {
 	}
 	
 	private loadSessionsViaHttp<T>(): Promise<T> {
+		var eventId = this.data.storage["eventId"];
 		const reqParams = {
-		url: "https://testusevents.dadabhagwan.org/webapi/api/events/118/sessions",
+		url: "https://testusevents.dadabhagwan.org/webapi/api/events/" + eventId + "/sessions",
 		method: "GET"
 		};
 	
