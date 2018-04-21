@@ -17,10 +17,10 @@ import * as fakeDataServiceModule from "./fake-data.service";
 export class EventService {
 
 	public eventsLoaded = false;
-	public ignoreCache = false; //Todo: Only refresh cache if any changes are made, or refresh upon a certain timer
+	public ignoreCache = true; //Todo: Only refresh cache if any changes are made, or refresh upon a certain timer
 	public items: BehaviorSubject<Array<EventModel>> = new BehaviorSubject([]);
 	public events : Array<EventModel> = []; //Used for front-end html
-	private _useHttpService: boolean = false;
+	private _useHttpService: boolean = true;
 	private _allEvents: Array<EventModel> = [];
 
 	constructor(
@@ -49,6 +49,7 @@ export class EventService {
 				if (this._useHttpService) {
 					return this.loadEventsViaHttp<Array<IEvent>>()
 						.then((newEvents: Array<IEvent>) => {
+								console.log("Load Events from the service: " + JSON.stringify(newEvents));
 								return this.updateEvents<Array<IEvent>>(newEvents);
 						});
 				}
@@ -72,9 +73,8 @@ export class EventService {
 	}
 	private loadEventsViaHttp<T>(): Promise<T> {
 		const reqParams = {
-			url: "https://<your-service-url>/Events/v1/events",
-			method: "GET",
-			headers: { "API-VERSION": "1.0.0" }
+			url: "https://testusevents.dadabhagwan.org/webapi/api/events/list",
+			method: "GET"
 		};
 
 		return httpModule.getJSON<T>(reqParams);

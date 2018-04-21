@@ -55,13 +55,14 @@ export class SessionsService {
 				if (this._useHttpService) {
 				return this.loadSessionsViaHttp<Array<ISession>>()
 					.then((newSessions: Array<ISession>) => {
-					return this.updateSessions<Array<ISession>>(newSessions);
+						console.log("Load Sessions from the service: " + JSON.stringify(newSessions));
+						return this.updateSessions<Array<ISession>>(newSessions);
 					});
 				}
 				else {
 				return this.loadSessionsViaFaker<Array<ISession>>()
 					.then((newSessions: Array<ISession>) => {
-					return this.updateSessions<Array<ISession>>(newSessions);
+						return this.updateSessions<Array<ISession>>(newSessions);
 					});
 				}
 			}
@@ -122,9 +123,8 @@ export class SessionsService {
 	
 	private loadSessionsViaHttp<T>(): Promise<T> {
 		const reqParams = {
-		url: "https://<your-service-url>/Events/v1/sessions",
-		method: "GET",
-		headers: { "API-VERSION": "1.0.0" }
+		url: "https://testusevents.dadabhagwan.org/webapi/api/events/118/sessions",
+		method: "GET"
 		};
 	
 		return httpModule.getJSON<T>(reqParams);
