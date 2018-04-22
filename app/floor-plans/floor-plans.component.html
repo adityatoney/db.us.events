@@ -1,4 +1,4 @@
-<ActionBar class="action-bar" *ngIf="!sharedData">
+<ActionBar class="action-bar" *ngIf="!sharedData;else goBack">
     <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
         ios.position="left"></ActionItem>
@@ -9,6 +9,15 @@
         ios.position="right"></ActionItem> -->
    <Label class="action-bar-title" text="Floor Plans"></Label>
 </ActionBar>
+
+<ng-template #goBack>
+<ActionBar class="action-bar">
+    <NavigationButton ios:visibility="collapsed" icon="res://ic_arrow_back" (tap)="onBackTap()"></NavigationButton>
+    <ActionItem icon="res://ic_arrow_back" android:visibility="collapsed" (tap)="onBackTap()"
+        ios.position="left"></ActionItem>
+   <Label class="action-bar-title" text="Floor Plans"></Label>
+</ActionBar>
+</ng-template>
 
 <!--RadSideDrawer Allows for scrolling across page-->
 <RadSideDrawer #drawer showOverNavigation="true" [drawerTransition]="sideDrawerTransition">

@@ -37,6 +37,11 @@ export class FloorPlansComponent implements OnInit {
     onDrawerButtonTap(): void {
         this.drawerComponent.sideDrawer.showDrawer();
     }
+    
+    onBackTap(): void{
+        this.routerExtensions.back();
+    }
+    
     public homeTap() {
         let link = ['/sessions/1'];
         this.routerExtensions.navigate(link);
