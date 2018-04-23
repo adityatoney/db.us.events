@@ -54,7 +54,7 @@ export class SessionDetailsComponent implements OnInit {
 
   public ngOnInit() {
     this.route.params.forEach((params: Params) => {
-      let id: string = params.id;
+      let id: number = params.id;
 
       this._sessionsService.getSessionById(id)
         .then((session: SessionModel) => {

@@ -55,7 +55,7 @@ export class SessionsService {
 				if (this._useHttpService) {
 				return this.loadSessionsViaHttp<Array<ISession>>()
 					.then((newSessions: Array<ISession>) => {
-						console.log("Load Sessions from the service: " + JSON.stringify(this._allSessions));
+						console.log("Load Sessions from the service: " + JSON.stringify(newSessions));
 						return this.updateSessions<Array<ISession>>(newSessions);
 					});
 				}
@@ -92,7 +92,7 @@ export class SessionsService {
 		}
 	};
 	
-	public getSessionById(sessionId: string) {
+	public getSessionById(sessionId: number) {
 		return new Promise((resolve, reject) => {
 			let filtered = this._allSessions.filter((s) => s.sessionId === sessionId);
 			if (filtered.length > 0) {

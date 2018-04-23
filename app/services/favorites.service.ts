@@ -24,7 +24,7 @@ export class FavoritesService {
         }
     }
     
-    public getFavouriteIndex(sessionId: string): number {
+    public getFavouriteIndex(sessionId: number): number {
         for (var i = 0; i < this.favourites.length; i++) {
             if (this.favourites[i].sessionId === sessionId) {
                 return i;

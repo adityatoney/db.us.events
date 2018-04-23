@@ -11,7 +11,7 @@ export class SessionModel implements ISession {
     private _startDt: Date;
     private _endDt: Date;
 
-    get sessionId(): string {
+    get sessionId(): number {
         return this._session.sessionId;
     }
 
