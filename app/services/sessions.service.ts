@@ -10,7 +10,7 @@ import * as httpModule from "http";
 import { SearchFilterState } from "../sessions/shared/search.filter.model";
 import { SessionModel } from "../sessions/shared/session.model";
 import { ISession } from "../shared/interfaces";
-import { SessionTypes } from "../shared/static-data";
+import { SessionTypes, sessionDays } from "../shared/static-data";
 import { FavoritesService } from "./favorites.service";
 import * as fakeDataServiceModule from "./fake-data.service";
 import { Data } from "../providers/data/data";
@@ -55,13 +55,14 @@ export class SessionsService {
 				if (this._useHttpService) {
 				return this.loadSessionsViaHttp<Array<ISession>>()
 					.then((newSessions: Array<ISession>) => {
-						console.log("Load Sessions from the service: " + JSON.stringify(newSessions));
+						// console.log("Load Sessions from the service: " + JSON.stringify(newSessions));
 						return this.updateSessions<Array<ISession>>(newSessions);
 					});
 				}
 				else {
 				return this.loadSessionsViaFaker<Array<ISession>>()
 					.then((newSessions: Array<ISession>) => {
+						// console.log("Load Sessions from faker");
 						return this.updateSessions<Array<ISession>>(newSessions);
 					});
 				}
@@ -75,6 +76,31 @@ export class SessionsService {
 			this._allSessions = newSessions.map((s) => new SessionModel(s));
 			this.applyCachedFavorites();
 			this.sessionsLoaded = true;
+			
+			let uniqueDates = this._allSessions.map(item => item.startDt.getUTCDate()).filter((value, index, self) => self.indexOf(value) === index);
+			let month = this._allSessions[0].startDt.getUTCMonth();
+			let year = this._allSessions[0].startDt.getUTCFullYear();
+			
+			sessionDays.length = 0;
+			uniqueDates.forEach(element => {
+				let newDate = new Date(year, month, element);
+				console.log("newDate: " + newDate);
+				sessionDays.push({
+					isSelected: false, 
+					title: element.toString(), 
+					desc: "", 
+					date: newDate
+				});
+			});
+			
+			sessionDays[0].isSelected = true;
+			let searchFilterState: SearchFilterState = new SearchFilterState(
+				sessionDays[0].date.getDate(),
+				"",
+				1,
+				"");
+        	this.update(searchFilterState);
+		
 			Promise.resolve(this._allSessions);
 		});
 	}
@@ -87,14 +113,16 @@ export class SessionsService {
 	
 	public applyCachedFavorites() {
 		for (let fav of this._favoritesService.favourites) {
-			var sessionObj = this._allSessions.find(x => x.sessionId === fav.sessionId);
-			sessionObj.favorite = true;
+			var sessionObj = this._allSessions.find(x => x.sessionId == fav.sessionId);
+			if(sessionObj != null) {
+				sessionObj.favorite = true;
+			}
 		}
 	};
 	
 	public getSessionById(sessionId: number) {
 		return new Promise((resolve, reject) => {
-			let filtered = this._allSessions.filter((s) => s.sessionId === sessionId);
+			let filtered = this._allSessions.filter((s) => s.sessionId == sessionId);
 			if (filtered.length > 0) {
 				resolve(filtered[0]);
 			}
