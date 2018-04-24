@@ -1767,26 +1767,26 @@ SegmentedBar {
 }
 
 .sidedrawer-header-image {
-    /* background-color: #e0e0e0; */
+    background-color: #e0e0e0;
     /* background-image: url('res://icon'); */
     /* background-repeat: no-repeat; */
 }
 
 .sidedrawer-left .sidedrawer-header-image {
-    /* height: 64;
+   height: 64;
     width: 64;
-    border-radius: 32;
+    border-radius: 132;
     horizontal-align: left;
-    margin-bottom: 36; */
+    margin-bottom: 36;
 }
 
-.sidedrawer-center .sidedrawer-header-image {
-    /* height: 74;
+/* .sidedrawer-center .sidedrawer-header-image {
+    height: 74;
     width: 74;
     border-radius: 37;
     horizontal-align: center;
-    margin-bottom: 24; */
-}
+    margin-bottom: 24;
+} */
 
 .sidedrawer-header-brand {
     color: #737373
