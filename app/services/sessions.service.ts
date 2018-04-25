@@ -25,6 +25,9 @@ export class SessionsService {
 	private _allSessions: Array<SessionModel> = [];
 	private _searchFilterState: SearchFilterState;
 	
+	private messageSource = new BehaviorSubject<boolean>(false);
+	currentMessage = this.messageSource.asObservable();
+	
 	constructor(
 		private _zone: NgZone,
 		private _favoritesService: FavoritesService,
@@ -44,6 +47,11 @@ export class SessionsService {
 		catch (error) {
 			console.log('Error while retrieveing sessions from the local cache: ' + error);
 		}
+	}
+	
+	public changeMessage(message: boolean){
+		this.messageSource.next(message);
+		console.log("updated messageSource :::", this.messageSource, this.currentMessage);
 	}
 	
 	public loadSessions<T>(): Promise<T> {
