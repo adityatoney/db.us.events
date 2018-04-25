@@ -10,6 +10,7 @@ import { NativescriptBottomNavigationModule } from "nativescript-bottom-navigati
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { SessionsService } from "./services/sessions.service";
+import { FloorPlanNavService } from "./services/floorplan-nav.service";
 import { EventService } from "./services/event.service";
 import { FavoritesService } from "./services/favorites.service";
 import { SessionsModule } from "./sessions/sessions.module";
@@ -46,7 +47,8 @@ if(platform.isIOS) {
         SessionsService,
         EventService,
         FavoritesService,
-        Data
+        Data,
+        FloorPlanNavService
     ],
     schemas: [
         NO_ERRORS_SCHEMA
