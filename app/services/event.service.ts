@@ -17,7 +17,7 @@ import * as fakeDataServiceModule from "./fake-data.service";
 export class EventService {
 
 	public eventsLoaded = false;
-	public ignoreCache = true; //Todo: Only refresh cache if any changes are made, or refresh upon a certain timer
+	public ignoreCache = false; //Todo: Only refresh cache if any changes are made, or refresh upon a certain timer
 	public items: BehaviorSubject<Array<EventModel>> = new BehaviorSubject([]);
 	private _useHttpService: boolean = true;
 	private _allEvents: Array<EventModel> = [];
@@ -29,7 +29,9 @@ export class EventService {
 			let cachedEvents = <Array<EventModel>>JSON.parse(appSettingsModule.getString('ALLEVENTS', '[]'));
 			if (cachedEvents.length > 0 && !this.ignoreCache) {
 				this._allEvents = cachedEvents.map((s) => new EventModel(s));
+				console.log("Cached events found: " + this._allEvents.length);
 				this.eventsLoaded = true;
+				this.update();
 			}
 		}
 		catch (error) {

@@ -19,7 +19,7 @@ import { Data } from "../providers/data/data";
 export class SessionsService {
 
 	public sessionsLoaded = false;
-	public ignoreCache = true; //Todo: Only refresh cache if any changes are made, or refresh upon a certain timer
+	public ignoreCache = false; //Todo: Only refresh cache if any changes are made, or refresh upon a certain timer
 	public items: BehaviorSubject<Array<SessionModel>> = new BehaviorSubject([]);
 	private _useHttpService: boolean = true;
 	private _allSessions: Array<SessionModel> = [];
@@ -42,6 +42,7 @@ export class SessionsService {
 				console.log("Cached sessions found: " + this._allSessions.length);
 				this.applyCachedFavorites();
 				this.sessionsLoaded = true;
+				this.updateSessionDays();
 			}
 		}
 		catch (error) {
@@ -63,14 +64,12 @@ export class SessionsService {
 				if (this._useHttpService) {
 				return this.loadSessionsViaHttp<Array<ISession>>()
 					.then((newSessions: Array<ISession>) => {
-						// console.log("Load Sessions from the service: " + JSON.stringify(newSessions));
 						return this.updateSessions<Array<ISession>>(newSessions);
 					});
 				}
 				else {
 				return this.loadSessionsViaFaker<Array<ISession>>()
 					.then((newSessions: Array<ISession>) => {
-						// console.log("Load Sessions from faker");
 						return this.updateSessions<Array<ISession>>(newSessions);
 					});
 				}
@@ -84,31 +83,7 @@ export class SessionsService {
 			this._allSessions = newSessions.map((s) => new SessionModel(s));
 			this.applyCachedFavorites();
 			this.sessionsLoaded = true;
-			
-			let uniqueDates = this._allSessions.map(item => item.startDt.getUTCDate()).filter((value, index, self) => self.indexOf(value) === index);
-			let month = this._allSessions[0].startDt.getUTCMonth();
-			let year = this._allSessions[0].startDt.getUTCFullYear();
-			
-			sessionDays.length = 0;
-			uniqueDates.forEach(element => {
-				let newDate = new Date(year, month, element);
-				console.log("newDate: " + newDate);
-				sessionDays.push({
-					isSelected: false, 
-					title: element.toString(), 
-					desc: "", 
-					date: newDate
-				});
-			});
-			
-			sessionDays[0].isSelected = true;
-			let searchFilterState: SearchFilterState = new SearchFilterState(
-				sessionDays[0].date.getDate(),
-				"",
-				1,
-				"");
-        	this.update(searchFilterState);
-		
+			this.updateSessionDays();
 			Promise.resolve(this._allSessions);
 		});
 	}
@@ -127,6 +102,33 @@ export class SessionsService {
 			}
 		}
 	};
+	
+	public updateSessionDays() {
+		console.log("updateSessionDays");
+		if (sessionDays.length > 0) {
+			// Nothing to update.
+			return;
+		}
+		
+		let uniqueDates = this._allSessions.map(item => item.startDt.getDate()).filter((value, index, self) => self.indexOf(value) === index);
+		let month = this._allSessions[0].startDt.getMonth() + 1;	// The getMonth() method returns the month (from 0 to 11).
+		let year = this._allSessions[0].startDt.getFullYear();
+		
+		// console.log("uniqueDates: " + uniqueDates + " month: " + month + " year: " + year);
+		uniqueDates.forEach(element => {
+			let newDate = new Date(year, month, element);
+			sessionDays.push({
+				isSelected: false, 
+				title: element.toString(), 
+				desc: "", 
+				date: newDate
+			});
+		});
+		
+		sessionDays[0].isSelected = true;
+		let searchFilterState: SearchFilterState = new SearchFilterState( sessionDays[0].date.getDate(), "", 1, "");
+		this.update(searchFilterState);
+	}
 	
 	public getSessionById(sessionId: number) {
 		return new Promise((resolve, reject) => {
