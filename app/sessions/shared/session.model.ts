@@ -11,7 +11,7 @@ export class SessionModel implements ISession {
     private _startDt: Date;
     private _endDt: Date;
 
-    get sessionId(): string {
+    get sessionId(): number {
         return this._session.sessionId;
     }
 
@@ -108,8 +108,8 @@ export class SessionModel implements ISession {
     constructor(public source: ISession) {
         if (source) {
             this._session = source;
-            this._startDt = this.fixDate(new Date(source.sessionStartTime));
-            this._endDt = this.fixDate(new Date(source.sessionEndTime));
+            this._startDt = new Date(source.sessionStartTime);
+            this._endDt = new Date(source.sessionEndTime);
         }
     }
 
