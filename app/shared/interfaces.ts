@@ -22,7 +22,7 @@ export interface IRoomInfo {
 }
 
 export interface ISession {
-    sessionId: string;
+    sessionId: number;
     sessionTitle: string;
     sessionStartTime: string;
     sessionEndTime: string;
@@ -41,7 +41,7 @@ export interface ISession {
 }
 
 export interface IFavouriteSession {
-    sessionId: string;
+    sessionId: number;
 }
 
 export interface ISessionTimeSlot {
