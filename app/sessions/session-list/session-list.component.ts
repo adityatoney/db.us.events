@@ -124,12 +124,14 @@ export class SessionListComponent implements OnInit {
     }
 
     private refresh() {
-        let searchFilterState: SearchFilterState = new SearchFilterState(
-            sessionDays[this.selectedIndex].date.getDate(),
-            this.search,
-            this.selectedViewIndex,
-            "");
-        this._sessionsService.update(searchFilterState);
+        if(sessionDays.length > 0) {
+            let searchFilterState: SearchFilterState = new SearchFilterState(
+                sessionDays[this.selectedIndex].date.getDate(),
+                this.search,
+                this.selectedViewIndex,
+                "");
+            this._sessionsService.update(searchFilterState);
+        }
     }
     
     private hideSearchKeyboard() {

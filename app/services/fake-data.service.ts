@@ -97,7 +97,7 @@ export function generateSessions(speakers: Array<ISpeaker>, roomInfos: Array<IRo
 		for (let confTimeSlot of timeSlots) {
 			if (confTimeSlot.isBreak) {
 				let s: ISession = {
-					sessionId: (idSeed).toString(),
+					sessionId: idSeed,
 					sessionTitle: toTitleCase(confTimeSlot.title),
 					isBreak: true,
 					sessionStartTime: confTimeSlot.start.toString(),
@@ -121,7 +121,7 @@ export function generateSessions(speakers: Array<ISpeaker>, roomInfos: Array<IRo
 				var randomTypeIndex = Math.floor(Math.random() * SessionTypes.length); 
 				var randomFloorIndex = Math.floor(Math.random() * SessionFloor.length);
 				let s: ISession = {
-					sessionId: (idSeed++).toString(),
+					sessionId: idSeed++,
 					sessionTitle: toTitleCase(faker.company.bs()),
 					sessionStartTime: confTimeSlot.start.toString(),
 					sessionEndTime: confTimeSlot.end.toString(),

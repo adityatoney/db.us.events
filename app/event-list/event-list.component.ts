@@ -32,9 +32,6 @@ export class EventListComponent implements OnInit {
         public _eventServices: EventService,
         private data: Data){
         this.allevents = []; 
-        if (this._eventServices.events.length > 0 ) {
-            this.events = this._eventServices.events.map((s) => new EventModel(s));
-        }
         //Dummy, card view seems to depend on this for initial loadup
         for (let i = 0; i < eventList.length; i++) {
             this.allevents.push(new Event(eventList[i]));
@@ -59,19 +56,10 @@ export class EventListComponent implements OnInit {
             //this._changeDetectorRef.detectChanges();
         });
     
-        // console.log("TESTING before:: ", this._eventServices);  
         let p = this._eventServices.loadEvents<Array<IEvent>>()
             .then((newEvents: Array<IEvent>) => {
                 this.refresh();
         });
-            
-        this.events = this._eventServices.events.map((s) => new EventModel(s));
-        // console.log("TESTING after:: ", this.events.length);          
-        if (this.events.length > 0)
-        {
-            // console.log("Events :: ", this.events[0].eventState, this.events[0].eventCountry);
-            // console.log("EventService Events :: ", this._eventServices.events[0].eventState, this.events[0].eventCountry);
-        }
     }
 
     //Todo: Have a set timer, that refreshes the cache for both event-list and session-list to check for changes 

@@ -19,8 +19,7 @@ export class EventService {
 	public eventsLoaded = false;
 	public ignoreCache = false; //Todo: Only refresh cache if any changes are made, or refresh upon a certain timer
 	public items: BehaviorSubject<Array<EventModel>> = new BehaviorSubject([]);
-	public events : Array<EventModel> = []; //Used for front-end html
-	private _useHttpService: boolean = false;
+	private _useHttpService: boolean = true;
 	private _allEvents: Array<EventModel> = [];
 
 	constructor(
@@ -30,8 +29,9 @@ export class EventService {
 			let cachedEvents = <Array<EventModel>>JSON.parse(appSettingsModule.getString('ALLEVENTS', '[]'));
 			if (cachedEvents.length > 0 && !this.ignoreCache) {
 				this._allEvents = cachedEvents.map((s) => new EventModel(s));
-				this.events = cachedEvents.map((s) => new EventModel(s));
+				console.log("Cached events found: " + this._allEvents.length);
 				this.eventsLoaded = true;
+				this.update();
 			}
 		}
 		catch (error) {
@@ -49,13 +49,14 @@ export class EventService {
 				if (this._useHttpService) {
 					return this.loadEventsViaHttp<Array<IEvent>>()
 						.then((newEvents: Array<IEvent>) => {
-								return this.updateEvents<Array<IEvent>>(newEvents);
+							console.log("Load Events from the service: " + JSON.stringify(newEvents));
+							return this.updateEvents<Array<IEvent>>(newEvents);
 						});
 				}
 				else {
 					return this.loadEventsViaFaker<Array<IEvent>>()
 						.then((newEvents: Array<IEvent>) => {
-								return this.updateEvents<Array<IEvent>>(newEvents);
+							return this.updateEvents<Array<IEvent>>(newEvents);
 						});
 				}
 			}
@@ -67,14 +68,14 @@ export class EventService {
 			this.updateCache(newEvents);
 			this._allEvents = newEvents.map((s) => new EventModel(s));
 			this.eventsLoaded = true;
+			this.update();
 			Promise.resolve(this._allEvents);
 		});
 	}
 	private loadEventsViaHttp<T>(): Promise<T> {
 		const reqParams = {
-			url: "https://<your-service-url>/Events/v1/events",
-			method: "GET",
-			headers: { "API-VERSION": "1.0.0" }
+			url: "https://testusevents.dadabhagwan.org/webapi/api/events/list",
+			method: "GET"
 		};
 
 		return httpModule.getJSON<T>(reqParams);

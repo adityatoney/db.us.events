@@ -56,7 +56,7 @@ export class SessionDetailsComponent implements OnInit {
 
   public ngOnInit() {
     this.route.params.forEach((params: Params) => {
-      let id: string = params.id;
+      let id: number = params.id;
 
       this._sessionsService.getSessionById(id)
         .then((session: SessionModel) => {
@@ -127,10 +127,12 @@ export class SessionDetailsComponent implements OnInit {
     else {
       if (args.newIndex == 1) {
         this._floorplanNavService.setData(true); //show back button, disable drawermenu icon on floorplan
+        args.newIndex = 0; //reset index to 0 so when returning back, thab 0 is selected by default
         this.routerExtensions.navigate(['/floor-plans']);
       }
       else if (args.newIndex == 2) {
         this._floorplanNavService.setData(false); //show drawermenu icon
+        args.newIndex = 0; //reset index to 0 so when returning back, thab 0 is selected by default
         this.routerExtensions.back();
       }
     }
