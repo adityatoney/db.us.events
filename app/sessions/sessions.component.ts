@@ -125,7 +125,9 @@ export class SessionsComponent implements OnInit {
     private setSelectedIndex(index : number) {
         this.selectedIndex = index;
         this.resetIsSelected();
-        sessionDays[index].isSelected = true;
+        if(sessionDays.length > 0) {
+            sessionDays[index].isSelected = true;
+        }
     }
     
     public selectedIndexChange(args) {

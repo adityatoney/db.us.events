@@ -18,6 +18,7 @@ import { BottomNavigation, BottomNavigationTab, OnTabSelectedEventData } from 'n
 
 // app
 import { SessionsService } from "../../services/sessions.service";
+import { FloorPlanNavService } from "../../services/floorplan-nav.service";
 import { SessionModel } from "../shared/session.model";
 
 @Component({
@@ -38,7 +39,7 @@ export class SessionDetailsComponent implements OnInit {
   public tabs: BottomNavigationTab[] = [
     new BottomNavigationTab('Session Detail', 'ic_view_list_black'),
     new BottomNavigationTab('Floor Plan', 'ic_map'),
-    new BottomNavigationTab('Back', 'ic_arrow_back')
+    new BottomNavigationTab('Sessions', 'ic_arrow_back')
   ];
 
   constructor(
@@ -46,7 +47,8 @@ export class SessionDetailsComponent implements OnInit {
     private _sessionsService: SessionsService,
     private route: ActivatedRoute,
     private location: Location,
-    private routerExtensions: RouterExtensions
+    private routerExtensions: RouterExtensions,
+    private _floorplanNavService: FloorPlanNavService
   ) {
     this._page.actionBarHidden = true;
     this._page.backgroundSpanUnderStatusBar = true;
@@ -54,7 +56,7 @@ export class SessionDetailsComponent implements OnInit {
 
   public ngOnInit() {
     this.route.params.forEach((params: Params) => {
-      let id: string = params.id;
+      let id: number = params.id;
 
       this._sessionsService.getSessionById(id)
         .then((session: SessionModel) => {
@@ -107,7 +109,7 @@ export class SessionDetailsComponent implements OnInit {
     if (btn.text === "LESS") {
       btn.text = "MORE";
       lbl.text = this.session.sessionContent.substr(0, 160) + "...";
-      
+
       changeHeight(wrapper, toTheFifth, 1000, 100, this.descHeight);
     }
     else {
@@ -124,9 +126,13 @@ export class SessionDetailsComponent implements OnInit {
     }
     else {
       if (args.newIndex == 1) {
-       this.routerExtensions.navigate(['/floor-plans']);
+        this._floorplanNavService.setData(true); //show back button, disable drawermenu icon on floorplan
+        args.newIndex = 0; //reset index to 0 so when returning back, thab 0 is selected by default
+        this.routerExtensions.navigate(['/floor-plans']);
       }
       else if (args.newIndex == 2) {
+        this._floorplanNavService.setData(false); //show drawermenu icon
+        args.newIndex = 0; //reset index to 0 so when returning back, thab 0 is selected by default
         this.routerExtensions.back();
       }
     }
