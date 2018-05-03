@@ -18,7 +18,6 @@ import { BottomNavigation, BottomNavigationTab, OnTabSelectedEventData } from 'n
 
 // app
 import { SessionsService } from "../../services/sessions.service";
-import { FloorPlanNavService } from "../../services/floorplan-nav.service";
 import { SessionModel } from "../shared/session.model";
 
 @Component({
@@ -34,6 +33,7 @@ export class SessionDetailsComponent implements OnInit {
   @ViewChild("lblDesc") public lblDesc: ElementRef;
 
   private descHeight = 20;
+  private tabIndex = 0;
 
   //Tab-View (Bottom-Navigation) Reference: https://market.nativescript.org/plugins/nativescript-bottom-navigation
   public tabs: BottomNavigationTab[] = [
@@ -47,11 +47,11 @@ export class SessionDetailsComponent implements OnInit {
     private _sessionsService: SessionsService,
     private route: ActivatedRoute,
     private location: Location,
-    private routerExtensions: RouterExtensions,
-    private _floorplanNavService: FloorPlanNavService
+    private routerExtensions: RouterExtensions
   ) {
     this._page.actionBarHidden = true;
     this._page.backgroundSpanUnderStatusBar = true;
+    this.tabIndex = 0;
   }
 
   public ngOnInit() {
@@ -120,21 +120,10 @@ export class SessionDetailsComponent implements OnInit {
     }
   }
 
-  onBottomNavigationTabSelected(args: OnTabSelectedEventData): void {
-    if (args.newIndex == 0 && args.oldIndex == 0) {
-      args.newIndex == 0; //default will be tab 0, dont want to redirect anywhere as they're already on event-info
-    }
-    else {
-      if (args.newIndex == 1) {
-        this._floorplanNavService.setData(true); //show back button, disable drawermenu icon on floorplan
-        args.newIndex = 0; //reset index to 0 so when returning back, thab 0 is selected by default
-        this.routerExtensions.navigate(['/floor-plans']);
-      }
-      else if (args.newIndex == 2) {
-        this._floorplanNavService.setData(false); //show drawermenu icon
-        args.newIndex = 0; //reset index to 0 so when returning back, thab 0 is selected by default
-        this.routerExtensions.back();
-      }
+  public onBottomNavigationTabSelected(args: OnTabSelectedEventData): void {
+    this.tabIndex = args.newIndex;
+    if (this.tabIndex == 2) {
+      this.routerExtensions.back();
     }
   }
 }

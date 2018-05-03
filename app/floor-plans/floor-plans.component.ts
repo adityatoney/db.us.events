@@ -1,5 +1,4 @@
 import { SessionsService } from './../services/sessions.service';
-import { FloorPlanNavService } from './../services/floorplan-nav.service';
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-ui/sidedrawer";
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
@@ -22,10 +21,8 @@ export class FloorPlansComponent implements OnInit {
     
     constructor(
         private routerExtensions: RouterExtensions,
-        private _floorplanNavService: FloorPlanNavService,
         private _sessionsService: SessionsService
     ){
-        this.sharedData = this._floorplanNavService.getData();
     }
     @ViewChild("drawer") drawerComponent: RadSideDrawerComponent;
 
@@ -33,7 +30,6 @@ export class FloorPlansComponent implements OnInit {
 
     ngOnInit(): void {
         this._sideDrawerTransition = new SlideInOnTopTransition();
-        this.sharedData = this._floorplanNavService.getData();
         this._sessionsService.items.subscribe((observer) => {
             let delay = 0;
             observer.forEach((value: SessionModel, i: number, array: Array<SessionModel>) => {
