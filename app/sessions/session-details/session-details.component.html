@@ -11,8 +11,9 @@
 				<!-- <Label [text]="session.floorName" (tap)="onTapFloorPlan()" textWrap="true" class="session-page-subtitle"></Label> -->
 			</StackLayout>
 		</GridLayout>
-		<!-- Content -->
-		<ScrollView sdkToggleNavButton id="scroll">
+		
+		<!-- Session Details  -->
+		<ScrollView sdkToggleNavButton id="scroll" [visibility]="tabIndex == 0 ? 'visible' : 'collapse' ">
 			<FlexboxLayout flexDirection="column">
 				<FlexboxLayout #content style.zIndex="2" flexDirection="column">
 					<Label flexGrow="1" text="Session Detail" class="h2 p-l-15 p-r-15 p-t-15" textWrap="true"></Label>
@@ -20,6 +21,18 @@
 				</FlexboxLayout>
 			</FlexboxLayout>
 		</ScrollView>
+		
+		<!-- Floor Plans -->
+		<ScrollView sdkToggleNavButton id="scroll" [visibility]="tabIndex == 1 ? 'visible' : 'collapse' ">
+			<StackLayout orientation="vertical">
+                <StackLayout class="floor-body">
+                    <StackLayout class="hr-light"></StackLayout>
+					<Label flexGrow="1" text="Floor Plan" class="h2 p-l-15 p-r-15 p-t-15" textWrap="true"></Label>
+                    <Image class="floor-image" [src]="session.floorPlanImageUrl"></Image>
+                </StackLayout>
+            </StackLayout>
+		</ScrollView>
+		
 	</StackLayout>
 	<StackLayout row="1">
 			<BottomNavigation [tabs]="tabs"
