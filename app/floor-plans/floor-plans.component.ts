@@ -17,7 +17,7 @@ import { SessionModel } from "../sessions/shared/session.model";
 export class FloorPlansComponent implements OnInit {
     sharedData: boolean;
     public uniqueFloorURLs: Array<string> = []; //Dummy variable to hold all unique url's
-    public uniqueFloor: Array<Object> = []; //Used to iterate over the floorplan and extract the unique url and floor name
+    public uniqueFloor: Array<Object> = []; // Filtered and sorted unique floorplan url sessions  
     
     constructor(
         private routerExtensions: RouterExtensions,
@@ -30,30 +30,32 @@ export class FloorPlansComponent implements OnInit {
 
     ngOnInit(): void {
         this._sideDrawerTransition = new SlideInOnTopTransition();
-        this._sessionsService.items.subscribe((observer) => {
-            let delay = 0;
-            observer.forEach((value: SessionModel, i: number, array: Array<SessionModel>) => {
-                delay = delay + 500;
-                setTimeout(() => {
-                    value.triggerShow.next(true);
-                }, delay);
-            });
-        });
-        for(let i = 0; i < this._sessionsService.items.value.length; i++){ //Extract unique floorplan URLs
-            if(this.uniqueFloorURLs.indexOf(this._sessionsService.items.value[i].floorPlanImageUrl) === -1){
-                this.uniqueFloorURLs.push(this._sessionsService.items.value[i].floorPlanImageUrl);
-                this.uniqueFloor.push(this._sessionsService.items.value[i]);
-                console.log(this._sessionsService.items.value[i].floorPlanImageUrl);
-            }
+        this.getUniqueFloorplans();
+    }
+
+    // Extract all unique floorplan URLs from all sessions then sort the unique floorplan objects (SessionModel) to display 
+    // URL in ascending order
+    public getUniqueFloorplans (){
+        for(let j = 0; j < this._sessionsService._allSessions.length; j++){
+            if(this.uniqueFloorURLs.indexOf(this._sessionsService._allSessions[j].floorPlanImageUrl) === -1){
+                this.uniqueFloorURLs.push(this._sessionsService._allSessions[j].floorPlanImageUrl);
+                this.uniqueFloor.push(this._sessionsService._allSessions[j]);
+                console.log("All Unique URLSss :: ", this._sessionsService._allSessions[j].sessionId, this._sessionsService._allSessions[j].floorName);
+            } 
         }
+        this.uniqueFloor.sort((a: SessionModel, b: SessionModel) => { //Sorts the unique array of SessionModel's by floor name (ascending order)
+            let comparison = 0;
+            const floorA = a.floorName.toUpperCase();
+            const floorB = b.floorName.toUpperCase();
+            if(floorA > floorB){
+                comparison = 1;
+            }else if (floorA < floorB){
+                comparison = -1
+            }
+            return comparison;
+        });
     }
-
-    public load() {
-        let p = this._sessionsService.loadSessions<IEvent>()
-            .then((newSessions: IEvent) => {
-            });
-    }
-
+    
     get sideDrawerTransition(): DrawerTransitionBase { 
         return this._sideDrawerTransition;
     }
