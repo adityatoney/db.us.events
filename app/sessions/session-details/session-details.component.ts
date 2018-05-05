@@ -39,7 +39,7 @@ export class SessionDetailsComponent implements OnInit {
   public tabs: BottomNavigationTab[] = [
     new BottomNavigationTab('Session Detail', 'ic_view_list_black'),
     new BottomNavigationTab('Floor Plan', 'ic_map'),
-    new BottomNavigationTab('Sessions', 'ic_arrow_back')
+    new BottomNavigationTab('Sessions', 'ic_calendar')
   ];
 
   constructor(
