@@ -20,7 +20,7 @@ export class EventService {
 	public ignoreCache = false; //Todo: Only refresh cache if any changes are made, or refresh upon a certain timer
 	public items: BehaviorSubject<Array<EventModel>> = new BehaviorSubject([]);
 	private _useHttpService: boolean = true;
-	private _allEvents: Array<EventModel> = [];
+	public _allEvents: Array<EventModel> = [];
 
 	constructor(
 		private _zone: NgZone,
