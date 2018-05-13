@@ -59,7 +59,7 @@ export class GeneralInformationComponent implements OnInit {
                 this.address = this._eventServices._allEvents[i].eventCity + ' ' 
                                 + this._eventServices._allEvents[i].eventState + ', ' 
                                 + this._eventServices._allEvents[i].eventCountry ;
-                // this.desc = this._eventServices._allEvents[i].description;
+                this.desc = this._eventServices._allEvents[i].description;
                 console.log("EVENT INFO FROM API::", this.imageSrc, this.title, this.startDate, this.endDate, this.address);
             }
         }
@@ -81,11 +81,7 @@ export class GeneralInformationComponent implements OnInit {
     public ngOnInit(): void {
         this._sideDrawerTransition = new SlideInOnTopTransition();
         // this.imageSrc = "~/images/jacksonville.jpg";
-        // this.title = "South West Gurupurnima 2018";
-        // this.startDate = "Start Date: July 22 2018";
-        // this.endDate = "End Date: July 28, 2018";
-        // this.address = "Address: Jacksonville Florida, USA "; 
-        this.desc = "Our theme for Gurupurnima 2018 is global unity, and in this spirit, our tagline is YOUnity starts with YOU! As individuals, we can all play a role in making this event a success! " ;
+        // this.desc = "Our theme for Gurupurnima 2018 is global unity, and in this spirit, our tagline is YOUnity starts with YOU! As individuals, we can all play a role in making this event a success! " ;
         this.scheduleTitle = "Main Events";
         this.schedule = "Sunday July 22, 2018: Check-In\nMonday July 23, 2018: Gurupurnima starts\nFriday July 27, 2018: Gurupujan\nSaturday July 28, 2018: Gnanvidhi\nSunday July 29, 2018: Check-out after breakfast";
         this.image = this.img.nativeElement; 
