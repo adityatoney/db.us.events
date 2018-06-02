@@ -1,6 +1,7 @@
 // angular
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgZone, OnInit, Output, ViewChild } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs/Rx";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Observable } from "rxjs/Observable";
 
 // nativescript
 import { NativeScriptRouterModule, RouterExtensions } from "nativescript-angular/router";
