@@ -1,4 +1,4 @@
-import { BehaviorSubject } from "rxjs/Rx";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 import { IRoomInfo, ISession, ISpeaker } from "../../shared/interfaces";
 
