@@ -1,6 +1,6 @@
 // angular
 import { Injectable, NgZone } from "@angular/core";
-import { BehaviorSubject } from "rxjs/Rx";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import * as appSettingsModule from "application-settings";
 
 // nativescript
