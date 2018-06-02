@@ -13,8 +13,8 @@
                 <GridLayout class="eventListView">
                     <StackLayout>
                       <GridLayout rows="* auto" columns="*" (tap)="selectEvent($event, item)" style="padding:40px;">
-                        <!-- <Image row="0" col="0" src="https://testusevents.dadabhagwan.org/events/images/GP2018.jpg"></Image> -->
-                        <Image row="0" col="0" [src]="item.eventImageUrl"></Image>
+                        <Image row="0" col="0" src="https://usevents.dadabhagwan.org/events/images/GP2018.jpg"></Image>
+                        <!-- <Image row="0" col="0" [src]="item.eventImageUrl"></Image> -->
                         <StackLayout row="1" col="0" class="list-group-item" style="padding: 20px 0px 20px 25px" backgroundColor="#e0e0e0">
                             <Label class="list-group-item-heading" [text]="item.eventName"></Label>
                             <Label class="list-group-item-text fa" [text]="'Start Date: '+ item.eventStartDate"></Label>
