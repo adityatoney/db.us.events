@@ -24,6 +24,7 @@ export class SessionsService {
 	private _useHttpService: boolean = true;
 	public _allSessions: Array<SessionModel> = [];
 	private _searchFilterState: SearchFilterState;
+	private _lastUpdatedSessionTimestamp: Date = new Date();
 	
 	private messageSource = new BehaviorSubject<boolean>(false);
 	currentMessage = this.messageSource.asObservable();
@@ -33,21 +34,50 @@ export class SessionsService {
 		private _favoritesService: FavoritesService,
 		private data: Data
 	) { 
-		try {
-			var eventId = this.data.storage["eventId"];
-			console.log("Checking for cached session for EventId: " + eventId);
-			let cahcedSessions = <Array<SessionModel>>JSON.parse(appSettingsModule.getString('SESSIONS_' + eventId, '[]'));
-			if (cahcedSessions.length > 0 && !this.ignoreCache) {
-				this._allSessions = cahcedSessions.map((s) => new SessionModel(s));
-				console.log("Cached sessions found: " + this._allSessions.length);
-				this.applyCachedFavorites();
-				this.sessionsLoaded = true;
-				this.updateSessionDays();
-			}
-		}
-		catch (error) {
-			console.log('Error while retrieveing sessions from the local cache: ' + error);
-		}
+		this.loadCachedSessions();
+	}
+	
+	// Check if the data on the service has updated. If not, load from the cache if possible.
+	private loadCachedSessions() {
+		this.checkLastUpdatedTimestamp<Date>()
+			.then((timestamp: Date) => {
+				var eventId = this.data.storage["eventId"];
+				this._lastUpdatedSessionTimestamp = timestamp;
+
+				let cachedTimestamp = null;
+				let cachedTimestampStr = appSettingsModule.getString('LastUpdatedSessionTimestamp_' + eventId, '');
+				if(cachedTimestampStr !== '')
+				{
+					// Can't seem to parse directly into Date from an empty string.
+					cachedTimestamp = <Date>JSON.parse(cachedTimestampStr);
+				}
+				
+				console.log("_lastUpdatedSessionTimestamp: " + this._lastUpdatedSessionTimestamp + " cachedTimestamp: " + cachedTimestamp);
+				if(cachedTimestamp == null || this._lastUpdatedSessionTimestamp > cachedTimestamp) {
+					console.log("Session data seems to have updated. Ignoring cache.");
+					this.sessionsLoaded = false;
+					
+					// Note: don't save the timestamp to cache here as the app may crash before retrieving the data from the service.
+					// Hence, we save the data once we've retrieved it from the service.
+					return;
+				}
+				
+				try {
+					console.log("Reading sessions data from the cache..");
+					console.log("Checking for cached session for EventId: " + eventId);
+					let cahcedSessions = <Array<SessionModel>>JSON.parse(appSettingsModule.getString('SESSIONS_' + eventId, '[]'));
+					if (cahcedSessions.length > 0 && !this.ignoreCache) {
+						this._allSessions = cahcedSessions.map((s) => new SessionModel(s));
+						console.log("Cached sessions found: " + this._allSessions.length);
+						this.applyCachedFavorites();
+						this.sessionsLoaded = true;
+						this.updateSessionDays();
+					}
+				}
+				catch (error) {
+					console.log('Error while retrieveing sessions from the local cache: ' + error);
+				}
+			});
 	}
 	
 	public changeMessage(message: boolean){
@@ -92,6 +122,10 @@ export class SessionsService {
 		var sessionsJsonStr = JSON.stringify(sessions);
 		var eventId = this.data.storage["eventId"];
 		appSettingsModule.setString('SESSIONS_' + eventId, sessionsJsonStr);
+		
+		// Save the last updated timestamp to cache.
+		var timestampStr = JSON.stringify(this._lastUpdatedSessionTimestamp);
+		appSettingsModule.setString('LastUpdatedSessionTimestamp_' + eventId, timestampStr);
 	}
 	
 	public applyCachedFavorites() {
@@ -166,6 +200,16 @@ export class SessionsService {
 		method: "GET"
 		};
 	
+		return httpModule.getJSON<T>(reqParams);
+	}
+	
+	private checkLastUpdatedTimestamp<T>(): Promise<T> {
+		var eventId = this.data.storage["eventId"];
+		const reqParams = {
+			url: "https://testusevents.dadabhagwan.org/webapi/api/events/" + eventId + "/lastupdatedtimestamp",
+			method: "GET"
+		};
+
 		return httpModule.getJSON<T>(reqParams);
 	}
 	
