@@ -105,7 +105,8 @@ export class EventService {
 	
 	private loadEventsViaHttp<T>(): Promise<T> {
 		const reqParams = { 
-			url: "https://testusevents.dadabhagwan.org/webapi/api/events/list",
+			// url: "https://testusevents.dadabhagwan.org/webapi/api/events/list",
+			url: "https://usevents.dadabhagwan.org/webapi/api/events/list",
 			method: "GET"
 		};
 
