@@ -104,7 +104,7 @@ export class EventService {
 	}
 	
 	private loadEventsViaHttp<T>(): Promise<T> {
-		const reqParams = {
+		const reqParams = { 
 			url: "https://testusevents.dadabhagwan.org/webapi/api/events/list",
 			method: "GET"
 		};
@@ -114,7 +114,8 @@ export class EventService {
 	
 	private checkLastUpdatedTimestamp<T>(): Promise<T> {
 		const reqParams = {
-			url: "https://testusevents.dadabhagwan.org/webapi/api/events/lastupdatedtimestamp",
+			// url: "https://testusevents.dadabhagwan.org/webapi/api/events/lastupdatedtimestamp",
+			url: "http://usevents.dadabhagwan.org/webapi/api/events/119/lastupdatedtimestamp",
 			method: "GET"
 		};
 

@@ -37,7 +37,8 @@ export class FloorPlansComponent implements OnInit {
     // URL in ascending order
     public getUniqueFloorplans (){
         for(let j = 0; j < this._sessionsService._allSessions.length; j++){
-            if(this.uniqueFloorURLs.indexOf(this._sessionsService._allSessions[j].floorPlanImageUrl) < 0){
+            if(this.uniqueFloorURLs.indexOf(this._sessionsService._allSessions[j].floorPlanImageUrl) < 0
+                && this._sessionsService._allSessions[j].floorName !== null){
                 this.uniqueFloorURLs.push(this._sessionsService._allSessions[j].floorPlanImageUrl);
                 this.uniqueFloor.push(this._sessionsService._allSessions[j]);
                 console.log("All Unique URLSss :: ID - ", this._sessionsService._allSessions[j].sessionId, this._sessionsService._allSessions[j].floorName,
