@@ -195,8 +195,10 @@ export class SessionsService {
 	
 	private loadSessionsViaHttp<T>(): Promise<T> {
 		var eventId = this.data.storage["eventId"];
+		console.log("EVENT ID:::", eventId);
 		const reqParams = {
-		url: "https://testusevents.dadabhagwan.org/webapi/api/events/" + eventId + "/sessions",
+		// url: "https://testusevents.dadabhagwan.org/webapi/api/events/" + eventId + "/sessions",
+		url: "https://usevents.dadabhagwan.org/webapi/api/events/119/sessions",
 		method: "GET"
 		};
 	
@@ -206,7 +208,8 @@ export class SessionsService {
 	private checkLastUpdatedTimestamp<T>(): Promise<T> {
 		var eventId = this.data.storage["eventId"];
 		const reqParams = {
-			url: "https://testusevents.dadabhagwan.org/webapi/api/events/" + eventId + "/lastupdatedtimestamp",
+			// url: "https://testusevents.dadabhagwan.org/webapi/api/events/" + eventId + "/lastupdatedtimestamp",
+			url: "https://usevents.dadabhagwan.org/webapi/api/events/119/lastupdatedtimestamp",
 			method: "GET"
 		};
 
