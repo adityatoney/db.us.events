@@ -2,7 +2,7 @@ import { ISessionDay, IEvent, IMainEventSessions } from "../shared/interfaces";
 
 export let sessionDays: Array<ISessionDay> = [];
 
-export let SessionTypes = ["GENERAL", "LMHT", "YMHT", "WMHT", "MMHT"];
+export let SessionTypes = ["YOGA", "FOOD", "GENERAL", "LMHT", "YMHT", "WMHT", "MMHT", "REGISTRATION", "WORKSHOP"];
 
 export let SessionFloor = ["Floor One", "Floor Two", "Floor Three", "Floor Four", "Floor Five"]; 
 
