@@ -231,20 +231,26 @@ export class SessionsService {
 		let viewIndex = this._searchFilterState.viewIndex;
 		
 		let filteredSessions = this._allSessions.filter((s) => {
-		if (SessionTypes.find(x => x === search.toUpperCase())) {
-			return s.startDt.getDate() === date
-				&& s.eventSessionTypeName.toLowerCase().indexOf(search.toLowerCase()) >= 0;
-		}
-		else {
-			return s.startDt.getDate() === date
-				&& s.sessionTitle.toLowerCase().indexOf(search.toLowerCase()) >= 0;
-		}
+			if (SessionTypes.indexOf(search.toUpperCase()) >= 0) {
+				return s.startDt.getDate() === date
+					&& s.eventSessionTypeName !== null
+					&& s.eventSessionTypeName.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+			}
+			else {
+				return s.startDt.getDate() === date
+					&& s.sessionTitle.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+			}
 		});
 	
 		if (viewIndex === 0) {
 			filteredSessions = filteredSessions.filter((i) => i.favorite || i.isBreak);
 		}
-	
+		
+		// Sort the dates by time
+		filteredSessions.sort(function(a,b){
+			return new Date(a.sessionStartTime).valueOf() - new Date(b.sessionStartTime).valueOf();
+		});
+
 		// Make sure all updates are published inside NgZone so that change detection is triggered if needed
 		this._zone.run(() => {
 			// must emit a *new* value (immutability!)
