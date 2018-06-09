@@ -1,6 +1,7 @@
-import { IMainEventSessions, IEvent } from "../shared/interfaces";
+import { IMainEventSessions, IEvent, ISession } from "../shared/interfaces";
+import { SessionModel } from "../sessions/shared/session.model";
 
-import { BehaviorSubject } from "rxjs/Rx";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 
 export class EventModel implements IEvent {
@@ -17,35 +18,35 @@ export class EventModel implements IEvent {
     }
     
     //Todo - Depending on data format that is received from API, we might have to parse some fields below
-    get id(): string {
-        return this._event.id;
+    get eventId(): string {
+        return this._event.eventId;
     }
-    get name(): string {
-        return this._event.name;
+    get eventName(): string {
+        return this._event.eventName;
     }
-    get imageURL(): string {
-        return this._event.imageURL;
+    get eventImageUrl(): string {
+        return this._event.eventImageUrl;
     }
-    get address(): string {
-        return this._event.address;
+    get eventStreetAddress(): string {
+        return this._event.eventStreetAddress;
     }
-    get city(): string {
-        return this._event.city;
+    get eventCity(): string {
+        return this._event.eventCity;
     }
-    get state(): string {
-        return this._event.state;
+    get eventState(): string {
+        return this._event.eventState;
     }
-    get country(): string {
-        return this._event.country;
+    get eventCountry(): string {
+        return this._event.eventCountry;
     }
-    get zipcode(): string {
-        return this._event.zipcode;
+    get eventZipCode(): string {
+        return this._event.eventZipCode;
     }
-    get startDate(): string {
-        return this._event.startDate;
+    get eventStartDate(): string {
+        return this._event.eventStartDate;
     }
-    get endDate(): string {
-        return this._event.endDate;
+    get eventEndDate(): string {
+        return this._event.eventEndDate;
     }
     get description(): string {
         return this._event.description;
@@ -54,6 +55,8 @@ export class EventModel implements IEvent {
         if(this._event.schedule.length > 0){
             return this._event.schedule;
         }
+        
+        return [];
     }
     get accomodation(): string {
         if(this._event.accomodation){
@@ -65,10 +68,17 @@ export class EventModel implements IEvent {
             return this._event.transportation;
         }
     }
-    get contantInfo(): string {
-        if(this._event.contantInfo){
-            return this._event.contantInfo;
+    get contactInformation(): string {
+        if(this._event.contactInformation){
+            return this._event.contactInformation;
         }
     }
     
+    get eventSessions(): Array<SessionModel> {
+        if(this._event.eventSessions.length > 0){
+            return this._event.eventSessions;
+        }
+        
+        return [];
+    }
 }

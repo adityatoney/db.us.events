@@ -14,6 +14,7 @@ import { Label } from "ui/label";
 import { View } from "ui/core/view";
 import { Layout } from "ui/layouts/layout";
 import { TextView } from "ui/text-view";
+import { BottomNavigation, BottomNavigationTab, OnTabSelectedEventData } from 'nativescript-bottom-navigation';
 
 // app
 import { SessionsService } from "../../services/sessions.service";
@@ -32,6 +33,14 @@ export class SessionDetailsComponent implements OnInit {
   @ViewChild("lblDesc") public lblDesc: ElementRef;
 
   private descHeight = 20;
+  private tabIndex = 0;
+
+  //Tab-View (Bottom-Navigation) Reference: https://market.nativescript.org/plugins/nativescript-bottom-navigation
+  public tabs: BottomNavigationTab[] = [
+    new BottomNavigationTab('Session Detail', 'ic_view_list_black'),
+    new BottomNavigationTab('Floor Plan', 'ic_map'),
+    new BottomNavigationTab('Sessions', 'ic_calendar')
+  ];
 
   constructor(
     private _page: Page,
@@ -42,11 +51,12 @@ export class SessionDetailsComponent implements OnInit {
   ) {
     this._page.actionBarHidden = true;
     this._page.backgroundSpanUnderStatusBar = true;
+    this.tabIndex = 0;
   }
 
   public ngOnInit() {
     this.route.params.forEach((params: Params) => {
-      let id: string = params.id;
+      let id: number = params.id;
 
       this._sessionsService.getSessionById(id)
         .then((session: SessionModel) => {
@@ -98,17 +108,24 @@ export class SessionDetailsComponent implements OnInit {
     let lbl = <Label>this.lblDesc.nativeElement;
     if (btn.text === "LESS") {
       btn.text = "MORE";
-      // lbl.text = this.session.description;
+      lbl.text = this.session.sessionContent.substr(0, 160) + "...";
+
       changeHeight(wrapper, toTheFifth, 1000, 100, this.descHeight);
     }
     else {
       btn.text = "LESS";
-      // lbl.text = this.session.descriptionShort;
+      lbl.text = this.session.sessionContent;
       // scroll.scrollToVerticalOffset(0, false);
       changeHeight(wrapper, toTheFifth, 1000, this.descHeight, 100);
     }
   }
 
+  public onBottomNavigationTabSelected(args: OnTabSelectedEventData): void {
+    this.tabIndex = args.newIndex;
+    if (this.tabIndex == 2) {
+      this.routerExtensions.back();
+    }
+  }
 }
 
 function changeHeight(view: View, deltaCalc: (p) => {}, duration?: number, from?: number, to?: number) {

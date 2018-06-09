@@ -4,6 +4,8 @@ import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 //n ativescript imports
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 
+import { NativescriptBottomNavigationModule } from "nativescript-bottom-navigation/angular";
+
 // app imports
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -15,6 +17,7 @@ import { EventListModule } from "./event-list/event-list.module";
 import { LocationModule } from "./location/location.module";
 import { GeneralInformationModule } from "./general-information/general-information.module";
 import { FloorPlansModule } from "./floor-plans/floor-plans.module";
+import { Data } from "./providers/data/data";
 import * as platform from "platform";
 declare var GMSServices: any;
 
@@ -33,7 +36,8 @@ if(platform.isIOS) {
         EventListModule,
         LocationModule,
         GeneralInformationModule,
-        FloorPlansModule
+        FloorPlansModule,
+        NativescriptBottomNavigationModule
     ],
     declarations: [
         AppComponent
@@ -41,7 +45,8 @@ if(platform.isIOS) {
     providers: [
         SessionsService,
         EventService,
-        FavoritesService
+        FavoritesService,
+        Data
     ],
     schemas: [
         NO_ERRORS_SCHEMA

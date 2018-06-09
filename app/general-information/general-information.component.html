@@ -8,20 +8,31 @@
     <StackLayout tkDrawerContent>
         <MyDrawer [selectedPage]="'Event Info'"></MyDrawer>
     </StackLayout>
-    <GridLayout class="page page-content" tkMainContent>
-        <ScrollView sdkExampleTitle sdkToggleNavButton  (scroll)="onScroll($event)">
-            <FlexboxLayout flexDirection="column">
-                <Image #img style.zIndex="1" flexGrow="1" [src]="imageSrc"stretch="fill"></Image>
-                <Label flexGrow="1" [text]="title" class="h2 p-l-10 p-t-10" textWrap="true" style="text-decoration: underline;"></Label>
-                <FlexboxLayout #content style.zIndex="2" flexDirection="column">
-                    <Label flexGrow="1" [text]="startDate" class="p-l-10 p-t-10" textWrap="true"></Label>
-                    <Label flexGrow="1" [text]="endDate" class="p-l-10 p-t-10" textWrap="true"></Label>
-                    <Label flexGrow="1" [text]="address" class="p-l-10 p-t-10" textWrap="true"></Label>
-                    <!-- <Label flexGrow="1" [text]="desc" class="p-l-10 p-t-10" textWrap="true"></Label> -->
-                    <Label flexGrow="1" [text]="scheduleTitle" class="h3 p-l-10 p-t-10" textWrap="true" style="text-decoration: underline;"></Label>
-                    <Label flexGrow="1" [text]="schedule" class="p-l-10" textWrap="true"></Label>
-                </FlexboxLayout>
-            </FlexboxLayout>
-        </ScrollView> 
-       </GridLayout>
-</RadSideDrawer>
+    <GridLayout rows="*, auto" class="page page-content" tkMainContent>
+        <StackLayout row="0">
+            <!-- <Image #img style.zIndex="1" flexGrow="1" [src]="imageSrc"></Image>  -->
+            <Image #img style.zIndex="1" flexGrow="1" src="https://usevents.dadabhagwan.org/events/images/GP2018.jpg"></Image> 
+            <ScrollView sdkExampleTitle sdkToggleNavButton  (scroll)="onScroll($event)">
+                <FlexboxLayout flexDirection="column">
+                    <Label flexGrow="1" [text]="title" class="h2 p-l-10 p-t-10" textWrap="true" style="text-decoration: underline;"></Label>
+                    <FlexboxLayout #content style.zIndex="2" flexDirection="column">
+                        <Label flexGrow="1" [text]="'Start Date: ' + startDate" class="p-l-10 p-t-10" textWrap="true"></Label>
+                        <Label flexGrow="1" [text]="'End Date: ' + endDate" class="p-l-10 p-t-10" textWrap="true"></Label>
+                        <Label flexGrow="1" [text]="'Location: ' + address" class="p-l-10 p-t-10" textWrap="true"></Label>
+                        <Label flexGrow="1" [text]="desc" class="p-l-10 p-t-10" textWrap="true"></Label>
+                        <Label flexGrow="1" [text]="scheduleTitle" class="h3 p-l-10 p-t-10" textWrap="true" style="text-decoration: underline;"></Label>
+                        <Label flexGrow="1" [text]="schedule" class="p-l-10" textWrap="true"></Label>
+                    </FlexboxLayout>
+                </FlexboxLayout> 
+            </ScrollView> 
+        </StackLayout>
+        <BottomNavigation [tabs]="tabs"
+            activeColor="red"
+            inactiveColor="black"
+            backgroundColor="white"
+            keyLineColor="black"
+            (tabSelected)="onBottomNavigationTabSelected($event)"
+            row="1">
+        </BottomNavigation> 
+    </GridLayout>
+</RadSideDrawer> 

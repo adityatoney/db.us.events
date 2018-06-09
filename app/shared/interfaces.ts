@@ -1,3 +1,4 @@
+import { SessionModel } from "../sessions/shared/session.model";
 
 export interface ISessionDay {
     date: Date;
@@ -21,22 +22,26 @@ export interface IRoomInfo {
 }
 
 export interface ISession {
-    id: string;
-    title: string;
-    start: string;
-    end: string;
-    room: string;
-    roomInfo: IRoomInfo;
-    speakers: Array<ISpeaker>;
-    description: string;
-    descriptionShort: string;
-    type: string;
+    sessionId: number;
+    sessionTitle: string;
+    sessionStartTime: string;
+    sessionEndTime: string;
     isBreak: boolean;
-    floor: string;
+    roomId: number;
+    roomName: string;
+    floorId: number;
+    floorName: string;
+    floorPlanImageUrl: string;
+    speakerId: number;    
+    speakerName: string;
+    eventSessionTypeId: number;
+    eventSessionTypeName: string;
+    sessionPhotoUrl: string;
+    sessionContent: string;
 }
 
 export interface IFavouriteSession {
-    sessionId: string;
+    sessionId: number;
 }
 
 export interface ISessionTimeSlot {
@@ -47,21 +52,22 @@ export interface ISessionTimeSlot {
 }
 
 export interface IEvent {
-    id: string;
-    name: string;
-    imageURL: string;
-    address: string;
-    city: string;
-    state: string;
-    country: string;
-    zipcode: string;
-    startDate: string;
-    endDate: string;
+    eventId: string;
+    eventName: string;
+    eventImageUrl: string;
+    eventStreetAddress: string;
+    eventCity: string;
+    eventState: string;
+    eventCountry: string;
+    eventZipCode: string;
+    eventStartDate: string;
+    eventEndDate: string;
     description: string;
     schedule: Array<IMainEventSessions>;
     accomodation: string;
     transportation: string;
-    contantInfo: string; 
+    contactInformation: string;
+    eventSessions: Array<SessionModel>;
 }
 
 export interface IMainEventSessions {

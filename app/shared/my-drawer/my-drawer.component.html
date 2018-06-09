@@ -1,15 +1,15 @@
 
 <GridLayout rows="auto, *" class="sidedrawer sidedrawer-left">
     <StackLayout row="0" class="sidedrawer-header">
-        <!-- <Label class="sidedrawer-header-image fa" text="&#xf2bd;"></Label> -->
-        <Label class="sidedrawer-header-image"></Label>
+        <Label class="sidedrawer-header-image fa"></Label>
+        <!-- <Label class="sidedrawer-header-image"></Label> -->
         <Label class="sidedrawer-header-brand" text="Gurupurnima 2018, USA" style="font-weight: bold; font-size: 16; padding-bottom:15px;"></Label>
     </StackLayout>
 
     <ScrollView row="1">
         <StackLayout class="sidedrawer-content">
             <MyDrawerItem title="Event List" route="/event-list" icon="&#xe904;" [isSelected]="isPageSelected('Event List')"></MyDrawerItem>
-            <MyDrawerItem title="Event Info" route="/general-information" icon="&#xe94b;" [isSelected]="isPageSelected('Event Info')"></MyDrawerItem>
+            <MyDrawerItem title="Event Info" route="/general-information" icon="&#xe900;" [isSelected]="isPageSelected('Event Info')"></MyDrawerItem>
             <MyDrawerItem title="Sessions" route="/sessions/1" icon="&#xe953;" [isSelected]="isPageSelected('Sessions')"></MyDrawerItem>
             <MyDrawerItem title="Floor Plans" route="/floor-plans" icon="&#xe94b;" [isSelected]="isPageSelected('Floor Plans')"></MyDrawerItem>
             <MyDrawerItem title="Location" route="/location" icon="&#xe947;" [isSelected]="isPageSelected('Location')"></MyDrawerItem>
