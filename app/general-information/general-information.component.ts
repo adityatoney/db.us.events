@@ -68,8 +68,8 @@ export class GeneralInformationComponent implements OnInit {
 
     onScroll(args: ScrollEventData) {
         if (args.scrollY <= this.flex.getMeasuredHeight()) {
-            this.image.animate({
-                translate: { x: 0, y: args.scrollY * 0 }
+            this.img.nativeElement.animate({
+                translate: { x: 0, y: args.scrollY * 0.3 }
             });
         }
     }
