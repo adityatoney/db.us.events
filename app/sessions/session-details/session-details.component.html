@@ -8,7 +8,7 @@
 			<StackLayout class="session-title-container" row="1" col="1">
 				<Label [text]="session.sessionTitle" textWrap="true" class="session-detail-page-title"></Label>
 				<Label [text]="session.range + ', ' + session.roomName" textWrap="true" class="session-page-subtitle"></Label>
-				<!-- <Label [text]="session.floorName" (tap)="onTapFloorPlan()" textWrap="true" class="session-page-subtitle"></Label> -->
+				<Label [text]="session.floorName" textWrap="true" class="session-page-subtitle"></Label>
 			</StackLayout>
 		</GridLayout>
 		
@@ -36,11 +36,11 @@
 	</StackLayout>
 	<StackLayout row="1">
 			<BottomNavigation [tabs]="tabs"
-            activeColor="red"
-            inactiveColor="black"
-            backgroundColor="white"
-            keyLineColor="black"
-            (tabSelected)="onBottomNavigationTabSelected($event)">
+				activeColor="red"
+				inactiveColor="black"
+				backgroundColor="white"
+				keyLineColor="black"
+				(tabSelected)="onBottomNavigationTabSelected($event)">
         </BottomNavigation> 
 	</StackLayout>
 </GridLayout>

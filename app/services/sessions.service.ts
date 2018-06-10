@@ -82,7 +82,7 @@ export class SessionsService {
 	
 	public changeMessage(message: boolean){
 		this.messageSource.next(message);
-		console.log("updated messageSource :::", this.messageSource, this.currentMessage);
+		// console.log("updated messageSource :::", this.messageSource, this.currentMessage);
 	}
 	
 	public loadSessions<T>(): Promise<T> {
@@ -138,12 +138,6 @@ export class SessionsService {
 	};
 	
 	public updateSessionDays() {
-		console.log("updateSessionDays");
-		if (sessionDays.length > 0) {
-			// Nothing to update.
-			return;
-		}
-		
 		let uniqueDates = this._allSessions.map(item => item.startDt.getDate()).filter((value, index, self) => self.indexOf(value) === index);
 		let month = this._allSessions[0].startDt.getMonth() + 1;	// The getMonth() method returns the month (from 0 to 11).
 		let year = this._allSessions[0].startDt.getFullYear();
@@ -250,7 +244,7 @@ export class SessionsService {
 		filteredSessions.sort(function(a,b){
 			return new Date(a.sessionStartTime).valueOf() - new Date(b.sessionStartTime).valueOf();
 		});
-
+		
 		// Make sure all updates are published inside NgZone so that change detection is triggered if needed
 		this._zone.run(() => {
 			// must emit a *new* value (immutability!)
