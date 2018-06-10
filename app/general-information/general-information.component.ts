@@ -66,13 +66,6 @@ export class GeneralInformationComponent implements OnInit {
         
     }
 
-    onScroll(args: ScrollEventData) {
-        if (args.scrollY <= this.flex.getMeasuredHeight()) {
-            this.image.animate({
-                translate: { x: 0, y: args.scrollY * 0 }
-            });
-        }
-    }
 
     @ViewChild("drawer") public drawerComponent: RadSideDrawerComponent;
 
@@ -85,7 +78,6 @@ export class GeneralInformationComponent implements OnInit {
         this.scheduleTitle = "Main Events";
         this.schedule = "Sunday July 22, 2018: Check-In\nMonday July 23, 2018: Gurupurnima starts\nFriday July 27, 2018: Gurupujan\nSaturday July 28, 2018: Gnanvidhi\nSunday July 29, 2018: Check-out after breakfast";
         this.image = this.img.nativeElement; 
-        this.flex = this.content.nativeElement;
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {

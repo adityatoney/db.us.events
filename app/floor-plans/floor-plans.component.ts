@@ -13,7 +13,6 @@ import { SessionModel } from "../sessions/shared/session.model";
     styleUrls: ["floor-plans.component.scss"]
 })
 
-
 export class FloorPlansComponent implements OnInit {
     sharedData: boolean;
     public uniqueFloorURLs: Array<string> = []; //Dummy variable to hold all unique url's
@@ -61,7 +60,7 @@ export class FloorPlansComponent implements OnInit {
     get sideDrawerTransition(): DrawerTransitionBase { 
         return this._sideDrawerTransition;
     }
-
+    
     onDrawerButtonTap(): void {
         this.drawerComponent.sideDrawer.showDrawer();
     }

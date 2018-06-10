@@ -32,10 +32,9 @@
                 <StackLayout *ngFor="let item of uniqueFloor; let i = index;" class="floor-body">
                     <StackLayout class="hr-light"></StackLayout>
                     <Label [text]="item.floorName" class="floor-name"></Label>
-                    <Image class="floor-image" [src]="item.floorPlanImageUrl"></Image>
+                    <!-- <Image class="floor-image" [src]="item.floorPlanImageUrl"></Image> -->
+                    <ImageZoom class="floor-image" [src]="item.floorPlanImageUrl" maxZoom="5" minZoom="1"></ImageZoom>
                 </StackLayout>
-                
-  
             </StackLayout>
         </ScrollView>
     </GridLayout>

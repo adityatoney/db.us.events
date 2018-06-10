@@ -28,7 +28,7 @@
                 <StackLayout class="floor-body">
                     <StackLayout class="hr-light"></StackLayout>
 					<Label flexGrow="1" [text]="'Floor Plan - ' + session.floorName" class="h2 p-l-15 p-r-15 p-t-15" textWrap="true"></Label>
-                    <Image class="floor-image" [src]="session.floorPlanImageUrl"></Image>
+                    <ImageZoom maxZoom="5" minZoom="1" class="floor-image" [src]="session.floorPlanImageUrl"></ImageZoom>
                 </StackLayout>
             </StackLayout>
 		</ScrollView>
