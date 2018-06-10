@@ -38,9 +38,9 @@ let _blurEffectView = null;
     moduleId: module.id,
     selector: "sessions",
     templateUrl: "./sessions.component.html",
-    //comment this line if you want to run (tns run android --bundle or tns run ios --bundle or tns build android --bundle or tns build ios --bundle)
+    // Use below style sheet for "tns run andoid/ios" and for iOS IPA generation
     // styleUrls: ["sessions.component.scss"]
-    //comment this line if you want to run (tns run android or tns run ios)
+    // Use below (platform specific) style sheets for "tns run android/ios --bundle" and for android APK generation  
     styleUrls: ["sessions.platform.android.scss", "sessions.platform.ios.scss"] 
 })
 export class SessionsComponent implements OnInit {

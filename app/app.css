@@ -1759,7 +1759,7 @@ SegmentedBar {
 
 .sidedrawer-header {
     background-color: #fafafa;
-    /* height: 60; */
+    height: 15%;
     width: 100%
 }
 
