@@ -1,7 +1,7 @@
 import { IMainEventSessions, IEvent, ISession } from "../shared/interfaces";
 import { SessionModel } from "../sessions/shared/session.model";
 
-import { BehaviorSubject } from "rxjs/Rx";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 
 export class EventModel implements IEvent {

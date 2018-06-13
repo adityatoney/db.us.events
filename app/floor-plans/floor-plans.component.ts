@@ -13,7 +13,6 @@ import { SessionModel } from "../sessions/shared/session.model";
     styleUrls: ["floor-plans.component.scss"]
 })
 
-
 export class FloorPlansComponent implements OnInit {
     sharedData: boolean;
     public uniqueFloorURLs: Array<string> = []; //Dummy variable to hold all unique url's
@@ -37,10 +36,12 @@ export class FloorPlansComponent implements OnInit {
     // URL in ascending order
     public getUniqueFloorplans (){
         for(let j = 0; j < this._sessionsService._allSessions.length; j++){
-            if(this.uniqueFloorURLs.indexOf(this._sessionsService._allSessions[j].floorPlanImageUrl) === -1){
+            if(this.uniqueFloorURLs.indexOf(this._sessionsService._allSessions[j].floorPlanImageUrl) < 0
+                && this._sessionsService._allSessions[j].floorName !== null){
                 this.uniqueFloorURLs.push(this._sessionsService._allSessions[j].floorPlanImageUrl);
                 this.uniqueFloor.push(this._sessionsService._allSessions[j]);
-                console.log("All Unique URLSss :: ", this._sessionsService._allSessions[j].sessionId, this._sessionsService._allSessions[j].floorName);
+                console.log("All Unique URLSss :: ID - ", this._sessionsService._allSessions[j].sessionId, this._sessionsService._allSessions[j].floorName,
+                 this._sessionsService._allSessions[j].floorPlanImageUrl);
             } 
         }
         this.uniqueFloor.sort((a: SessionModel, b: SessionModel) => { //Sorts the unique array of SessionModel's by floor name (ascending order)
@@ -59,7 +60,7 @@ export class FloorPlansComponent implements OnInit {
     get sideDrawerTransition(): DrawerTransitionBase { 
         return this._sideDrawerTransition;
     }
-
+    
     onDrawerButtonTap(): void {
         this.drawerComponent.sideDrawer.showDrawer();
     }

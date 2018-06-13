@@ -1,6 +1,7 @@
 // angular
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgZone, OnInit, Output, ViewChild } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs/Rx";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Observable } from "rxjs/Observable";
 
 // nativescript
 import { NativeScriptRouterModule, RouterExtensions } from "nativescript-angular/router";
@@ -45,12 +46,12 @@ export class SessionListComponent implements OnInit {
     public ngOnInit() {
         this._data.currentMessage.subscribe(message => this.message = message);
         this._sessionsService.items.subscribe((observer) => {
-            let delay = 0;
-            observer.forEach((value: SessionModel, i: number, array: Array<SessionModel>) => {
-                delay = delay + 500;
-                setTimeout(() => {
-                    value.triggerShow.next(true);
-                }, delay);
+        let delay = 0;
+        observer.forEach((value: SessionModel, i: number, array: Array<SessionModel>) => {
+            // console.log("Within itemes.subscribe: " + value.sessionTitle);
+            this._zone.run(() => {
+                value.triggerShow.next(true);
+                });
             });
         });
     }

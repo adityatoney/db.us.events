@@ -5,6 +5,9 @@ import { ScrollEventData } from "ui/scroll-view";
 import { Page } from "ui/page";
 import { Image } from "ui/image";
 import { FlexboxLayout } from "ui/layouts/flexbox-layout";
+
+import { EventService } from './../services/event.service';
+import { Data } from "../providers/data/data";
 import { NativeScriptRouterModule, RouterExtensions } from "nativescript-angular/router";
 import { BottomNavigation, BottomNavigationTab, OnTabSelectedEventData } from 'nativescript-bottom-navigation';
 
@@ -27,6 +30,8 @@ export class GeneralInformationComponent implements OnInit {
     public image: Image;
     public flex: FlexboxLayout;
 
+    public _currentEvent: Object;
+
     //Tab-View (Bottom-Navigation) Reference: https://market.nativescript.org/plugins/nativescript-bottom-navigation
     public tabs: BottomNavigationTab[] = [
         new BottomNavigationTab('Event Info', 'ic_info_black'),
@@ -38,17 +43,29 @@ export class GeneralInformationComponent implements OnInit {
     @ViewChild("img") img: ElementRef;
     @ViewChild("content") content: ElementRef;
     
-    constructor(public page: Page, private routerExtensions: RouterExtensions) {
+    constructor(
+        public page: Page, private routerExtensions: RouterExtensions,
+        public _eventServices: EventService,
+        public data: Data
+        
+    ) {
         this.page.backgroundSpanUnderStatusBar = true;
-    }
-    
-    onScroll(args: ScrollEventData) {
-        if (args.scrollY <= this.flex.getMeasuredHeight()) {
-            this.image.animate({
-                translate: { x: 0, y: args.scrollY * 0 }
-            });
+        for(let i = 0; i < this._eventServices._allEvents.length; i++){
+            if(this._eventServices._allEvents[i].eventId === this.data.storage.eventId){
+                this.imageSrc = this._eventServices._allEvents[i].eventImageUrl;
+                this.title = this._eventServices._allEvents[i].eventName;
+                this.startDate = this._eventServices._allEvents[i].eventStartDate;
+                this.endDate = this._eventServices._allEvents[i].eventEndDate;
+                this.address = this._eventServices._allEvents[i].eventCity + ' ' 
+                                + this._eventServices._allEvents[i].eventState + ', ' 
+                                + this._eventServices._allEvents[i].eventCountry ;
+                this.desc = this._eventServices._allEvents[i].description;
+                console.log("EVENT INFO FROM API::", this.imageSrc, this.title, this.startDate, this.endDate, this.address);
+            }
         }
+        
     }
+
 
     @ViewChild("drawer") public drawerComponent: RadSideDrawerComponent;
 
@@ -56,16 +73,11 @@ export class GeneralInformationComponent implements OnInit {
 
     public ngOnInit(): void {
         this._sideDrawerTransition = new SlideInOnTopTransition();
-        this.imageSrc = "~/images/jacksonville.jpg";
-        this.title = "South West Gurupurnima 2018";
-        this.startDate = "Start Date: July 22 2018";
-        this.endDate = "End Date: July 28, 2018";
-        this.address = "Address: Jacksonville Florida, USA ";
+        // this.imageSrc = "~/images/jacksonville.jpg";
         // this.desc = "Our theme for Gurupurnima 2018 is global unity, and in this spirit, our tagline is YOUnity starts with YOU! As individuals, we can all play a role in making this event a success! " ;
         this.scheduleTitle = "Main Events";
         this.schedule = "Sunday July 22, 2018: Check-In\nMonday July 23, 2018: Gurupurnima starts\nFriday July 27, 2018: Gurupujan\nSaturday July 28, 2018: Gnanvidhi\nSunday July 29, 2018: Check-out after breakfast";
-        this.image = this.img.nativeElement;
-        this.flex = this.content.nativeElement;
+        this.image = this.img.nativeElement; 
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {

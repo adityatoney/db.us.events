@@ -12,7 +12,7 @@
 
 	<uses-sdk
 		android:minSdkVersion="17"
-		android:targetSdkVersion="__APILEVEL__"/>
+		android:targetSdkVersion="27"/>
 
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -39,5 +39,8 @@
 			</intent-filter>
 		</activity>
 		<activity android:name="com.tns.ErrorReportActivity"/>
+		<meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC9SRR6UYXn40ouo6bkcW6dBHbM8OrohmU" />
 	</application>
 </manifest>

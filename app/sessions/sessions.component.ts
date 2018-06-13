@@ -2,7 +2,8 @@
 import { Location } from "@angular/common";
 import { AfterViewInit, Component, ElementRef, Inject, NgZone, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Params, Router } from "@angular/router";
-import { BehaviorSubject, Observable } from "rxjs/Rx";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Observable } from "rxjs/Observable";
 
 // nativescript
 import { NativeScriptRouterModule, RouterExtensions } from "nativescript-angular/router";
@@ -37,7 +38,10 @@ let _blurEffectView = null;
     moduleId: module.id,
     selector: "sessions",
     templateUrl: "./sessions.component.html",
-    styleUrls: ["sessions.component.scss"]
+    // Use below style sheet for "tns run andoid/ios" and for iOS IPA generation
+    // styleUrls: ["sessions.component.scss"]
+    // Use below (platform specific) style sheets for "tns run android/ios --bundle" and for android APK generation  
+    styleUrls: ["sessions.platform.android.scss", "sessions.platform.ios.scss"] 
 })
 export class SessionsComponent implements OnInit {
 

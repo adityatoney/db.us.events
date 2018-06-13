@@ -1,6 +1,6 @@
 // angular
 import { Injectable, NgZone } from "@angular/core";
-import { BehaviorSubject } from "rxjs/Rx";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import * as appSettingsModule from "application-settings";
 
 // nativescript
@@ -20,23 +20,53 @@ export class EventService {
 	public ignoreCache = false; //Todo: Only refresh cache if any changes are made, or refresh upon a certain timer
 	public items: BehaviorSubject<Array<EventModel>> = new BehaviorSubject([]);
 	private _useHttpService: boolean = true;
-	private _allEvents: Array<EventModel> = [];
+	public _allEvents: Array<EventModel> = [];
+	private _lastUpdatedEventsTimestamp: Date = new Date();
 
 	constructor(
-		private _zone: NgZone,
-	) { 
-		try {
-			let cachedEvents = <Array<EventModel>>JSON.parse(appSettingsModule.getString('ALLEVENTS', '[]'));
-			if (cachedEvents.length > 0 && !this.ignoreCache) {
-				this._allEvents = cachedEvents.map((s) => new EventModel(s));
-				console.log("Cached events found: " + this._allEvents.length);
-				this.eventsLoaded = true;
-				this.update();
-			}
-		}
-		catch (error) {
-			console.log('Error while retrieveing events from the local cache: ' + error);
-		}
+		private _zone: NgZone
+	) {
+		this.loadCachedEvents();
+	}
+	
+	// Check if the data on the service has updated. If not, load from the cache if possible.
+	private loadCachedEvents() {
+		this.checkLastUpdatedTimestamp<Date>()
+			.then((timestamp: Date) => {
+				this._lastUpdatedEventsTimestamp = timestamp;
+
+				let cachedTimestamp = null;
+				let cachedTimestampStr = appSettingsModule.getString('LastUpdatedEventsTimestamp', '');
+				if(cachedTimestampStr !== '')
+				{
+					// Can't seem to parse directly into Date from an empty string.
+					cachedTimestamp = <Date>JSON.parse(cachedTimestampStr);
+				}
+				
+				console.log("_lastUpdatedEventsTimestamp: " + this._lastUpdatedEventsTimestamp + " cachedTimestamp: " + cachedTimestamp);
+				if(cachedTimestamp == null || this._lastUpdatedEventsTimestamp > cachedTimestamp) {
+					console.log("Event service data seems to have updated. Ignoring cache.");
+					this.eventsLoaded = false;
+					
+					// Note: don't save the timestamp to cache here as the app may crash before retrieving the data from the service.
+					// Hence, we save the data once we've retrieved it from the service.
+					return;
+				}
+				
+				try {
+					console.log("Reading events data from the cache..");
+					let cachedEvents = <Array<EventModel>>JSON.parse(appSettingsModule.getString('ALLEVENTS', '[]'));
+					if (cachedEvents.length > 0 && !this.ignoreCache) {
+						this._allEvents = cachedEvents.map((s) => new EventModel(s));
+						console.log("Cached events found: " + this._allEvents.length);
+						this.eventsLoaded = true;
+						this.update();
+					}
+				}
+				catch (error) {
+					console.log('Error while retrieveing events from the local cache: ' + error);
+				}
+			});
 	}
 	
 	public loadEvents<T>(): Promise<T> {
@@ -72,9 +102,21 @@ export class EventService {
 			Promise.resolve(this._allEvents);
 		});
 	}
+	
 	private loadEventsViaHttp<T>(): Promise<T> {
+		const reqParams = { 
+			// url: "https://testusevents.dadabhagwan.org/webapi/api/events/list",
+			url: "https://usevents.dadabhagwan.org/webapi/api/events/list",
+			method: "GET"
+		};
+
+		return httpModule.getJSON<T>(reqParams);
+	}
+	
+	private checkLastUpdatedTimestamp<T>(): Promise<T> {
 		const reqParams = {
-			url: "https://testusevents.dadabhagwan.org/webapi/api/events/list",
+			// url: "https://testusevents.dadabhagwan.org/webapi/api/events/lastupdatedtimestamp",
+			url: "http://usevents.dadabhagwan.org/webapi/api/events/119/lastupdatedtimestamp",
 			method: "GET"
 		};
 
@@ -84,6 +126,10 @@ export class EventService {
 	public updateCache(sessions: Array<IEvent>) {
 		var sessionsJsonStr = JSON.stringify(sessions);
 		appSettingsModule.setString('ALLEVENTS', sessionsJsonStr);
+		
+		// Save the last updated timestamp to cache.
+		var timestampStr = JSON.stringify(this._lastUpdatedEventsTimestamp);
+		appSettingsModule.setString('LastUpdatedEventsTimestamp', timestampStr);
 	}
     
 	private loadEventsViaFaker<T>(): Promise<T> {

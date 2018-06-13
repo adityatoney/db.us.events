@@ -79,7 +79,7 @@ export class EventListComponent implements OnInit {
             "eventId": event.eventId
         }
         
-        let link = ['/sessions/1'];
+        let link = ['/general-information'];
         this.routerExtensions.navigate(link);
     }
     private refresh() {
