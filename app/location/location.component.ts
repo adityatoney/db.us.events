@@ -16,8 +16,8 @@ registerElement('MapView', () => MapView);
 })
 export class LocationComponent implements OnInit {
     
-    latitude =  30.3322;
-    longitude = -81.6557;
+    latitude =  30.324307;
+    longitude = -81.655304;
     zoom = 8;
     bearing = 0;
     tilt = 0;
@@ -50,7 +50,7 @@ export class LocationComponent implements OnInit {
         console.log("Setting a marker..."); // TODO: Remove before production build
 
         var marker = new Marker();
-        marker.position = Position.positionFromLatLng(30.3322, -81.6557);
+        marker.position = Position.positionFromLatLng(30.324307, -81.655304);
         marker.title = "Jacksonville";
         marker.snippet = "South East Gurupurnima 2018";
         marker.userData = {index: 1};
