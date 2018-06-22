@@ -43,9 +43,8 @@ export class EventService {
 					cachedTimestamp = <Date>JSON.parse(cachedTimestampStr);
 				}
 				
-				console.log("_lastUpdatedEventsTimestamp: " + this._lastUpdatedEventsTimestamp + " cachedTimestamp: " + cachedTimestamp);
+				// console.log("_lastUpdatedEventsTimestamp: " + this._lastUpdatedEventsTimestamp + " cachedTimestamp: " + cachedTimestamp);
 				if(cachedTimestamp == null || this._lastUpdatedEventsTimestamp > cachedTimestamp) {
-					console.log("Event service data seems to have updated. Ignoring cache.");
 					this.eventsLoaded = false;
 					
 					// Note: don't save the timestamp to cache here as the app may crash before retrieving the data from the service.
@@ -54,11 +53,10 @@ export class EventService {
 				}
 				
 				try {
-					console.log("Reading events data from the cache..");
 					let cachedEvents = <Array<EventModel>>JSON.parse(appSettingsModule.getString('ALLEVENTS', '[]'));
 					if (cachedEvents.length > 0 && !this.ignoreCache) {
 						this._allEvents = cachedEvents.map((s) => new EventModel(s));
-						console.log("Cached events found: " + this._allEvents.length);
+						// console.log("Cached events found: " + this._allEvents.length);
 						this.eventsLoaded = true;
 						this.update();
 					}
@@ -79,7 +77,6 @@ export class EventService {
 				if (this._useHttpService) {
 					return this.loadEventsViaHttp<Array<IEvent>>()
 						.then((newEvents: Array<IEvent>) => {
-							console.log("Load Events from the service: " + JSON.stringify(newEvents));
 							return this.updateEvents<Array<IEvent>>(newEvents);
 						});
 				}

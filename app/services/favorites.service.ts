@@ -52,7 +52,6 @@ export class FavoritesService {
 
     public updateFavourites() { 
         var updatedFavList = JSON.stringify(this.favourites);
-        console.log('Updating favourites: ' + updatedFavList);
         var eventId = this.data.storage["eventId"];
         appSettingsModule.setString('FAVOURITES_' + eventId, updatedFavList);
     }

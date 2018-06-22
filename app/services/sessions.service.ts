@@ -52,9 +52,8 @@ export class SessionsService {
 					cachedTimestamp = <Date>JSON.parse(cachedTimestampStr);
 				}
 				
-				console.log("_lastUpdatedSessionTimestamp: " + this._lastUpdatedSessionTimestamp + " cachedTimestamp: " + cachedTimestamp);
+				// console.log("_lastUpdatedSessionTimestamp: " + this._lastUpdatedSessionTimestamp + " cachedTimestamp: " + cachedTimestamp);
 				if(cachedTimestamp == null || this._lastUpdatedSessionTimestamp > cachedTimestamp) {
-					console.log("Session data seems to have updated. Ignoring cache.");
 					this.sessionsLoaded = false;
 					
 					// Note: don't save the timestamp to cache here as the app may crash before retrieving the data from the service.
@@ -63,12 +62,11 @@ export class SessionsService {
 				}
 				
 				try {
-					console.log("Reading sessions data from the cache..");
-					console.log("Checking for cached session for EventId: " + eventId);
+					// console.log("Checking for cached session for EventId: " + eventId);
 					let cahcedSessions = <Array<SessionModel>>JSON.parse(appSettingsModule.getString('SESSIONS_' + eventId, '[]'));
 					if (cahcedSessions.length > 0 && !this.ignoreCache) {
 						this._allSessions = cahcedSessions.map((s) => new SessionModel(s));
-						console.log("Cached sessions found: " + this._allSessions.length);
+						// console.log("Cached sessions found: " + this._allSessions.length);
 						this.applyCachedFavorites();
 						this.sessionsLoaded = true;
 						this.updateSessionDays();
@@ -82,7 +80,6 @@ export class SessionsService {
 	
 	public changeMessage(message: boolean){
 		this.messageSource.next(message);
-		// console.log("updated messageSource :::", this.messageSource, this.currentMessage);
 	}
 	
 	public loadSessions<T>(): Promise<T> {
@@ -142,7 +139,6 @@ export class SessionsService {
 		let month = this._allSessions[0].startDt.getMonth() + 1;	// The getMonth() method returns the month (from 0 to 11).
 		let year = this._allSessions[0].startDt.getFullYear();
 		
-		// console.log("uniqueDates: " + uniqueDates + " month: " + month + " year: " + year);
 		uniqueDates.forEach(element => {
 			let newDate = new Date(year, month, element);
 			sessionDays.push({
@@ -189,7 +185,6 @@ export class SessionsService {
 	
 	private loadSessionsViaHttp<T>(): Promise<T> {
 		var eventId = this.data.storage["eventId"];
-		console.log("EVENT ID:::", eventId);
 		const reqParams = {
 		// url: "https://testusevents.dadabhagwan.org/webapi/api/events/" + eventId + "/sessions",
 		url: "https://usevents.dadabhagwan.org/webapi/api/events/119/sessions",

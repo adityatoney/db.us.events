@@ -60,7 +60,6 @@ export class GeneralInformationComponent implements OnInit {
                                 + this._eventServices._allEvents[i].eventState + ', ' 
                                 + this._eventServices._allEvents[i].eventCountry ;
                 this.desc = this._eventServices._allEvents[i].description;
-                console.log("EVENT INFO FROM API::", this.imageSrc, this.title, this.startDate, this.endDate, this.address);
             }
         }
         
