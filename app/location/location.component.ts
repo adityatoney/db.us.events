@@ -43,12 +43,7 @@ export class LocationComponent implements OnInit {
     
      //Map events
     onMapReady(event) {
-        console.log('Map Ready');
-
         this.mapView = event.object;
-
-        console.log("Setting a marker..."); // TODO: Remove before production build
-
         var marker = new Marker();
         marker.position = Position.positionFromLatLng(30.324307, -81.655304);
         marker.title = "Jacksonville";
@@ -58,20 +53,20 @@ export class LocationComponent implements OnInit {
     }
 
     onCoordinateTapped(args) {
-        console.log("Coordinate Tapped, Lat: " + args.position.latitude + ", Lon: " + args.position.longitude, args);
+        // console.log("Coordinate Tapped, Lat: " + args.position.latitude + ", Lon: " + args.position.longitude, args);
     }
 
     onMarkerEvent(args) {
         // TODO: Remove before production build
-        console.log("Marker Event: '" + args.eventName
-            + "' triggered on: " + args.marker.title
-            + ", Lat: " + args.marker.position.latitude + ", Lon: " + args.marker.position.longitude, args
-            + "Jacksonville; zoomLevel = 12;" );
+        // console.log("Marker Event: '" + args.eventName
+        //     + "' triggered on: " + args.marker.title
+        //     + ", Lat: " + args.marker.position.latitude + ", Lon: " + args.marker.position.longitude, args
+        //     + "Jacksonville; zoomLevel = 12;" );
             
     }
 
     onCameraChanged(args) {
-        console.log("Camera changed: " + JSON.stringify(args.camera), JSON.stringify(args.camera) === this.lastCamera);
-        this.lastCamera = JSON.stringify(args.camera);
+        // console.log("Camera changed: " + JSON.stringify(args.camera), JSON.stringify(args.camera) === this.lastCamera);
+        // this.lastCamera = JSON.stringify(args.camera);
     }
 }
