@@ -78,7 +78,6 @@ export class SessionDetailsComponent implements OnInit {
   public toggleFavorite() {
     this._sessionsService.toggleFavorite(this.session)
       .then(() => {
-        console.log("done toggling fav from details");
       });
   }
 

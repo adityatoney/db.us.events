@@ -82,8 +82,10 @@ export class SessionsComponent implements OnInit {
             this.selectedViewIndex = +params["id"];
             if (this.selectedViewIndex === 1) {
                 this.selectedPageTitle = "Sessions";
+                this.actionBarTitle = "Sessions";
             } else {
                 this.selectedPageTitle = "My Sessions";
+                this.actionBarTitle = "My Sessions";
             }
         });
     }
