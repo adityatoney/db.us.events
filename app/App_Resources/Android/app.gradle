@@ -8,7 +8,7 @@
 android {  
   defaultConfig {  
     generatedDensities = []
-    applicationId = "org.nativescript.dbusevents"  
+    applicationId = "org.dadabhagwan.Gurupurnima"  
   }  
   aaptOptions {  
     additionalParameters "--no-version-vectors"  
