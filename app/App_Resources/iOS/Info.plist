@@ -64,9 +64,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	 <key>UIStatusBarStyle</key>
+	<key>NSCalendarsUsageDescription</key>
+	<string>$(PRODUCT_NAME) user your calendar.</string>
+	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleBlackOpaque</string>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
 </dict>
 </plist>
